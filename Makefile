@@ -3,9 +3,9 @@
 GCMP=gcc -g
 FCMP=f2c
 
-all: stom
+all: new
 
-stom:   velesm.c 
+new:    velesm.c 
 	python setup.py develop
 
 velesm.c: velestc2.c  
