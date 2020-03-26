@@ -16,7 +16,8 @@ LICENSE = "Apache 2.0"
 SRC_DIR = "stom"
 PACKAGES = [SRC_DIR]
 
-ext_1 = Extension(SRC_DIR + ".stom",
+#ext_1 = Extension(SRC_DIR + ".stom",
+ext_1 = Extension("./" + ".stom",
                   [SRC_DIR + "/fbufopen.c", SRC_DIR + "/velesm.c",SRC_DIR + 
                    "/stom.pyx",SRC_DIR+"/c_velest.c"],
                   libraries=["f2c","m"],
