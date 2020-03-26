@@ -6,11 +6,11 @@ FCMP=f2c
 all: new
 
 new:    velesm.c 
-	python setup.py install  
+	python setup.py develop  
 
 velesm.c: velestc2.c  
-	 cat inicio.c velestc2.c > stom/velesm.c
-	 cat inicio.c velestc2.c > velesm.c
+	 cat velestc2.c > stom/velesm.c
+	 cat velestc2.c > velesm.c
 
 .c.o:
 	$(GCMP) -c $<
