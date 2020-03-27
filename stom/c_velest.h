@@ -22,6 +22,8 @@ void load_infile_ic();
 char *mygetline(char *, int, int *, FILE *);
 void memclean();
 int nextchfn(void *handler, int ch );
+void getoutput(char *);
+int getsizeoutput();
 
 char rayfile_ra[SIZE_RAYFILE]; /*unit 13*/
 char drvfile_rd[SIZE_DRVFILE]; /*unit 21*/

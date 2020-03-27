@@ -3,7 +3,11 @@
 GCMP=gcc -g
 FCMP=f2c
 
-all: new
+all: cfunc  new
+
+cfunc:
+	cd stom
+	make c_func
 
 new:    velesm.c 
 	python setup.py develop  

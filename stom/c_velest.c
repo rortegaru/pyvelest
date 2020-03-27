@@ -11,8 +11,20 @@ t=120;
 lineb=0;
 load_infile_ic();
 velest_(s,v,r,t); 
-memclean(); 
+/*printf("%s\n",outfile_bo); */
+/*memclean(); */
 }
+
+void getoutput(char *pot){
+strcpy(pot,outfile_bo);
+}
+
+int getsizeoutput(){
+int sizeo;
+sizeo=strlen(outfile_bo);
+return sizeo;
+}
+
 
 void load_infile_ic(){
 FILE* fpin;

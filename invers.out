@@ -24,3 +24,29 @@ North  rotate=     .0
 
 
 
+
+
+ SHORT DISTANCE CONVERSION on ELLIPSOIDE of WORLD GEODETIC SYSTEM 1972 (WGS72)
+ =============================================================================
+
+ Radius at equator (REARTH)= 6378.13500  km
+   1. / (ellipticity)      =    298.260
+
+ Origin of cartesian coordinates [degrees]:
+   16.3939991 N       95.1129990 W
+
+  Rotation angle (in degr.) clockwise from
+North  rotate=     .0
+
+ Radius of sphere at OLAT =   6376.452 km
+
+ Conversion of GEOGRAPHICAL LATITUDE to GEOCENTRICAL LATITUDE:
+ RLATC = TAN(GEOCENTR.LAT) / TAN(GEOGRAPH.LAT)
+ RLATC =    .99329801
+
+          Short distance conversions:
+          one min lat ~  1.8444 km 
+          one min lon ~  1.7804 km 
+
+
+

@@ -22,6 +22,13 @@ ext_1 = Extension(SRC_DIR + ".velest",
                   libraries=["f2c","m"],
                   include_dirs=[np.get_include()],
                   extra_compile_args=["-Wno-absolute-value","-Wno-shift-op-parentheses","-Wno-logical-op-parentheses"])
+#ext_2 = Extension(SRC_DIR + ".c_func",
+#                  [SRC_DIR + "/fbufopen.c", SRC_DIR + "/velesm.c",SRC_DIR + 
+#                   "/c_func.c",SRC_DIR+"/c_velest.c"],
+#                  libraries=["f2c","m"],
+#                  include_dirs=[np.get_include()],
+#                  extra_compile_args=["-Wno-absolute-value","-Wno-shift-op-parentheses","-Wno-logical-op-parentheses"])
+
 
 
 EXTENSIONS = [ext_1]
