@@ -251,7 +251,8 @@ static integer c__9 = 9;
 static integer c__3 = 3;
 static integer c__4 = 4;
 
-/* Subroutine */ int scaninput_(char *ic, ftnlen ic_len)
+/* Subroutine */ int scaninput_(char *ic, char *ip, ftnlen ic_len, ftnlen 
+	ip_len)
 {
     /* System generated locals */
     icilist ici__1;
@@ -264,11 +265,16 @@ static integer c__4 = 4;
 	    e_wsle(void);
     /* Subroutine */ int s_stop(char *, ftnlen);
     integer s_wsfe(cilist *), e_wsfe(void), s_rsli(icilist *), e_rsli(void), 
-	    s_cmp(char *, char *, ftnlen, ftnlen);
+	    s_wsfi(icilist *), e_wsfi(void), s_cmp(char *, char *, ftnlen, 
+	    ftnlen);
 
     /* Local variables */
     static integer i__;
-    extern /* Subroutine */ int rdline_ic__(char *, ftnlen);
+    extern /* Subroutine */ int adline_bf__(char *, ftnlen), adline_bm__(char 
+	    *, ftnlen), adline_bk__(char *, ftnlen), adline_bl__(char *, 
+	    ftnlen), adline_bp__(char *, ftnlen), adline_br__(char *, ftnlen),
+	     adline_bs__(char *, ftnlen), adline_bt__(char *, ftnlen), 
+	    adline_bz__(char *, ftnlen), rdline_ic__(char *, ftnlen);
     static char titleline[80], card[80], line[80*32];
     static real olat, olon, rotate;
 
@@ -602,54 +608,135 @@ L222:
     s_rsfi(&io___32);
     do_fio(&c__1, files_1.modelfilename, (ftnlen)80);
     e_rsfi();
+    ici__1.icierr = 0;
+    ici__1.icirnum = 1;
+    ici__1.icirlen = ip_len;
+    ici__1.iciunit = ip;
+    ici__1.icifmt = "(a)";
+    s_wsfi(&ici__1);
+    do_fio(&c__1, files_1.modelfilename, (ftnlen)80);
+    e_wsfi();
+    adline_bm__(ip, ip_len);
     s_wsfe(&io___33);
     do_fio(&c__1, files_1.modelfilename, (ftnlen)80);
     e_wsfe();
     s_rsfi(&io___34);
     do_fio(&c__1, files_1.stationfilename, (ftnlen)80);
     e_rsfi();
+    ici__1.icierr = 0;
+    ici__1.icirnum = 1;
+    ici__1.icirlen = ip_len;
+    ici__1.iciunit = ip;
+    ici__1.icifmt = "(a)";
+    s_wsfi(&ici__1);
+    do_fio(&c__1, files_1.stationfilename, (ftnlen)80);
+    e_wsfi();
+    adline_bt__(ip, ip_len);
     s_wsfe(&io___35);
     do_fio(&c__1, files_1.stationfilename, (ftnlen)80);
     e_wsfe();
     s_rsfi(&io___36);
     do_fio(&c__1, files_1.seismofilename, (ftnlen)80);
     e_rsfi();
+    ici__1.icierr = 0;
+    ici__1.icirnum = 1;
+    ici__1.icirlen = ip_len;
+    ici__1.iciunit = ip;
+    ici__1.icifmt = "(a)";
+    s_wsfi(&ici__1);
+    do_fio(&c__1, files_1.seismofilename, (ftnlen)80);
+    e_wsfi();
+    adline_bs__(ip, ip_len);
     s_wsfe(&io___37);
     do_fio(&c__1, files_1.seismofilename, (ftnlen)80);
     e_wsfe();
     s_rsfi(&io___38);
     do_fio(&c__1, infiles_1.regnamfile, (ftnlen)80);
     e_rsfi();
+    ici__1.icierr = 0;
+    ici__1.icirnum = 1;
+    ici__1.icirlen = ip_len;
+    ici__1.iciunit = ip;
+    ici__1.icifmt = "(a)";
+    s_wsfi(&ici__1);
+    do_fio(&c__1, infiles_1.regnamfile, (ftnlen)80);
+    e_wsfi();
+    adline_br__(ip, ip_len);
     s_wsfe(&io___39);
     do_fio(&c__1, infiles_1.regnamfile, (ftnlen)80);
     e_wsfe();
     s_rsfi(&io___40);
     do_fio(&c__1, infiles_1.regkoordfile, (ftnlen)80);
     e_rsfi();
+    ici__1.icierr = 0;
+    ici__1.icirnum = 1;
+    ici__1.icirlen = ip_len;
+    ici__1.iciunit = ip;
+    ici__1.icifmt = "(a)";
+    s_wsfi(&ici__1);
+    do_fio(&c__1, infiles_1.regkoordfile, (ftnlen)80);
+    e_wsfi();
+    adline_bk__(ip, ip_len);
     s_wsfe(&io___41);
     do_fio(&c__1, infiles_1.regkoordfile, (ftnlen)80);
     e_wsfe();
     s_rsfi(&io___42);
     do_fio(&c__1, infiles_1.topo1file, (ftnlen)80);
     e_rsfi();
+    ici__1.icierr = 0;
+    ici__1.icirnum = 1;
+    ici__1.icirlen = ip_len;
+    ici__1.iciunit = ip;
+    ici__1.icifmt = "(a)";
+    s_wsfi(&ici__1);
+    do_fio(&c__1, infiles_1.topo1file, (ftnlen)80);
+    e_wsfi();
+    adline_bl__(ip, ip_len);
     s_wsfe(&io___43);
     do_fio(&c__1, infiles_1.topo1file, (ftnlen)80);
     e_wsfe();
     s_rsfi(&io___44);
     do_fio(&c__1, infiles_1.topo2file, (ftnlen)80);
     e_rsfi();
+    ici__1.icierr = 0;
+    ici__1.icirnum = 1;
+    ici__1.icirlen = ip_len;
+    ici__1.iciunit = ip;
+    ici__1.icifmt = "(a)";
+    s_wsfi(&ici__1);
+    do_fio(&c__1, infiles_1.topo2file, (ftnlen)80);
+    e_wsfi();
+    adline_bz__(ip, ip_len);
     s_wsfe(&io___45);
     do_fio(&c__1, infiles_1.topo2file, (ftnlen)80);
     e_wsfe();
     s_rsfi(&io___46);
     do_fio(&c__1, infiles_1.phasefile, (ftnlen)80);
     e_rsfi();
+    ici__1.icierr = 0;
+    ici__1.icirnum = 1;
+    ici__1.icirlen = ip_len;
+    ici__1.iciunit = ip;
+    ici__1.icifmt = "(a)";
+    s_wsfi(&ici__1);
+    do_fio(&c__1, infiles_1.phasefile, (ftnlen)80);
+    e_wsfi();
+    adline_bp__(ip, ip_len);
     s_wsfe(&io___47);
     do_fio(&c__1, infiles_1.phasefile, (ftnlen)80);
     e_wsfe();
     s_rsfi(&io___48);
     do_fio(&c__1, infiles_1.shotfile, (ftnlen)80);
     e_rsfi();
+    ici__1.icierr = 0;
+    ici__1.icirnum = 1;
+    ici__1.icirlen = ip_len;
+    ici__1.iciunit = ip;
+    ici__1.icifmt = "(a)";
+    s_wsfi(&ici__1);
+    do_fio(&c__1, infiles_1.shotfile, (ftnlen)80);
+    e_wsfi();
+    adline_bf__(ip, ip_len);
     s_wsfe(&io___49);
     do_fio(&c__1, infiles_1.shotfile, (ftnlen)80);
     e_wsfe();

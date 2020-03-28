@@ -3,6 +3,7 @@
 /* initialize the memory of the files used for 
    inecreasing python speed using later by fmemopen  ROR 03-21-2020*/
 
+
 void c_velest(){
 int i;
 ftnlen r,t,x;
@@ -12,9 +13,28 @@ x=120;
 lineb=0;
 memclean(); 
 load_infile_ic();
-scaninput_(p,x); 
+scaninput(v,p,t,x); 
 velest_(s,v,r,t); 
 /*printf("%s\n",outfile_bo); */
+}
+
+void scaninput(char * v, char * p, ftnlen t, ftnlen x){
+cleanfilenames();
+scaninput_(v,p,t,x);
+}
+
+void cleanfilenames(){
+modelfile[0]='\0';
+stationfile[0]='\0';
+seismfile[0]='\0';
+phasefile[0]='\0';
+shotfile[0]='\0';
+stafile[0]='\0';
+veloutmod[0]='\0';
+regnamfile[0]='\0';
+regkoog[0]='\0';
+topofile1[0]='\0';
+topofile2[0]='\0';
 }
 
 void getoutput(char *pot){
@@ -79,3 +99,47 @@ I need to do a comparison". ROR, 22 March 2020.*/
 }
 
 
+void adline_bm__(char *strin, ftnlen len){
+sscanf(strin,"%s",modelfile);
+printf("Modelfile = %s \n",modelfile); 
+}
+void adline_bt__(char *strin, ftnlen len){
+sscanf(strin,"%s",stationfile);
+printf("Stationfile = %s \n",stationfile); 
+}
+void adline_bs__(char *strin, ftnlen len){
+sscanf(strin,"%s",seismfile);
+printf("Seismfile = %s \n",seismfile); 
+}
+void adline_bp__(char *strin, ftnlen len){
+sscanf(strin,"%s",phasefile);
+printf("Phasefile = %s \n",phasefile); 
+}
+void adline_bf__(char *strin, ftnlen len){
+sscanf(strin,"%s",shotfile);
+printf("Shotfile = %s \n",shotfile); 
+}
+void adline_bi__(char *strin, ftnlen len){
+sscanf(strin,"%s",stafile);
+printf("STafile = %s \n",stafile); 
+}
+void adline_bv__(char *strin, ftnlen len){
+sscanf(strin,"%s",veloutmod);
+printf("Veloutmod = %s \n",veloutmod); 
+}
+void adline_br__(char *strin, ftnlen len){
+sscanf(strin,"%s",regnamfile);
+printf("Regnamfile = %s \n",regnamfile); 
+}
+void adline_bk__(char *strin, ftnlen len){
+sscanf(strin,"%s",regkoog);
+printf("Regkoog = %s \n",regkoog); 
+}
+void adline_bl__(char *strin, ftnlen len){
+sscanf(strin,"%s",topofile1);
+printf("Topofile1  = %s \n",topofile1); 
+}
+void adline_bz__(char *strin, ftnlen len){
+sscanf(strin,"%s",topofile2);
+printf("Topofile2 = %s \n",topofile2); 
+}

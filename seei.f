@@ -1,5 +1,5 @@
-      subroutine scaninput(ic)
-      character*(*) ic
+      subroutine scaninput(ic,ip)
+      character*(*) ic,ip
       implicit none
       integer io
       include 'vel_com2.f'
@@ -52,22 +52,40 @@ c     i=1
       read(line(11),*) delmin,ittmax,invertratio
       write(6,*) delmin,ittmax,invertratio
       read(line(12),'(a)') modelfilename
+      write(ip,'(a)')modelfilename
+      call adline_bm(ip)
       write(6,'(a)') modelfilename
       read(line(13),'(a)') stationfilename
+      write(ip,'(a)')stationfilename
+      call adline_bt(ip)
       write(6,'(a)') stationfilename
       read(line(14),'(a)') seismofilename
+      write(ip,'(a)')seismofilename
+      call adline_bs(ip)
       write(6,'(a)') seismofilename
       read(line(15),'(a)') regnamfile
+      write(ip,'(a)')regnamfile
+      call adline_br(ip)
       write(6,'(a)') regnamfile
       read(line(16),'(a)') regkoordfile
+      write(ip,'(a)')regkoordfile
+      call adline_bk(ip)
       write(6,'(a)') regkoordfile
       read(line(17),'(a)') topo1file
+      write(ip,'(a)')topo1file
+      call adline_bl(ip)
       write(6,'(a)') topo1file
       read(line(18),'(a)') topo2file
+      write(ip,'(a)')topo2file
+      call adline_bz(ip)
       write(6,'(a)') topo2file
       read(line(19),'(a)') phasefile
+      write(ip,'(a)')phasefile
+      call adline_bp(ip)
       write(6,'(a)') phasefile
       read(line(20),'(a)') shotfile
+      write(ip,'(a)')shotfile
+      call adline_bf(ip)
       write(6,'(a)') shotfile
 c     Output files:
       read(line(21),'(a)') outfile

@@ -7,25 +7,28 @@
 
 extern void velest_(char*, char*,ftnlen,ftnlen );
 extern void adline_(char *, ftnlen);
-extern void scaninput_(char *, ftnlen);
+extern void scaninput_(char *, char *, ftnlen, ftnlen);
 extern void rdline_ic__(char *, ftnlen);
-extern void rdline_bm__(char *, ftnlen);
-extern void rdline_bt_(char *, ftnlen);
-extern void rdline_bs_(char *, ftnlen);
-extern void rdline_bp_(char *, ftnlen);
-extern void rdline_bf_(char *, ftnlen);
-extern void rdline_bi_(char *, ftnlen);
-extern void rdline_bi_(char *, ftnlen);
-extern void rdline_bv_(char *, ftnlen);
-extern void rdline_br_(char *, ftnlen);
-extern void rdline_bk_(char *, ftnlen);
-extern void scaninicio_(char*, ftnlen);
+extern void adline_bm__(char *, ftnlen);
+extern void adline_bt__(char *, ftnlen);
+extern void adline_bs__(char *, ftnlen);
+extern void adline_bp__(char *, ftnlen);
+extern void adline_bf__(char *, ftnlen);
+extern void adline_bi__(char *, ftnlen);
+extern void adline_bv__(char *, ftnlen);
+extern void adline_br__(char *, ftnlen);
+extern void adline_bk__(char *, ftnlen);
+extern void adline_bl__(char *, ftnlen);
+extern void adline_bz__(char *, ftnlen);
+extern void acaninicio_(char*, ftnlen);
 void load_infile_ic();
 char *mygetline(char *, int, int *, FILE *);
 void memclean();
 int nextchfn(void *handler, int ch );
 void getoutput(char *);
 int getsizeoutput();
+void scaninput(char *, char *, ftnlen, ftnlen);
+void cleanfilenames();
 
 char rayfile_ra[SIZE_RAYFILE]; /*unit 13*/
 char drvfile_rd[SIZE_DRVFILE]; /*unit 21*/
@@ -49,7 +52,7 @@ char veloutmod_bv[SIZE_VELOUTMOD]; /*unit 12*/
 char regnamfile_br[SIZE_REGNAMFILE]; /*unit iu1*/
 char regkoog_bk[SIZE_REGKOOG]; /*unit iu2*/
 char topofile1_bl[SIZE_REGKOOG]; /*unit iu2*/
-char topofile2_b2[SIZE_REGKOOG]; /*unit iu2*/
+char topofile2_bz[SIZE_REGKOOG]; /*unit iu2*/
 char s[130]; /* string for bo */
 char v[130]; /*string for ic */
 char p[130]; /*string for files */
