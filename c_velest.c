@@ -9,9 +9,9 @@ ftnlen r,t;
 r=120;
 t=120;
 lineb=0;
+memclean(); 
 load_infile_ic();
 velest_(s,v,r,t); 
-memclean(); 
 }
 
 void load_infile_ic(){
@@ -31,8 +31,7 @@ ic=fbufopen(infile_ic, strlen(infile_ic),"r");
 void memclean()
 { 
  char c[]="\0";
-/* closefn(ic);*/
- closefn(ic);
+ if(!(ic)) closefn(ic);
  *infile_ic=0;
  *outfile_bo=0;
 /* memcpy(infile_ic,c,SIZE_INFILE-1); */ 

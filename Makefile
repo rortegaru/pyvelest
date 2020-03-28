@@ -22,8 +22,4 @@ velesm.c: velestc2.c
 	$(FCMP)  $<
 
 clean:
-	rm -r build/
-	rm -r dist/
-	rm -r stom.egg-info/
-	rm stom/stom.so
-
+	rm -r build/  dist/  stom.egg-info/  stom/stom.so  stom/velest.cpython-38-darwin.so fin_hyp.cnv  invers.out
