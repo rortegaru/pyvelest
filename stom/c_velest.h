@@ -7,6 +7,7 @@
 
 extern void velest_(char*, char*,ftnlen,ftnlen );
 extern void adline_(char *, ftnlen);
+extern void scaninput_(char *, ftnlen);
 extern void rdline_ic__(char *, ftnlen);
 extern void rdline_bm__(char *, ftnlen);
 extern void rdline_bt_(char *, ftnlen);

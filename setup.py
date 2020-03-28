@@ -18,7 +18,7 @@ PACKAGES = [SRC_DIR]
 
 ext_1 = Extension(SRC_DIR + ".velest",
                   [SRC_DIR + "/fbufopen.c", SRC_DIR + "/velesm.c",SRC_DIR + 
-                   "/velest.pyx",SRC_DIR+"/c_velest.c"],
+                   "/velest.pyx",SRC_DIR+"/c_velest.c",SRC_DIR+"/seei.c"],
                   libraries=["f2c","m"],
                   include_dirs=[np.get_include()],
                   extra_compile_args=["-Wno-absolute-value","-Wno-shift-op-parentheses","-Wno-logical-op-parentheses"])

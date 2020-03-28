@@ -5,12 +5,14 @@
 
 void c_velest(){
 int i;
-ftnlen r,t;
+ftnlen r,t,x;
 r=120;
 t=120;
+x=120;
 lineb=0;
 memclean(); 
 load_infile_ic();
+scaninput_(p,x); 
 velest_(s,v,r,t); 
 /*printf("%s\n",outfile_bo); */
 }
