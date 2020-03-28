@@ -8,7 +8,7 @@
 extern void velest_(char*, char*,ftnlen,ftnlen );
 extern void adline_(char *, ftnlen);
 extern void rdline_ic__(char *, ftnlen);
-extern void rdline_bm_(char *, ftnlen);
+extern void rdline_bm__(char *, ftnlen);
 extern void rdline_bt_(char *, ftnlen);
 extern void rdline_bs_(char *, ftnlen);
 extern void rdline_bp_(char *, ftnlen);
@@ -18,6 +18,7 @@ extern void rdline_bi_(char *, ftnlen);
 extern void rdline_bv_(char *, ftnlen);
 extern void rdline_br_(char *, ftnlen);
 extern void rdline_bk_(char *, ftnlen);
+extern void scaninicio_(char*, ftnlen);
 void load_infile_ic();
 char *mygetline(char *, int, int *, FILE *);
 void memclean();
@@ -46,8 +47,22 @@ char stafile_bi[SIZE_STAFILE]; /*unit 9*/
 char veloutmod_bv[SIZE_VELOUTMOD]; /*unit 12*/
 char regnamfile_br[SIZE_REGNAMFILE]; /*unit iu1*/
 char regkoog_bk[SIZE_REGKOOG]; /*unit iu2*/
-char s[130];
-char v[130];
+char topofile1_bl[SIZE_REGKOOG]; /*unit iu2*/
+char topofile2_b2[SIZE_REGKOOG]; /*unit iu2*/
+char s[130]; /* string for bo */
+char v[130]; /*string for ic */
+char p[130]; /*string for files */
+char modelfile[24];
+char stationfile[24];
+char seismfile[24];
+char phasefile[24];
+char shotfile[24];
+char stafile[24];
+char veloutmod[24];
+char regnamfile[24];
+char regkoog[24];
+char topofile1[24];
+char topofile2[24];
 
 /*FILE *bo,*ra,*rd,*rc,*rs,*rv,*re,*rp,*rl,*rr,*rf;  Virtual memory buffer files for writing*/
 fbuf_t *ic,*bm,*bt,*bs,*bp,*bf,*bi,*bv,*br,*bk;  /*Virtual memory buffer for reading-writing*/
