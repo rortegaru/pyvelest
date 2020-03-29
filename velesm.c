@@ -306,7 +306,7 @@ static real c_b2408 = 1.f;
 static complex c_b3026 = {1.f,0.f};
 static real c_b3049 = -1.f;
 
-/* Subroutine */ int velest_(char *bo, char *ic, ftnlen bo_len, ftnlen ic_len)
+/* Subroutine */ int velest_(char *bo, ftnlen bo_len)
 {
     /* Format strings */
     static char fmt_59[] = "(\002#  \002,i3,\002 rms value: \002,10f5.2)";
@@ -347,8 +347,8 @@ static real c_b3049 = -1.f;
     static integer ii;
     extern /* Subroutine */ int traveltime_(integer *, integer *, integer *, 
 	    char *, ftnlen), resolcovar_(real *, char *, ftnlen), inputparam_(
-	    char *, char *, ftnlen, ftnlen), sdc_(real *, real *, real *, 
-	    real *, integer *), statislout_(char *, ftnlen);
+	    char *, ftnlen), sdc_(real *, real *, real *, real *, integer *), 
+	    statislout_(char *, ftnlen);
     static integer ier;
     extern /* Subroutine */ int nittoutput_(real *, char *, ftnlen), 
 	    adjustmodel_(real *, char *, ftnlen);
@@ -597,7 +597,7 @@ static real c_b3049 = -1.f;
 
 /*     input control-parameters, model and stations */
 
-    inputparam_(bo, ic, bo_len, ic_len);
+    inputparam_(bo, bo_len);
     if (! coordsyst_1.single_turbo__) {
 	ici__1.icierr = 0;
 	ici__1.icirnum = 1;
@@ -2473,8 +2473,7 @@ L99999:
 
 /* ek    begin of vel_io.f */
 
-/* Subroutine */ int inputparam_(char *bo, char *ic, ftnlen bo_len, ftnlen 
-	ic_len)
+/* Subroutine */ int inputparam_(char *bo, ftnlen bo_len)
 {
     /* Format strings */
     static char fmt_7788[] = "(//,2x,\002attention nsp=3! >s-data used for p"
@@ -2695,12 +2694,12 @@ L99999:
     i__ = 0;
 /* 111  read(10,'(a)',end=222) card */
 L111:
-    rdline_ic__(ic, ic_len);
+    rdline_ic__(bo, bo_len);
     ici__1.icierr = 0;
     ici__1.iciend = 0;
     ici__1.icirnum = 1;
-    ici__1.icirlen = ic_len;
-    ici__1.iciunit = ic;
+    ici__1.icirlen = bo_len;
+    ici__1.iciunit = bo;
     ici__1.icifmt = "(a)";
     s_rsfi(&ici__1);
     do_fio(&c__1, card, (ftnlen)80);

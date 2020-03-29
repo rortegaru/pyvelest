@@ -5,7 +5,7 @@
 #include "buffsizes.h"
 #include "fbufopen.h"
 
-extern void velest_(char*, char*,ftnlen,ftnlen );
+extern void velest_(char*,ftnlen);
 extern void adline_(char *, ftnlen);
 extern void scaninput_(char *, char *, ftnlen, ftnlen);
 extern void rdline_ic__(char *, ftnlen);

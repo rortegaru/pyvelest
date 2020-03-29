@@ -1,5 +1,5 @@
-      subroutine velest(bo,ic) 
-      character*(*) bo,ic
+      subroutine velest(bo) 
+      character*(*) bo
 
 c
 c seisan changes:
@@ -125,7 +125,7 @@ c
 c
 c     input control-parameters, model and stations
 c
-      call INPUTPARAM(bo,ic)
+      call INPUTPARAM(bo)
       
       if(.not.single_turbo) write(bo,*)'~~~ input parameters read.'
        call adlineb(bo)
@@ -1046,8 +1046,8 @@ c********       E N D   O F   M A I N   P R O G R A M      ****************
 c
 cek    begin of vel_io.f
 c
-      subroutine INPUTPARAM(bo,ic) ! old name was: INPUT1 ;
-      character*(*) bo,ic
+      subroutine INPUTPARAM(bo) ! old name was: INPUT1 ;
+      character*(*) bo
 c                           ! this subr. needs another input-format !!
 c
 c     reads in the control-file (type VELEST.CMN) which contains all the
@@ -1078,8 +1078,8 @@ c
       i=0
 c111  read(10,'(a)',end=222) card
  111  continue
-      call rdline_ic(ic) 
-      read(ic,'(a)') card
+      call rdline_ic(bo) 
+      read(bo,'(a)') card
       if(card(1:1).eq.'*') goto 111
       if(card(1:1).eq.'@') goto 222
       i=i+1

@@ -14,7 +14,7 @@ lineb=0;
 memclean(); 
 load_infile_ic();
 scaninput(v,p,t,x); 
-velest_(s,v,r,t); 
+velest_(s,r); 
 /*printf("%s\n",outfile_bo); */
 }
 
