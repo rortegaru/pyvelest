@@ -13,14 +13,14 @@ x=120;
 lineb=0;
 memclean(); 
 load_infile_ic();
-scaninput(v,p,t,x); 
+scaninput(v,t); 
 velest_(s,r); 
 /*printf("%s\n",outfile_bo); */
 }
 
-void scaninput(char * v, char * p, ftnlen t, ftnlen x){
+void scaninput(char * v,  ftnlen t){
 cleanfilenames();
-scaninput_(v,p,t,x);
+scaninput_(v,t);
 }
 
 void cleanfilenames(){

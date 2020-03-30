@@ -7,7 +7,7 @@
 
 extern void velest_(char*,ftnlen);
 extern void adline_(char *, ftnlen);
-extern void scaninput_(char *, char *, ftnlen, ftnlen);
+extern void scaninput_(char *, ftnlen);
 extern void rdline_ic__(char *, ftnlen);
 extern void adline_bm__(char *, ftnlen);
 extern void adline_bt__(char *, ftnlen);
@@ -27,7 +27,7 @@ void memclean();
 int nextchfn(void *handler, int ch );
 void getoutput(char *);
 int getsizeoutput();
-void scaninput(char *, char *, ftnlen, ftnlen);
+void scaninput(char *,  ftnlen);
 void cleanfilenames();
 
 char rayfile_ra[SIZE_RAYFILE]; /*unit 13*/

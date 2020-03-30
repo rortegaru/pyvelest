@@ -251,8 +251,7 @@ static integer c__9 = 9;
 static integer c__3 = 3;
 static integer c__4 = 4;
 
-/* Subroutine */ int scaninput_(char *ic, char *ip, ftnlen ic_len, ftnlen 
-	ip_len)
+/* Subroutine */ int scaninput_(char *ip, ftnlen ip_len)
 {
     /* System generated locals */
     icilist ici__1;
@@ -398,12 +397,12 @@ static integer c__4 = 4;
 
     i__ = 0;
 L111:
-    rdline_ic__(ic, ic_len);
+    rdline_ic__(ip, ip_len);
     ici__1.icierr = 0;
     ici__1.iciend = 0;
     ici__1.icirnum = 1;
-    ici__1.icirlen = ic_len;
-    ici__1.iciunit = ic;
+    ici__1.icirlen = ip_len;
+    ici__1.iciunit = ip;
     ici__1.icifmt = "(a)";
     s_rsfi(&ici__1);
     do_fio(&c__1, card, (ftnlen)80);

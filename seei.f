@@ -1,5 +1,5 @@
-      subroutine scaninput(ic,ip)
-      character*(*) ic,ip
+      subroutine scaninput(ip)
+      character*(*) ip
       implicit none
       integer io
       include 'vel_com2.f'
@@ -13,8 +13,8 @@ c
 
       i=0
 111   continue
-      call rdline_ic(ic)
-      read(ic,'(a)') card
+      call rdline_ic(ip)
+      read(ip,'(a)') card
       if(card(1:1).eq.'*') goto 111
       if(card(1:1).eq.'@') goto 222
       i=i+1
