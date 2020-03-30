@@ -3,6 +3,19 @@
 /* initialize the memory of the files used for 
    inecreasing python speed using later by fmemopen  ROR 03-21-2020*/
 
+enum filesrd{ modelf, stationf, seismf, phasef, shotf, staf, veloutm, regnamf, regk, topof1, topof2 };
+
+struct fileshandrd {
+char* mainbuffer;
+char* filenam;
+int  isused;
+};
+typedef struct fileshandrd fileshandrd_t;
+
+fileshandrd_t[11];
+
+
+
 void c_velest(){
 int i;
 ftnlen r,t;

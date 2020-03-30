@@ -3,6 +3,16 @@
 /* initialize the memory of the files used for 
    inecreasing python speed using later by fmemopen  ROR 03-21-2020*/
 
+enum filesrd{ modelf, stationf, seismf, phasef, shotf, staf, veloutm, regnamf, regk, topof1, topof2 };
+
+struct fileshandrd {
+char* mainbuffer;
+char* filenam;
+int  isused;
+};
+typedef struct fileshandrd fileshandrd_t;
+
+fileshandrd_t  filrd[11];
 
 void c_velest(){
 int i;
@@ -11,11 +21,22 @@ r=120;
 t=120;
 x=120;
 lineb=0;
+initstruct();
 memclean(); 
 load_infile_ic();
+cleanfilenames();
+printfiles();
 scaninput(v,t); 
+printfiles();
 velest_(s,r); 
 /*printf("%s\n",outfile_bo); */
+}
+
+void printfiles(){
+enum filesrd filer;
+for(filer=modelf;filer<=topof2;filer++){
+printf("FIlename %d = %s \n",filer,filrd[filer].filenam);
+}
 }
 
 void scaninput(char * v,  ftnlen t){
@@ -100,46 +121,121 @@ I need to do a comparison". ROR, 22 March 2020.*/
 
 
 void adline_bm__(char *strin, ftnlen len){
-sscanf(strin,"%s",modelfile);
+enum filesrd filer;
+filer=modelf;
+sscanf(strin,"%s",filrd[filer].filenam);
 printf("Modelfile = %s \n",modelfile); 
 }
 void adline_bt__(char *strin, ftnlen len){
-sscanf(strin,"%s",stationfile);
+enum filesrd filer;
+filer=stationf;
+sscanf(strin,"%s",filrd[filer].filenam);
 printf("Stationfile = %s \n",stationfile); 
 }
 void adline_bs__(char *strin, ftnlen len){
-sscanf(strin,"%s",seismfile);
+enum filesrd filer;
+filer=seismf;
+sscanf(strin,"%s",filrd[filer].filenam);
 printf("Seismfile = %s \n",seismfile); 
 }
 void adline_bp__(char *strin, ftnlen len){
-sscanf(strin,"%s",phasefile);
+enum filesrd filer;
+filer=phasef;
+sscanf(strin,"%s",filrd[filer].filenam);
 printf("Phasefile = %s \n",phasefile); 
 }
 void adline_bf__(char *strin, ftnlen len){
-sscanf(strin,"%s",shotfile);
+enum filesrd filer;
+filer=shotf;
+sscanf(strin,"%s",filrd[filer].filenam);
 printf("Shotfile = %s \n",shotfile); 
 }
 void adline_bi__(char *strin, ftnlen len){
-sscanf(strin,"%s",stafile);
+enum filesrd filer;
+filer=staf;
+sscanf(strin,"%s",filrd[filer].filenam);
 printf("STafile = %s \n",stafile); 
 }
 void adline_bv__(char *strin, ftnlen len){
-sscanf(strin,"%s",veloutmod);
+enum filesrd filer;
+filer=veloutm;
+sscanf(strin,"%s",filrd[filer].filenam);
 printf("Veloutmod = %s \n",veloutmod); 
 }
 void adline_br__(char *strin, ftnlen len){
-sscanf(strin,"%s",regnamfile);
+enum filesrd filer;
+filer=regnamf;
+sscanf(strin,"%s",filrd[filer].filenam);
 printf("Regnamfile = %s \n",regnamfile); 
 }
 void adline_bk__(char *strin, ftnlen len){
-sscanf(strin,"%s",regkoog);
+enum filesrd filer;
+filer=regk;
+sscanf(strin,"%s",filrd[filer].filenam);
 printf("Regkoog = %s \n",regkoog); 
 }
 void adline_bl__(char *strin, ftnlen len){
-sscanf(strin,"%s",topofile1);
+enum filesrd filer;
+filer=topof1;
+sscanf(strin,"%s",filrd[filer].filenam);
 printf("Topofile1  = %s \n",topofile1); 
 }
 void adline_bz__(char *strin, ftnlen len){
-sscanf(strin,"%s",topofile2);
+enum filesrd filer;
+filer=topof2;
+sscanf(strin,"%s",filrd[filer].filenam);
 printf("Topofile2 = %s \n",topofile2); 
 }
+
+void initstruct(){
+enum filesrd filer;
+for(filer=modelf;filer<=topof2;filer++){
+switch (filer){
+   case(modelf):
+   filrd[filer].mainbuffer=modelfile_bm;
+   filrd[filer].filenam=modelfile;
+   break;
+   case(stationf):
+   filrd[filer].mainbuffer=stationfile_bt;
+   filrd[filer].filenam=stationfile;
+   break;
+   case(seismf):
+   filrd[filer].mainbuffer=seismfile_bs;
+   filrd[filer].filenam=seismfile;
+   break;
+   case(phasef):
+   filrd[filer].mainbuffer=phasefile_bp;
+   filrd[filer].filenam=phasefile;
+   break;
+   case(shotf):
+   filrd[filer].mainbuffer=shotfile_bf;
+   filrd[filer].filenam=shotfile;
+   break;
+   case(staf):
+   filrd[filer].mainbuffer=stafile_bi;
+   filrd[filer].filenam=stafile;
+   break;
+   case(veloutm):
+   filrd[filer].mainbuffer=veloutmod_bv;
+   filrd[filer].filenam=veloutmod;
+   break;
+   case(regnamf):
+   filrd[filer].mainbuffer=regnamfile_br;
+   filrd[filer].filenam=regnamfile;
+   break;
+   case(regk):
+   filrd[filer].mainbuffer=regkoog_bk;
+   filrd[filer].filenam=regkoog;
+   break;
+   case(topof1):
+   filrd[filer].mainbuffer=topofile1_bl;
+   filrd[filer].filenam=topofile1;
+   break;
+   case(topof2):
+   filrd[filer].mainbuffer=topofile2_bz;
+   filrd[filer].filenam=topofile2;
+   break;
+    }
+  }
+}
+

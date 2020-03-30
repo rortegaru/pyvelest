@@ -29,6 +29,8 @@ void getoutput(char *);
 int getsizeoutput();
 void scaninput(char *,  ftnlen);
 void cleanfilenames();
+void initstruct();
+void printfiles();
 
 char rayfile_ra[SIZE_RAYFILE]; /*unit 13*/
 char drvfile_rd[SIZE_DRVFILE]; /*unit 21*/
