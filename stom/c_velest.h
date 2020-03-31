@@ -9,7 +9,7 @@ extern void velest_(char*,ftnlen);
 extern void adline_(char *, ftnlen);
 extern void scaninput_(char *, ftnlen);
 extern void rdline_ic__(char *, ftnlen);
-extern void adline_bm__(char *, ftnlen);
+extern void rdline_bm__(char *, ftnlen);
 extern void adline_bt__(char *, ftnlen);
 extern void adline_bs__(char *, ftnlen);
 extern void adline_bp__(char *, ftnlen);
@@ -22,6 +22,9 @@ extern void adline_bl__(char *, ftnlen);
 extern void adline_bz__(char *, ftnlen);
 extern void acaninicio_(char*, ftnlen);
 void load_infile_ic();
+void load_infile_bm();
+void load_infile_bs();
+void load_infile_bp();
 char *mygetline(char *, int, int *, FILE *);
 void memclean();
 int nextchfn(void *handler, int ch );
@@ -31,6 +34,7 @@ void scaninput(char *,  ftnlen);
 void cleanfilenames();
 void initstruct();
 void printfiles();
+void printbm();
 
 char rayfile_ra[SIZE_RAYFILE]; /*unit 13*/
 char drvfile_rd[SIZE_DRVFILE]; /*unit 21*/

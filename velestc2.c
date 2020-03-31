@@ -301,10 +301,10 @@ static integer c__6000 = 6000;
 static integer c__50 = 50;
 static integer c__650 = 650;
 static integer c_n1 = -1;
-static real c_b1799 = 360.f;
-static real c_b2408 = 1.f;
-static complex c_b3026 = {1.f,0.f};
-static real c_b3049 = -1.f;
+static real c_b1803 = 360.f;
+static real c_b2412 = 1.f;
+static complex c_b3030 = {1.f,0.f};
+static real c_b3053 = -1.f;
 
 /* Subroutine */ int velest_(char *bo, ftnlen bo_len)
 {
@@ -2511,14 +2511,15 @@ L99999:
     integer s_rsli(icilist *), do_lio(integer *, integer *, char *, ftnlen), 
 	    e_rsli(void), s_cmp(char *, char *, ftnlen, ftnlen), f_open(olist 
 	    *), s_wsfi(icilist *), e_wsfi(void), s_wsli(icilist *), e_wsli(
-	    void), s_rsfe(cilist *), e_rsfe(void), s_wsle(cilist *), e_wsle(
+	    void), s_wsle(cilist *), e_wsle(void), s_rsfe(cilist *), e_rsfe(
 	    void), f_clos(cllist *);
 
     /* Local variables */
     extern /* Subroutine */ int casefold_(char *, ftnlen);
     static integer i__, j, k, n;
     static real z__;
-    extern /* Subroutine */ int rdline_ic__(char *, ftnlen);
+    extern /* Subroutine */ int rdline_ic__(char *, ftnlen), rdline_bm__(char 
+	    *, ftnlen);
     static char titleline[80];
     extern /* Subroutine */ int openerror_(char *, char *, char *, ftnlen, 
 	    ftnlen, ftnlen);
@@ -2580,22 +2581,19 @@ L99999:
     static icilist io___84 = { 0, line+2400, 0, "(a)", 80, 1 };
     static icilist io___85 = { 0, line+2480, 0, "(a)", 80, 1 };
     static icilist io___86 = { 0, form_1.headerline+160, 0, 0, 80, 1 };
-    static cilist io___89 = { 0, 10, 0, "(a40)", 0 };
-    static cilist io___91 = { 0, 10, 0, "(i3)", 0 };
-    static cilist io___93 = { 0, 10, 0, fmt_1212, 0 };
-    static cilist io___95 = { 0, 10, 0, fmt_12, 0 };
+    static cilist io___90 = { 0, 6, 0, 0, 0 };
+    static cilist io___93 = { 0, 6, 0, 0, 0 };
+    static cilist io___94 = { 0, 6, 0, 0, 0 };
+    static cilist io___95 = { 0, 6, 0, 0, 0 };
     static cilist io___96 = { 0, 6, 0, 0, 0 };
     static cilist io___97 = { 0, 6, 0, 0, 0 };
     static cilist io___98 = { 0, 6, 0, 0, 0 };
     static cilist io___99 = { 0, 6, 0, 0, 0 };
-    static cilist io___100 = { 0, 6, 0, 0, 0 };
-    static cilist io___101 = { 0, 6, 0, 0, 0 };
     static cilist io___102 = { 0, 6, 0, 0, 0 };
-    static cilist io___105 = { 0, 6, 0, 0, 0 };
-    static cilist io___106 = { 0, 6, 0, 0, 0 };
-    static cilist io___107 = { 0, 6, 0, 0, 0 };
-    static cilist io___108 = { 0, 10, 0, fmt_1, 0 };
-    static cilist io___109 = { 0, 10, 0, form_1.fm, 0 };
+    static cilist io___103 = { 0, 6, 0, 0, 0 };
+    static cilist io___104 = { 0, 6, 0, 0, 0 };
+    static cilist io___105 = { 0, 10, 0, fmt_1, 0 };
+    static cilist io___106 = { 0, 10, 0, form_1.fm, 0 };
 
 
 /* old name was: INPUT1 ; */
@@ -4531,19 +4529,7 @@ L222:
 /*   *********** */
 
 /* VMS      open(10,file=modelfilename,status='old',err=9911,readonly) */
-    o__1.oerr = 1;
-    o__1.ounit = 10;
-    o__1.ofnmlen = 80;
-    o__1.ofnm = files_1.modelfilename;
-    o__1.orl = 0;
-    o__1.osta = "old";
-    o__1.oacc = 0;
-    o__1.ofm = 0;
-    o__1.oblnk = 0;
-    i__1 = f_open(&o__1);
-    if (i__1 != 0) {
-	goto L9911;
-    }
+/*     open(10,file=modelfilename,status='old',err=9911) */
 
     layvel_1.ireflector = 0;
 /* ek */
@@ -4559,9 +4545,16 @@ L222:
     }
 
 /* ek  modifications for new model file */
-    s_rsfe(&io___89);
+    rdline_bm__(bo, bo_len);
+    ici__1.icierr = 0;
+    ici__1.iciend = 0;
+    ici__1.icirnum = 1;
+    ici__1.icirlen = bo_len;
+    ici__1.iciunit = bo;
+    ici__1.icifmt = "(a40)";
+    s_rsfi(&ici__1);
     do_fio(&c__1, titl, (ftnlen)40);
-    e_rsfe();
+    e_rsfi();
     if (! coordsyst_1.single_turbo__) {
 	ici__1.icierr = 0;
 	ici__1.icirnum = 1;
@@ -4605,14 +4598,33 @@ L222:
 	    e_wsfi();
 	}
 	s_copy(titl, " ", (ftnlen)40, (ftnlen)1);
-	s_rsfe(&io___91);
+	rdline_bm__(bo, bo_len);
+	ici__1.icierr = 0;
+	ici__1.iciend = 0;
+	ici__1.icirnum = 1;
+	ici__1.icirlen = bo_len;
+	ici__1.iciunit = bo;
+	ici__1.icifmt = "(i3)";
+	s_rsfi(&ici__1);
 	do_fio(&c__1, (char *)&modela_1.nplay[i__ - 1], (ftnlen)sizeof(
 		integer));
-	e_rsfe();
+	e_rsfi();
+	s_wsle(&io___90);
+	do_lio(&c__9, &c__1, "Nplay (i) =", (ftnlen)11);
+	do_lio(&c__3, &c__1, (char *)&modela_1.nplay[i__ - 1], (ftnlen)sizeof(
+		integer));
+	e_wsle();
 	i__2 = modela_1.nplay[i__ - 1];
 	for (j = 1; j <= i__2; ++j) {
 	    if (j == 1) {
-		s_rsfe(&io___93);
+		rdline_bm__(bo, bo_len);
+		ici__1.icierr = 0;
+		ici__1.iciend = 0;
+		ici__1.icirnum = 1;
+		ici__1.icirlen = bo_len;
+		ici__1.iciunit = bo;
+		ici__1.icifmt = fmt_1212;
+		s_rsfi(&ici__1);
 		do_fio(&c__1, (char *)&layvel_1.vp[i__ + (j << 1) - 3], (
 			ftnlen)sizeof(real));
 		do_fio(&c__1, (char *)&layvel_1.hp[i__ + (j << 1) - 3], (
@@ -4621,9 +4633,16 @@ L222:
 			ftnlen)sizeof(real));
 		do_fio(&c__1, reflch, (ftnlen)1);
 		do_fio(&c__1, titl, (ftnlen)40);
-		e_rsfe();
+		e_rsfi();
 	    } else {
-		s_rsfe(&io___95);
+		rdline_bm__(bo, bo_len);
+		ici__1.icierr = 0;
+		ici__1.iciend = 0;
+		ici__1.icirnum = 1;
+		ici__1.icirlen = bo_len;
+		ici__1.iciunit = bo;
+		ici__1.icifmt = fmt_12;
+		s_rsfi(&ici__1);
 		do_fio(&c__1, (char *)&layvel_1.vp[i__ + (j << 1) - 3], (
 			ftnlen)sizeof(real));
 		do_fio(&c__1, (char *)&layvel_1.hp[i__ + (j << 1) - 3], (
@@ -4631,7 +4650,7 @@ L222:
 		do_fio(&c__1, (char *)&layvel_1.vdamp[i__ + (j << 1) - 3], (
 			ftnlen)sizeof(real));
 		do_fio(&c__1, reflch, (ftnlen)1);
-		e_rsfe();
+		e_rsfi();
 	    }
 	    if (*(unsigned char *)reflch != ' ') {
 		if (*(unsigned char *)reflch == 'm' || *(unsigned char *)
@@ -4654,13 +4673,13 @@ L222:
 				    "...", (ftnlen)29);
 			    e_wsli();
 			    adlineb_(bo, bo_len);
-			    s_wsle(&io___96);
+			    s_wsle(&io___93);
 			    do_lio(&c__9, &c__1, "WARNING ::: velocity ABOVE"
 				    " reflector is", (ftnlen)39);
 			    do_lio(&c__9, &c__1, " greater than 8.0 km/s  .."
 				    "...", (ftnlen)29);
 			    e_wsle();
-			    s_wsle(&io___97);
+			    s_wsle(&io___94);
 			    e_wsle();
 			}
 		    }
@@ -4705,11 +4724,11 @@ L222:
 			do_lio(&c__9, &c__1, "Reflected phases will be ignor"
 				"ed (wrong mark)", (ftnlen)45);
 			e_wsli();
-			s_wsle(&io___98);
+			s_wsle(&io___95);
 			do_lio(&c__9, &c__1, "Reflected phases will be ignor"
 				"ed (wrong mark)", (ftnlen)45);
 			e_wsle();
-			s_wsle(&io___99);
+			s_wsle(&io___96);
 			e_wsle();
 		    }
 		}
@@ -4757,14 +4776,14 @@ L222:
 	    }
 
 	    if (j > 1 && layvel_1.hp[i__ + (j << 1) - 3] < 0.f) {
-		s_wsle(&io___100);
+		s_wsle(&io___97);
 		do_lio(&c__9, &c__1, "WARNING:", (ftnlen)8);
 		e_wsle();
-		s_wsle(&io___101);
+		s_wsle(&io___98);
 		do_lio(&c__9, &c__1, "Only top of the first layer can be neg"
 			"ative !!", (ftnlen)46);
 		e_wsle();
-		s_wsle(&io___102);
+		s_wsle(&io___99);
 		e_wsle();
 		if (! coordsyst_1.single_turbo__) {
 		    ici__1.icierr = 0;
@@ -4968,15 +4987,15 @@ L222:
 		do_lio(&c__9, &c__1, "LOWVELOCLAY now set to 0 ", (ftnlen)25);
 		e_wsli();
 		adlineb_(bo, bo_len);
-		s_wsle(&io___105);
+		s_wsle(&io___102);
 		do_lio(&c__9, &c__1, "Switch LOWVELOCLAY is set to 1, but re"
 			"flected phases are allowed to occur", (ftnlen)73);
 		e_wsle();
-		s_wsle(&io___106);
+		s_wsle(&io___103);
 		do_lio(&c__9, &c__1, "This is improper (no low velocity-laye"
 			"rs allowed for reflected waves!!)", (ftnlen)71);
 		e_wsle();
-		s_wsle(&io___107);
+		s_wsle(&io___104);
 		do_lio(&c__9, &c__1, "LOWVELOCLAY now set to 0 ", (ftnlen)25);
 		e_wsle();
 	    }
@@ -5041,10 +5060,7 @@ L222:
 	s_wsli(&ici__1);
 	e_wsli();
     }
-    cl__1.cerr = 0;
-    cl__1.cunit = 10;
-    cl__1.csta = 0;
-    f_clos(&cl__1);
+/*     close(10) */
 /* VMS      open(10,file=stationfilename,status='old',err=9912,readonly) */
     o__1.oerr = 1;
     o__1.ounit = 10;
@@ -5059,7 +5075,7 @@ L222:
     if (i__1 != 0) {
 	goto L9912;
     }
-    s_rsfe(&io___108);
+    s_rsfe(&io___105);
     do_fio(&c__1, form_1.fm, (ftnlen)80);
     e_rsfe();
     if (! coordsyst_1.single_turbo__) {
@@ -5083,7 +5099,7 @@ L222:
 
 L10:
     ++dimen_1.nsta;
-    s_rsfe(&io___109);
+    s_rsfe(&io___106);
     do_fio(&c__1, charc_1.stn + (dimen_1.nsta - 1 << 2), (ftnlen)4);
     do_fio(&c__1, (char *)&stltln_1.xla[dimen_1.nsta - 1], (ftnlen)sizeof(
 	    real));
@@ -5450,7 +5466,7 @@ L22:
     openerror_("inputparam", "control-input-file FOR010", bo, (ftnlen)10, (
 	    ftnlen)25, bo_len);
     return 0;
-L9911:
+/* L9911: */
     openerror_("inputparam", "model-input-file (FOR010)", bo, (ftnlen)10, (
 	    ftnlen)25, bo_len);
     return 0;
@@ -5543,41 +5559,41 @@ L9913:
     extern /* Subroutine */ int adlineb_(char *, ftnlen);
 
     /* Fortran I/O blocks */
-    static cilist io___143 = { 0, 6, 0, "(1x,'Event #',i4)", 0 };
-    static cilist io___144 = { 0, 6, 0, 0, 0 };
-    static cilist io___145 = { 0, 2, 0, "('1 E V E N T   N R .   ',i6,      "
+    static cilist io___140 = { 0, 6, 0, "(1x,'Event #',i4)", 0 };
+    static cilist io___141 = { 0, 6, 0, 0, 0 };
+    static cilist io___142 = { 0, 2, 0, "('1 E V E N T   N R .   ',i6,      "
 	    "                              '                 ',              "
 	    "                              '           0                    0"
 	    "')", 0 };
-    static cilist io___146 = { 0, 6, 0, "(1x,'Event #',i6)", 0 };
-    static cilist io___151 = { 0, 6, 0, 0, 0 };
-    static cilist io___152 = { 0, 6, 0, 0, 0 };
+    static cilist io___143 = { 0, 6, 0, "(1x,'Event #',i6)", 0 };
+    static cilist io___148 = { 0, 6, 0, 0, 0 };
+    static cilist io___149 = { 0, 6, 0, 0, 0 };
+    static cilist io___153 = { 0, 6, 0, 0, 0 };
+    static cilist io___154 = { 0, 6, 0, 0, 0 };
+    static cilist io___155 = { 0, 2, 0, "(' DELETED: ',a4,                  "
+	    "                           ' unknown phase is: ',a1)", 0 };
     static cilist io___156 = { 0, 6, 0, 0, 0 };
     static cilist io___157 = { 0, 6, 0, 0, 0 };
-    static cilist io___158 = { 0, 2, 0, "(' DELETED: ',a4,                  "
-	    "                           ' unknown phase is: ',a1)", 0 };
+    static cilist io___158 = { 0, 6, 0, 0, 0 };
     static cilist io___159 = { 0, 6, 0, 0, 0 };
-    static cilist io___160 = { 0, 6, 0, 0, 0 };
-    static cilist io___161 = { 0, 6, 0, 0, 0 };
-    static cilist io___162 = { 0, 6, 0, 0, 0 };
-    static cilist io___164 = { 0, 6, 0, "(' WARNING:  Station: >>>',a4,     "
+    static cilist io___161 = { 0, 6, 0, "(' WARNING:  Station: >>>',a4,     "
 	    "                               '<<< not found in stationlist!')", 
 	    0 };
-    static cilist io___165 = { 0, 6, 0, 0, 0 };
-    static cilist io___166 = { 0, 6, 0, 0, 0 };
-    static cilist io___167 = { 0, 2, 0, "(' DELETED: ',a4,                  "
+    static cilist io___162 = { 0, 6, 0, 0, 0 };
+    static cilist io___163 = { 0, 6, 0, 0, 0 };
+    static cilist io___164 = { 0, 2, 0, "(' DELETED: ',a4,                  "
 	    "                              ' not on station-list')", 0 };
-    static cilist io___169 = { 0, 6, 0, "(' epicentral distance:',f6.1,     "
+    static cilist io___166 = { 0, 6, 0, "(' epicentral distance:',f6.1,     "
 	    "                               ' > dmax (',f6.1,') ==> skipping "
 	    "phase !')", 0 };
-    static cilist io___170 = { 0, 2, 0, "(' DELETED: ',a4,                  "
+    static cilist io___167 = { 0, 2, 0, "(' DELETED: ',a4,                  "
 	    "                              ' epicentral-distance too large')", 
 	    0 };
+    static cilist io___171 = { 0, 6, 0, 0, 0 };
+    static cilist io___172 = { 0, 6, 0, "(1x,'---> ',3i2.2,1x,2i2.2)", 0 };
+    static cilist io___173 = { 0, 6, 0, 0, 0 };
     static cilist io___174 = { 0, 6, 0, 0, 0 };
-    static cilist io___175 = { 0, 6, 0, "(1x,'---> ',3i2.2,1x,2i2.2)", 0 };
-    static cilist io___176 = { 0, 6, 0, 0, 0 };
-    static cilist io___177 = { 0, 6, 0, 0, 0 };
-    static cilist io___187 = { 0, 6, 0, 0, 0 };
+    static cilist io___184 = { 0, 6, 0, 0, 0 };
 
 
 /* old name:  INPUT2 */
@@ -5752,10 +5768,10 @@ L10001:
 /* ek */
     if (coordsyst_1.isingle != 0) {
 	if (nobsread < 3) {
-	    s_wsfe(&io___143);
+	    s_wsfe(&io___140);
 	    do_fio(&c__1, (char *)&(*i__), (ftnlen)sizeof(integer));
 	    e_wsfe();
-	    s_wsle(&io___144);
+	    s_wsle(&io___141);
 	    do_lio(&c__9, &c__1, " skipped because it has fewer than 3 obs.", 
 		    (ftnlen)41);
 	    e_wsle();
@@ -5763,10 +5779,10 @@ L10001:
 	}
     }
     if (coordsyst_1.isingle != 0) {
-	s_wsfe(&io___145);
+	s_wsfe(&io___142);
 	do_fio(&c__1, (char *)&coordsyst_1.isingle, (ftnlen)sizeof(integer));
 	e_wsfe();
-	s_wsfe(&io___146);
+	s_wsfe(&io___143);
 	do_fio(&c__1, (char *)&coordsyst_1.isingle, (ftnlen)sizeof(integer));
 	e_wsfe();
     }
@@ -5856,7 +5872,7 @@ L11111:
 		    e_wsli();
 		}
 		adlineb_(bo, bo_len);
-		s_wsle(&io___151);
+		s_wsle(&io___148);
 		do_lio(&c__9, &c__1, "DEPTH fixed !", (ftnlen)13);
 		e_wsle();
 	    }
@@ -5872,7 +5888,7 @@ L11111:
 		e_wsli();
 	    }
 	    adlineb_(bo, bo_len);
-	    s_wsle(&io___152);
+	    s_wsle(&io___149);
 	    do_lio(&c__9, &c__1, "HYPOCENTER fixed !", (ftnlen)18);
 	    e_wsle();
 	    if (coordsyst_1.icoordsystem == 2 && alon > 0.f) {
@@ -5976,16 +5992,16 @@ L11111:
 			    do_lio(&c__9, &c__1, " ???", (ftnlen)4);
 			    e_wsli();
 			}
-			s_wsle(&io___156);
+			s_wsle(&io___153);
 			do_lio(&c__9, &c__1, "what phase is this ?  ", (
 				ftnlen)22);
 			do_lio(&c__9, &c__1, cphase + (j - 1), (ftnlen)1);
 			do_lio(&c__9, &c__1, " ???", (ftnlen)4);
 			e_wsle();
-			s_wsle(&io___157);
+			s_wsle(&io___154);
 			e_wsle();
 			if (coordsyst_1.isingle > 0) {
-			    s_wsfe(&io___158);
+			    s_wsfe(&io___155);
 			    do_fio(&c__1, sta + (j - 1 << 2), (ftnlen)4);
 			    do_fio(&c__1, cphase + (j - 1), (ftnlen)1);
 			    e_wsfe();
@@ -6040,22 +6056,22 @@ L11111:
 				e_wsli();
 			    }
 /* single_turbo */
-			    s_wsle(&io___159);
+			    s_wsle(&io___156);
 			    do_lio(&c__9, &c__1, "subr. INPUTDATA >>> Phase "
 				    "is : ", (ftnlen)31);
 			    do_lio(&c__9, &c__1, cphase + (j - 1), (ftnlen)1);
 			    e_wsle();
-			    s_wsle(&io___160);
+			    s_wsle(&io___157);
 			    do_lio(&c__9, &c__1, "but ireflector is: ", (
 				    ftnlen)19);
 			    do_lio(&c__3, &c__1, (char *)&layvel_1.ireflector,
 				     (ftnlen)sizeof(integer));
 			    e_wsle();
-			    s_wsle(&io___161);
+			    s_wsle(&io___158);
 			    do_lio(&c__9, &c__1, "Phase therefore neglected "
 				    "!!", (ftnlen)28);
 			    e_wsle();
-			    s_wsle(&io___162);
+			    s_wsle(&io___159);
 			    e_wsle();
 			    goto L15;
 			}
@@ -6123,16 +6139,16 @@ L11111:
 	    e_wsli();
 	}
 /* c      write(6,*)'Event # ',i */
-	s_wsfe(&io___164);
+	s_wsfe(&io___161);
 	do_fio(&c__1, sta + (j - 1 << 2), (ftnlen)4);
 	e_wsfe();
-	s_wsle(&io___165);
+	s_wsle(&io___162);
 	do_lio(&c__9, &c__1, "Phase therefore skipped", (ftnlen)23);
 	e_wsle();
-	s_wsle(&io___166);
+	s_wsle(&io___163);
 	e_wsle();
 	if (coordsyst_1.isingle > 0) {
-	    s_wsfe(&io___167);
+	    s_wsfe(&io___164);
 	    do_fio(&c__1, sta + (j - 1 << 2), (ftnlen)4);
 	    e_wsfe();
 	}
@@ -6167,11 +6183,11 @@ L17:
 		e_wsfi();
 	    }
 	    if (coordsyst_1.isingle != 0) {
-		s_wsfe(&io___169);
+		s_wsfe(&io___166);
 		do_fio(&c__1, (char *)&ss1, (ftnlen)sizeof(real));
 		do_fio(&c__1, (char *)&param_1.dmax__, (ftnlen)sizeof(real));
 		e_wsfe();
-		s_wsfe(&io___170);
+		s_wsfe(&io___167);
 		do_fio(&c__1, sta + (j - 1 << 2), (ftnlen)4);
 		e_wsfe();
 	    }
@@ -6280,11 +6296,11 @@ L17:
 				    17);
 			    e_wsli();
 			}
-			s_wsle(&io___174);
+			s_wsle(&io___171);
 			do_lio(&c__9, &c__1, "PHASETEST: POSSIBLE ERROR in p"
 				"haselist !!", (ftnlen)41);
 			e_wsle();
-			s_wsfe(&io___175);
+			s_wsfe(&io___172);
 			do_fio(&c__1, (char *)&event_1.iyr[*i__ - 1], (ftnlen)
 				sizeof(integer));
 			do_fio(&c__1, (char *)&event_1.imo[*i__ - 1], (ftnlen)
@@ -6296,7 +6312,7 @@ L17:
 			do_fio(&c__1, (char *)&event_1.imin[*i__ - 1], (
 				ftnlen)sizeof(integer));
 			e_wsfe();
-			s_wsle(&io___176);
+			s_wsle(&io___173);
 			do_lio(&c__9, &c__1, "Event=", (ftnlen)6);
 			do_lio(&c__3, &c__1, (char *)&ie, (ftnlen)sizeof(
 				integer));
@@ -6309,7 +6325,7 @@ L17:
 			do_lio(&c__9, &c__1, cphase + (j - 1), (ftnlen)1);
 			do_lio(&c__9, &c__1, " already occured!", (ftnlen)17);
 			e_wsle();
-			s_wsle(&io___177);
+			s_wsle(&io___174);
 			e_wsle();
 			if (coordsyst_1.isingle == 0) {
 			    if (! coordsyst_1.single_turbo__) {
@@ -6703,7 +6719,7 @@ L15:
 	e_wsli();
 	adlineb_(bo, bo_len);
     }
-    s_wsle(&io___187);
+    s_wsle(&io___184);
     do_lio(&c__9, &c__1, "WARNING:", (ftnlen)8);
     e_wsle();
     s_stop("subr. INPUTDATA >>> error: end of data!", (ftnlen)39);
@@ -7985,53 +8001,53 @@ L999:
     static real studres;
 
     /* Fortran I/O blocks */
-    static cilist io___230 = { 0, 6, 0, 0, 0 };
-    static cilist io___231 = { 0, 6, 0, 0, 0 };
-    static cilist io___232 = { 0, 2, 0, "(' ERROR: insufficient data to loca"
+    static cilist io___227 = { 0, 6, 0, 0, 0 };
+    static cilist io___228 = { 0, 6, 0, 0, 0 };
+    static cilist io___229 = { 0, 2, 0, "(' ERROR: insufficient data to loca"
 	    "te the quake!')", 0 };
-    static cilist io___233 = { 0, 2, 0, "('0 DATE  ORIGIN   TIME   LAT      "
+    static cilist io___230 = { 0, 2, 0, "('0 DATE  ORIGIN   TIME   LAT      "
 	    "LON     DEPTH ',              ' MAG  NO  DM GAP  RMS   ALE D-SPR"
 	    "')", 0 };
-    static cilist io___234 = { 0, 2, 0, "('0 DATE  ORIGIN TIME   LAT       L"
+    static cilist io___231 = { 0, 2, 0, "('0 DATE  ORIGIN TIME   LAT       L"
 	    "ON     *DEPTH*',              ' MAG  NO  DM GAP  RMS   ALE D-SPR"
 	    "')", 0 };
-    static cilist io___235 = { 0, 2, 0, "('0 DATE  ORIGIN TIME  *LAT*     *L"
+    static cilist io___232 = { 0, 2, 0, "('0 DATE  ORIGIN TIME  *LAT*     *L"
 	    "ON*    *DEPTH*',              ' MAG  NO  DM GAP  RMS   ALE D-SPR"
 	    "')", 0 };
-    static cilist io___245 = { 0, 2, 0, "(1x,3i2.2,1x,i2,':',i2,':',f6.3,1x "
+    static cilist io___242 = { 0, 2, 0, "(1x,3i2.2,1x,i2,':',i2,':',f6.3,1x "
 	    "                            f7.4,a1,f8.4,a1,1x,f7.3,2x,         "
 	    "                              f3.1,2x,i2,1x,i3,1x,i3,f5.2,f6.2, "
 	    "                                1x,f5.2)", 0 };
-    static cilist io___246 = { 0, 2, 0, "('0  ERX  ERY  ERZ Q SQD  ADJ  IN N"
+    static cilist io___243 = { 0, 2, 0, "('0  ERX  ERY  ERZ Q SQD  ADJ  IN N"
 	    "R  ',                         'AVR   AAR  NM AVXM  SDXM IT')", 0 }
 	    ;
-    static cilist io___263 = { 0, 2, 0, "(1x,f5.1,f5.1,f5.1,1x,a1,1x,a1,'/',"
+    static cilist io___260 = { 0, 2, 0, "(1x,f5.1,f5.1,f5.1,1x,a1,1x,a1,'/',"
 	    "a1,f6.2,1x,                   i2,i3,2f6.2,                      "
 	    "                                i3,2x,f3.1,2x,f3.1,1x,i3)", 0 };
-    static cilist io___264 = { 0, 2, 0, "('0 L+T NR:',i4,1x,a32,'CH-COORD.:'"
+    static cilist io___261 = { 0, 2, 0, "('0 L+T NR:',i4,1x,a32,'CH-COORD.:'"
 	    ",                  f9.3,' /',f9.3, ' KM')", 0 };
-    static cilist io___265 = { 0, 2, 0, "('0 F-E NR:',i4,1x,a32,'CH-COORD.:'"
+    static cilist io___262 = { 0, 2, 0, "('0 F-E NR:',i4,1x,a32,'CH-COORD.:'"
 	    ",                  f9.3,' /',f9.3, ' KM')", 0 };
-    static cilist io___266 = { 0, 2, 0, "('0 F-E NR:',i4,1x,a32)", 0 };
-    static cilist io___267 = { 0, 2, 0, "('0 STN  DIST AZM AIN PRMK HRMN  P-"
+    static cilist io___263 = { 0, 2, 0, "('0 F-E NR:',i4,1x,a32)", 0 };
+    static cilist io___264 = { 0, 2, 0, "('0 STN  DIST AZM AIN PRMK HRMN  P-"
 	    "SEC  TPOBS  TPCAL ',          ' -TSCOR  P-RES   P-WT IMP STURES')"
 	    , 0 };
-    static cilist io___268 = { 0, 2, 0, "('        AMX PRX     SRMK XMAG  S-"
+    static cilist io___265 = { 0, 2, 0, "('        AMX PRX     SRMK XMAG  S-"
 	    "SEC  TSOBS  TSCAL ',          ' -TSCOR  S-RES   S-WT IMP STURES')"
 	    , 0 };
-    static icilist io___283 = { 0, card, 0, "(2X,A4,1x,2i4,I4,1X,3A1,I1,a1,2"
+    static icilist io___280 = { 0, card, 0, "(2X,A4,1x,2i4,I4,1X,3A1,I1,a1,2"
 	    "I2,3F7.3,F7.3,1x,                   f7.3,1x,f6.2,1x,f6.4,f7.3)", 
 	    90, 1 };
-    static icilist io___284 = { 0, card+15, 0, "(i4)", 4, 1 };
-    static cilist io___285 = { 0, 2, 0, "(a)", 0 };
-    static cilist io___286 = { 0, 2, 0, "(a)", 0 };
-    static icilist io___288 = { 0, card, 0, "(2x,4x,i5,f4.1)", 15, 1 };
-    static icilist io___289 = { 0, card+25, 0, "(f3.1)", 3, 1 };
-    static icilist io___290 = { 0, card+2, 0, "(a4)", 4, 1 };
-    static icilist io___291 = { 0, card+20, 0, "(3a1,i1,a1)", 5, 1 };
-    static icilist io___292 = { 0, card+29, 0, "(3F7.3,F7.3,1x,f7.3,1x,F6.2,"
+    static icilist io___281 = { 0, card+15, 0, "(i4)", 4, 1 };
+    static cilist io___282 = { 0, 2, 0, "(a)", 0 };
+    static cilist io___283 = { 0, 2, 0, "(a)", 0 };
+    static icilist io___285 = { 0, card, 0, "(2x,4x,i5,f4.1)", 15, 1 };
+    static icilist io___286 = { 0, card+25, 0, "(f3.1)", 3, 1 };
+    static icilist io___287 = { 0, card+2, 0, "(a4)", 4, 1 };
+    static icilist io___288 = { 0, card+20, 0, "(3a1,i1,a1)", 5, 1 };
+    static icilist io___289 = { 0, card+29, 0, "(3F7.3,F7.3,1x,f7.3,1x,F6.2,"
 	    "1x,f6.4,                               f7.3)", 61, 1 };
-    static cilist io___293 = { 0, 2, 0, "(a)", 0 };
+    static cilist io___290 = { 0, 2, 0, "(a)", 0 };
 
 
 
@@ -8128,29 +8144,29 @@ L999:
 	    do_lio(&c__9, &c__1, "Event cannot be located!!!", (ftnlen)26);
 	    e_wsli();
 	}
-	s_wsle(&io___230);
+	s_wsle(&io___227);
 	do_lio(&c__9, &c__1, "knobs(i)-nobswithw0 < nvar !!!", (ftnlen)30);
 	e_wsle();
-	s_wsle(&io___231);
+	s_wsle(&io___228);
 	do_lio(&c__9, &c__1, "Event cannot be located!!!", (ftnlen)26);
 	e_wsle();
     }
     if (form_1.iabort == 1) {
-	s_wsfe(&io___232);
+	s_wsfe(&io___229);
 	e_wsfe();
 	return 0;
     }
 
     if (param_1.ifixsolution == 0) {
-	s_wsfe(&io___233);
+	s_wsfe(&io___230);
 	e_wsfe();
     }
     if (param_1.ifixsolution == 1) {
-	s_wsfe(&io___234);
+	s_wsfe(&io___231);
 	e_wsfe();
     }
     if (param_1.ifixsolution == 9) {
-	s_wsfe(&io___235);
+	s_wsfe(&io___232);
 	e_wsfe();
     }
 
@@ -8217,7 +8233,7 @@ L999:
 
 /* write first line of summary card: */
 
-    s_wsfe(&io___245);
+    s_wsfe(&io___242);
     do_fio(&c__1, (char *)&event_1.iyr[0], (ftnlen)sizeof(integer));
     do_fio(&c__1, (char *)&event_1.imo[0], (ftnlen)sizeof(integer));
     do_fio(&c__1, (char *)&event_1.iday[0], (ftnlen)sizeof(integer));
@@ -8238,7 +8254,7 @@ L999:
     do_fio(&c__1, (char *)&goodness_1.ale[0], (ftnlen)sizeof(real));
     do_fio(&c__1, (char *)&quality_1.spread, (ftnlen)sizeof(real));
     e_wsfe();
-    s_wsfe(&io___246);
+    s_wsfe(&io___243);
     e_wsfe();
 
 /*     standard deviations : */
@@ -8299,7 +8315,7 @@ L999:
 
 /* write second line of summary card */
 
-    s_wsfe(&io___263);
+    s_wsfe(&io___260);
     do_fio(&c__1, (char *)&erx, (ftnlen)sizeof(real));
     do_fio(&c__1, (char *)&ery, (ftnlen)sizeof(real));
     do_fio(&c__1, (char *)&erz, (ftnlen)sizeof(real));
@@ -8318,7 +8334,7 @@ L999:
     e_wsfe();
     if (coordsyst_1.icoordsystem == 2) {
 	if (event_1.nreg >= 1000) {
-	    s_wsfe(&io___264);
+	    s_wsfe(&io___261);
 	    do_fio(&c__1, (char *)&event_1.nreg, (ftnlen)sizeof(integer));
 	    do_fio(&c__1, event_1.regionname, (ftnlen)32);
 	    r__1 = -event_1.e[1];
@@ -8326,7 +8342,7 @@ L999:
 	    do_fio(&c__1, (char *)&event_1.e[2], (ftnlen)sizeof(real));
 	    e_wsfe();
 	} else {
-	    s_wsfe(&io___265);
+	    s_wsfe(&io___262);
 	    do_fio(&c__1, (char *)&event_1.nreg, (ftnlen)sizeof(integer));
 	    do_fio(&c__1, event_1.regionname, (ftnlen)32);
 	    r__1 = -event_1.e[1];
@@ -8335,14 +8351,14 @@ L999:
 	    e_wsfe();
 	}
     } else {
-	s_wsfe(&io___266);
+	s_wsfe(&io___263);
 	do_fio(&c__1, (char *)&event_1.nreg, (ftnlen)sizeof(integer));
 	do_fio(&c__1, event_1.regionname, (ftnlen)32);
 	e_wsfe();
     }
-    s_wsfe(&io___267);
+    s_wsfe(&io___264);
     e_wsfe();
-    s_wsfe(&io___268);
+    s_wsfe(&io___265);
     e_wsfe();
 
     k = 0;
@@ -8384,7 +8400,7 @@ L999:
 	}
 /*        Azimuth (hypoc --> stn) = Azimuth (stn --> hypoc) + 180 deg */
 	azi += 180.f;
-	azi = r_mod(&azi, &c_b1799);
+	azi = r_mod(&azi, &c_b1803);
 	iazi = i_nint(&azi);
 
 	tobs = obb_1.pt[k - 1] - event_1.e[0];
@@ -8433,7 +8449,7 @@ L999:
 /* ek print P card (or S-card if no P obs for this station available */
 
 	iprisecondcard = 0;
-	s_wsfi(&io___283);
+	s_wsfi(&io___280);
 	do_fio(&c__1, charc_1.smn + (k - 1 << 2), (ftnlen)4);
 	do_fio(&c__1, (char *)&obb_1.idelta[k - 1], (ftnlen)sizeof(integer));
 	do_fio(&c__1, (char *)&iazi, (ftnlen)sizeof(integer));
@@ -8462,12 +8478,12 @@ L999:
 	    if (k < obb_1.knobs[0]) {
 		if (s_cmp(charc_1.smn + (k << 2), charc_1.smn + (k - 1 << 2), 
 			(ftnlen)4, (ftnlen)4) == 0) {
-		    s_wsfi(&io___284);
+		    s_wsfi(&io___281);
 		    do_fio(&c__1, (char *)&obb_1.iain[k], (ftnlen)sizeof(
 			    integer));
 		    e_wsfi();
 /* angle of next phas */
-		    s_wsfe(&io___285);
+		    s_wsfe(&io___282);
 		    do_fio(&c__1, card, (ftnlen)90);
 		    e_wsfe();
 /* next card will be an S */
@@ -8476,7 +8492,7 @@ L999:
 		goto L99;
 	    }
 	} else {
-	    s_wsfe(&io___286);
+	    s_wsfe(&io___283);
 	    do_fio(&c__1, card, (ftnlen)90);
 	    e_wsfe();
 	}
@@ -8484,11 +8500,11 @@ L999:
 	s_copy(card, " ", (ftnlen)90, (ftnlen)1);
 	if (event_1.xmagni[k - 1] != -13.f) {
 /* a magnitude was calculated for this o */
-	    s_wsfi(&io___288);
+	    s_wsfi(&io___285);
 	    do_fio(&c__1, (char *)&iamx, (ftnlen)sizeof(integer));
 	    do_fio(&c__1, (char *)&obb_1.prx[k - 1], (ftnlen)sizeof(real));
 	    e_wsfi();
-	    s_wsfi(&io___289);
+	    s_wsfi(&io___286);
 	    do_fio(&c__1, (char *)&event_1.xmagni[k - 1], (ftnlen)sizeof(real)
 		    );
 	    e_wsfi();
@@ -8538,11 +8554,11 @@ L999:
 		    }
 /* ek       NOW write a following card (second phase) for same station */
 /* ek  29.3.95 */
-		    s_wsfi(&io___290);
+		    s_wsfi(&io___287);
 		    do_fio(&c__1, charc_1.smn + (k - 2 << 2), (ftnlen)4);
 		    e_wsfi();
 /* write station name for */
-		    s_wsfi(&io___291);
+		    s_wsfi(&io___288);
 		    do_fio(&c__1, obb_1.prmk + (k - 1), (ftnlen)1);
 		    do_fio(&c__1, char1, (ftnlen)1);
 		    do_fio(&c__1, obb_1.prmk + (k + 649), (ftnlen)1);
@@ -8555,7 +8571,7 @@ L999:
 		    if (studres > 999.f) {
 			studres = 999.999f;
 		    }
-		    s_wsfi(&io___292);
+		    s_wsfi(&io___289);
 		    do_fio(&c__1, (char *)&obb_1.pt[k - 1], (ftnlen)sizeof(
 			    real));
 		    do_fio(&c__1, (char *)&tobs, (ftnlen)sizeof(real));
@@ -8576,7 +8592,7 @@ L999:
 	}
 /* ek next statements may95 */
 	if (iprisecondcard == 1) {
-	    s_wsfe(&io___293);
+	    s_wsfe(&io___290);
 	    do_fio(&c__1, card, (ftnlen)90);
 	    e_wsfe();
 	}
@@ -9307,21 +9323,21 @@ L72:
 	    char *, ftnlen);
 
     /* Fortran I/O blocks */
-    static cilist io___320 = { 0, 6, 0, fmt_1111, 0 };
-    static cilist io___330 = { 0, 6, 0, "(1x,3i2.2,1x,2i2.2,f6.2,           "
+    static cilist io___317 = { 0, 6, 0, fmt_1111, 0 };
+    static cilist io___327 = { 0, 6, 0, "(1x,3i2.2,1x,2i2.2,f6.2,           "
 	    "                                 1x,f7.4,a1,1x,f8.4,a1,1x,      "
 	    "                                   f6.2,f5.2,i4,f6.3,2f7.2,f6.2)",
 	     0 };
-    static icilist io___346 = { 0, a4_1.smpline, 0, "(i4,4i2.2,i3.3,i5.5,a1,"
+    static icilist io___343 = { 0, a4_1.smpline, 0, "(i4,4i2.2,i3.3,i5.5,a1,"
 	    "i6.6,a1,                               i3.3,i2.2,'Ml',i4.4,2i3,'"
 	    "000000000SEDL',                      2i3,i4.4,i2)", 80, 1 };
-    static cilist io___347 = { 0, 11, 0, "(a80)", 0 };
-    static cilist io___348 = { 0, 6, 0, "(1x,a32,'   L+T Nr.: ',i4)", 0 };
-    static cilist io___349 = { 0, 6, 0, "(1x,a32,'   F-E Nr.: ',i4)", 0 };
-    static cilist io___350 = { 0, 7, 0, "(3i2,1x,2i2,1x,f5.2,1x,f7.4,a1,1x,f"
+    static cilist io___344 = { 0, 11, 0, "(a80)", 0 };
+    static cilist io___345 = { 0, 6, 0, "(1x,a32,'   L+T Nr.: ',i4)", 0 };
+    static cilist io___346 = { 0, 6, 0, "(1x,a32,'   F-E Nr.: ',i4)", 0 };
+    static cilist io___347 = { 0, 7, 0, "(3i2,1x,2i2,1x,f5.2,1x,f7.4,a1,1x,f"
 	    "8.4,a1,2f7.2,                  4x,i3,5x,f5.2)", 0 };
-    static cilist io___353 = { 0, 7, 0, fmt_19, 0 };
-    static cilist io___354 = { 0, 7, 0, 0, 0 };
+    static cilist io___350 = { 0, 7, 0, fmt_19, 0 };
+    static cilist io___351 = { 0, 7, 0, 0, 0 };
 
 
 
@@ -9407,7 +9423,7 @@ L72:
 	    e_wsfi();
 	}
 	adlineb_(bo, bo_len);
-	s_wsfe(&io___320);
+	s_wsfe(&io___317);
 	e_wsfe();
     } else {
 	if (! coordsyst_1.single_turbo__) {
@@ -9524,7 +9540,7 @@ L14:
 	}
 
 	if (coordsyst_1.isingle != 0) {
-	    s_wsfe(&io___330);
+	    s_wsfe(&io___327);
 	    do_fio(&c__1, (char *)&event_1.iyr[i__ - 1], (ftnlen)sizeof(
 		    integer));
 	    do_fio(&c__1, (char *)&event_1.imo[i__ - 1], (ftnlen)sizeof(
@@ -9595,7 +9611,7 @@ L14:
 		}
 	    }
 	    idmin = i_nint(&dmin__);
-	    s_wsfi(&io___346);
+	    s_wsfi(&io___343);
 	    do_fio(&c__1, (char *)&year19, (ftnlen)sizeof(integer));
 	    do_fio(&c__1, (char *)&event_1.imo[i__ - 1], (ftnlen)sizeof(
 		    integer));
@@ -9632,7 +9648,7 @@ L14:
 /* ek   SED special format */
 /* ek */
 	if (coordsyst_1.isingle == 0 && outputfiles_1.ismpout == 1) {
-	    s_wsfe(&io___347);
+	    s_wsfe(&io___344);
 	    do_fio(&c__1, a4_1.smpline, (ftnlen)80);
 	    e_wsfe();
 	}
@@ -9667,7 +9683,7 @@ L14:
 		    e_wsfi();
 		    adlineb_(bo, bo_len);
 		}
-		s_wsfe(&io___348);
+		s_wsfe(&io___345);
 		do_fio(&c__1, event_1.regionname, (ftnlen)32);
 		do_fio(&c__1, (char *)&event_1.nreg, (ftnlen)sizeof(integer));
 		e_wsfe();
@@ -9685,7 +9701,7 @@ L14:
 		    e_wsfi();
 		    adlineb_(bo, bo_len);
 		}
-		s_wsfe(&io___349);
+		s_wsfe(&io___346);
 		do_fio(&c__1, event_1.regionname, (ftnlen)32);
 		do_fio(&c__1, (char *)&event_1.nreg, (ftnlen)sizeof(integer));
 		e_wsfe();
@@ -9706,7 +9722,7 @@ L14:
 /* ek          added output of gap and rms of event to converted format */
 /* ek */
 /* do NOT write on file07 */
-	s_wsfe(&io___350);
+	s_wsfe(&io___347);
 	do_fio(&c__1, (char *)&event_1.iyr[i__ - 1], (ftnlen)sizeof(integer));
 	do_fio(&c__1, (char *)&event_1.imo[i__ - 1], (ftnlen)sizeof(integer));
 	do_fio(&c__1, (char *)&event_1.iday[i__ - 1], (ftnlen)sizeof(integer))
@@ -9747,7 +9763,7 @@ L14:
 		*(unsigned char *)&phzz[j - 1] = '-';
 	    }
 	}
-	s_wsfe(&io___353);
+	s_wsfe(&io___350);
 	i__2 = obb_1.knobs[i__ - 1];
 	for (j = 1; j <= i__2; ++j) {
 	    do_fio(&c__1, charc_1.smn + (j + i__ * 650 - 651 << 2), (ftnlen)4)
@@ -9758,7 +9774,7 @@ L14:
 	    do_fio(&c__1, (char *)&tt[j - 1], (ftnlen)sizeof(real));
 	}
 	e_wsfe();
-	s_wsle(&io___354);
+	s_wsle(&io___351);
 	e_wsle();
 
 L12:
@@ -9795,8 +9811,8 @@ L12:
     extern /* Subroutine */ int adlineb_(char *, ftnlen);
 
     /* Fortran I/O blocks */
-    static cilist io___355 = { 0, 6, 0, 0, 0 };
-    static cilist io___356 = { 0, 6, 0, 0, 0 };
+    static cilist io___352 = { 0, 6, 0, 0, 0 };
+    static cilist io___353 = { 0, 6, 0, 0, 0 };
 
 
 
@@ -9857,10 +9873,10 @@ L12:
 
 
 /* **************   end of VELESTCOMMON.FOR  ******************************* */
-    s_wsle(&io___355);
+    s_wsle(&io___352);
     do_lio(&c__9, &c__1, "WARNING:", (ftnlen)8);
     e_wsle();
-    s_wsle(&io___356);
+    s_wsle(&io___353);
     do_lio(&c__9, &c__1, "SUBROUTINE :", (ftnlen)12);
     do_lio(&c__9, &c__1, subr, subr_len);
     do_lio(&c__9, &c__1, "    ERROR OPENING FILE: ", (ftnlen)24);
@@ -9926,7 +9942,7 @@ L12:
     static integer istime1, istime2;
 
     /* Fortran I/O blocks */
-    static cilist io___359 = { 0, 10, 1, "(a)", 0 };
+    static cilist io___356 = { 0, 10, 1, "(a)", 0 };
 
 
 /* tabelle fuer stationen im input file */
@@ -9951,7 +9967,7 @@ L12:
 	ifirstcall = 10000001;
 	maxstlin = 1;
 L1000:
-	i__1 = s_rsfe(&io___359);
+	i__1 = s_rsfe(&io___356);
 	if (i__1 != 0) {
 	    goto L2000;
 	}
@@ -10087,12 +10103,12 @@ L40:
     static real ttime[180];
 
     /* Fortran I/O blocks */
-    static cilist io___379 = { 0, 0, 1, "(a)", 0 };
-    static icilist io___381 = { 1, cline, 1, "(3i2,1x,2i2,1x,f5.2,1x,f7.4,a1"
+    static cilist io___376 = { 0, 0, 1, "(a)", 0 };
+    static icilist io___378 = { 1, cline, 1, "(3i2,1x,2i2,1x,f5.2,1x,f7.4,a1"
 	    ",1x,f8.4,a1,1x,f7.2,          2x,f5.2)", 80, 1 };
-    static cilist io___386 = { 0, 0, 1, "(6(a4,a1,i1,f6.2))", 0 };
-    static cilist io___389 = { 0, 6, 0, 0, 0 };
-    static cilist io___390 = { 0, 6, 0, "(a)", 0 };
+    static cilist io___383 = { 0, 0, 1, "(6(a4,a1,i1,f6.2))", 0 };
+    static cilist io___386 = { 0, 6, 0, 0, 0 };
+    static cilist io___387 = { 0, 6, 0, "(a)", 0 };
 
 
 
@@ -10121,8 +10137,8 @@ L1:
     *nobs = 0;
 
 L2:
-    io___379.ciunit = *iunit;
-    i__1 = s_rsfe(&io___379);
+    io___376.ciunit = *iunit;
+    i__1 = s_rsfe(&io___376);
     if (i__1 != 0) {
 	goto L99;
     }
@@ -10143,7 +10159,7 @@ L2:
     }
 
 /* ek   next line adjusted by EK 3.12.90 */
-    i__1 = s_rsfi(&io___381);
+    i__1 = s_rsfi(&io___378);
     if (i__1 != 0) {
 	goto L100001;
     }
@@ -10224,8 +10240,8 @@ L100001:
 L10:
     j1 = j2 + 1;
     j2 = j1 + 5;
-    io___386.ciunit = *iunit;
-    i__1 = s_rsfe(&io___386);
+    io___383.ciunit = *iunit;
+    i__1 = s_rsfe(&io___383);
     if (i__1 != 0) {
 	goto L999;
     }
@@ -10281,11 +10297,11 @@ L999:
     return 0;
 
 L9999:
-    s_wsle(&io___389);
+    s_wsle(&io___386);
     do_lio(&c__9, &c__1, "INPUTCNV>>> read-error! input-line is:", (ftnlen)38)
 	    ;
     e_wsle();
-    s_wsfe(&io___390);
+    s_wsfe(&io___387);
     do_fio(&c__1, cline, (ftnlen)80);
     e_wsfe();
     s_stop("subr. INPUTCNV >>> error!", (ftnlen)25);
@@ -10323,12 +10339,12 @@ L9999:
     static real ttime[180];
 
     /* Fortran I/O blocks */
-    static cilist io___391 = { 0, 0, 1, "(a)", 0 };
-    static icilist io___393 = { 1, cline, 1, "(3i2,1x,2i2,1x,f5.2,1x,f7.4,a1"
+    static cilist io___388 = { 0, 0, 1, "(a)", 0 };
+    static icilist io___390 = { 1, cline, 1, "(3i2,1x,2i2,1x,f5.2,1x,f7.4,a1"
 	    ",1x,f8.4,a1,1x,f7.2,          2x,f5.2)", 80, 1 };
-    static cilist io___399 = { 0, 0, 1, "(2x,a4,2x,a1,3x,i1,3x,f6.2)", 0 };
-    static cilist io___401 = { 0, 6, 0, 0, 0 };
-    static cilist io___402 = { 0, 6, 0, "(a)", 0 };
+    static cilist io___396 = { 0, 0, 1, "(2x,a4,2x,a1,3x,i1,3x,f6.2)", 0 };
+    static cilist io___398 = { 0, 6, 0, 0, 0 };
+    static cilist io___399 = { 0, 6, 0, "(a)", 0 };
 
 
 
@@ -10360,8 +10376,8 @@ L9999:
     *nobs = -1;
 
 L2:
-    io___391.ciunit = *iunit;
-    i__1 = s_rsfe(&io___391);
+    io___388.ciunit = *iunit;
+    i__1 = s_rsfe(&io___388);
     if (i__1 != 0) {
 	goto L999;
     }
@@ -10377,7 +10393,7 @@ L2:
 	goto L2;
     }
 
-    i__1 = s_rsfi(&io___393);
+    i__1 = s_rsfi(&io___390);
     if (i__1 != 0) {
 	goto L100002;
     }
@@ -10456,8 +10472,8 @@ L100002:
 
     j1 = 1;
     for (j = 1; j <= 180; ++j) {
-	io___399.ciunit = *iunit;
-	i__1 = s_rsfe(&io___399);
+	io___396.ciunit = *iunit;
+	i__1 = s_rsfe(&io___396);
 	if (i__1 != 0) {
 	    goto L99;
 	}
@@ -10503,11 +10519,11 @@ L999:
     return 0;
 
 L9999:
-    s_wsle(&io___401);
+    s_wsle(&io___398);
     do_lio(&c__9, &c__1, "INPUTARCVEL>>> read-error! input-line is:", (ftnlen)
 	    41);
     e_wsle();
-    s_wsfe(&io___402);
+    s_wsfe(&io___399);
     do_fio(&c__1, cline, (ftnlen)80);
     e_wsfe();
     s_stop("subr. INPUTARCVEL >>> error!", (ftnlen)28);
@@ -10552,16 +10568,16 @@ L9999:
     static integer itime1[180], jjmin1;
 
     /* Fortran I/O blocks */
-    static cilist io___404 = { 0, 0, 1, "(a)", 0 };
-    static icilist io___406 = { 0, cline, 0, "(17x,i1,i1,f5.2,2f8.3)", 80, 1 }
+    static cilist io___401 = { 0, 0, 1, "(a)", 0 };
+    static icilist io___403 = { 0, cline, 0, "(17x,i1,i1,f5.2,2f8.3)", 80, 1 }
 	    ;
-    static icilist io___407 = { 1, cline, 0, "(a4,a1,a1,a1,i1,a1,5i2,f5.2,7x"
+    static icilist io___404 = { 1, cline, 0, "(a4,a1,a1,a1,i1,a1,5i2,f5.2,7x"
 	    ",                                   f5.2,2x,a1,i1,4x,f3.0,f3.1)", 
 	    80, 1 };
-    static icilist io___415 = { 0, cline+63, 0, "(a1)", 1, 1 };
-    static icilist io___416 = { 0, cline+75, 0, "(i4)", 4, 1 };
-    static cilist io___422 = { 0, 6, 0, 0, 0 };
-    static cilist io___423 = { 0, 6, 0, "(a)", 0 };
+    static icilist io___412 = { 0, cline+63, 0, "(a1)", 1, 1 };
+    static icilist io___413 = { 0, cline+75, 0, "(i4)", 4, 1 };
+    static cilist io___419 = { 0, 6, 0, 0, 0 };
+    static cilist io___420 = { 0, 6, 0, "(a)", 0 };
 
 
 
@@ -10587,8 +10603,8 @@ L9999:
     j = 0;
 
 L1:
-    io___404.ciunit = *iunit;
-    i__1 = s_rsfe(&io___404);
+    io___401.ciunit = *iunit;
+    i__1 = s_rsfe(&io___401);
     if (i__1 != 0) {
 	goto L999;
     }
@@ -10615,7 +10631,7 @@ L1:
 
     ++j;
     if (s_cmp(cline, " ", (ftnlen)4, (ftnlen)1) == 0) {
-	s_rsfi(&io___406);
+	s_rsfi(&io___403);
 	do_fio(&c__1, (char *)&(*iswt), (ftnlen)sizeof(integer));
 	do_fio(&c__1, (char *)&(*ifixsolution), (ftnlen)sizeof(integer));
 	do_fio(&c__1, (char *)&(*depth), (ftnlen)sizeof(real));
@@ -10626,7 +10642,7 @@ L1:
 	goto L99;
 /* one event finished!!! */
     }
-    i__1 = s_rsfi(&io___407);
+    i__1 = s_rsfi(&io___404);
     if (i__1 != 0) {
 	goto L9999;
     }
@@ -10703,10 +10719,10 @@ L1:
 	goto L9999;
     }
     if (j == 1) {
-	s_rsfi(&io___415);
+	s_rsfi(&io___412);
 	do_fio(&c__1, eventtype, (ftnlen)1);
 	e_rsfi();
-	s_rsfi(&io___416);
+	s_rsfi(&io___413);
 	do_fio(&c__1, (char *)&(*ievnr), (ftnlen)sizeof(integer));
 	e_rsfi();
     }
@@ -10802,11 +10818,11 @@ L999:
     return 0;
 
 L9999:
-    s_wsle(&io___422);
+    s_wsle(&io___419);
     do_lio(&c__9, &c__1, "INPUTSED>>> read-error! input-line is:", (ftnlen)38)
 	    ;
     e_wsle();
-    s_wsfe(&io___423);
+    s_wsfe(&io___420);
     do_fio(&c__1, cline, (ftnlen)80);
     e_wsfe();
     s_stop("subr. INPUTSED >>> error!", (ftnlen)25);
@@ -10853,18 +10869,18 @@ L9999:
 	    ev_min__, itime_o__, ev_year__, ev_hour__;
 
     /* Fortran I/O blocks */
-    static cilist io___425 = { 0, 0, 1, "(a)", 0 };
-    static icilist io___427 = { 0, cline, 0, "(29x,i2)", 80, 1 };
-    static icilist io___428 = { 0, cline, 0, 0, 80, 1 };
-    static cilist io___430 = { 0, 0, 1, "(a)", 0 };
-    static icilist io___431 = { 0, cline, 0, "(2x,i2,1x,i2,1x,i2,1x,i2,1x,i2)"
+    static cilist io___422 = { 0, 0, 1, "(a)", 0 };
+    static icilist io___424 = { 0, cline, 0, "(29x,i2)", 80, 1 };
+    static icilist io___425 = { 0, cline, 0, 0, 80, 1 };
+    static cilist io___427 = { 0, 0, 1, "(a)", 0 };
+    static icilist io___428 = { 0, cline, 0, "(2x,i2,1x,i2,1x,i2,1x,i2,1x,i2)"
 	    , 80, 1 };
-    static icilist io___437 = { 0, cline+54, 0, "(a1)", 1, 1 };
-    static icilist io___438 = { 0, cline+70, 0, "(i8)", 8, 1 };
-    static icilist io___439 = { 1, cline, 0, "(a4,4x,a8,a1,a1,f8.3,i2,f5.2,f"
+    static icilist io___434 = { 0, cline+54, 0, "(a1)", 1, 1 };
+    static icilist io___435 = { 0, cline+70, 0, "(i8)", 8, 1 };
+    static icilist io___436 = { 1, cline, 0, "(a4,4x,a8,a1,a1,f8.3,i2,f5.2,f"
 	    "9.0,1x,a8,i3)", 80, 1 };
-    static cilist io___455 = { 0, 6, 0, 0, 0 };
-    static cilist io___456 = { 0, 6, 0, "(a)", 0 };
+    static cilist io___452 = { 0, 6, 0, 0, 0 };
+    static cilist io___453 = { 0, 6, 0, "(a)", 0 };
 
 
 
@@ -10890,8 +10906,8 @@ L9999:
     j = 0;
 
 L1:
-    io___425.ciunit = *iunit;
-    i__1 = s_rsfe(&io___425);
+    io___422.ciunit = *iunit;
+    i__1 = s_rsfe(&io___422);
     if (i__1 != 0) {
 	goto L999;
     }
@@ -10919,7 +10935,7 @@ L1:
 /*     The INST card will be partially read */
 
     if (i_indx(cline, "INST", (ftnlen)80, (ftnlen)4) > 0) {
-	s_rsfi(&io___427);
+	s_rsfi(&io___424);
 	do_fio(&c__1, (char *)&(*iswt), (ftnlen)sizeof(integer));
 	e_rsfi();
 	goto L1;
@@ -10948,7 +10964,7 @@ L1:
 /* cccccccccccccccccccccccccccccccccccccccccc */
 
     if (i_indx(cline, "TRIAL", (ftnlen)80, (ftnlen)5) > 0) {
-	s_rsli(&io___428);
+	s_rsli(&io___425);
 	do_lio(&c__4, &c__1, (char *)&(*xlat), (ftnlen)sizeof(real));
 	do_lio(&c__4, &c__1, (char *)&(*xlon), (ftnlen)sizeof(real));
 	do_lio(&c__4, &c__1, (char *)&(*depth), (ftnlen)sizeof(real));
@@ -10970,8 +10986,8 @@ L1:
 
 /*        Reading the line after the TRIAL card */
 
-	io___430.ciunit = *iunit;
-	i__1 = s_rsfe(&io___430);
+	io___427.ciunit = *iunit;
+	i__1 = s_rsfe(&io___427);
 	if (i__1 != 0) {
 	    goto L999;
 	}
@@ -10983,17 +10999,17 @@ L1:
 	if (i__1 != 0) {
 	    goto L999;
 	}
-	s_rsfi(&io___431);
+	s_rsfi(&io___428);
 	do_fio(&c__1, (char *)&ev_year__, (ftnlen)sizeof(integer));
 	do_fio(&c__1, (char *)&ev_month__, (ftnlen)sizeof(integer));
 	do_fio(&c__1, (char *)&ev_day__, (ftnlen)sizeof(integer));
 	do_fio(&c__1, (char *)&ev_hour__, (ftnlen)sizeof(integer));
 	do_fio(&c__1, (char *)&ev_min__, (ftnlen)sizeof(integer));
 	e_rsfi();
-	s_rsfi(&io___437);
+	s_rsfi(&io___434);
 	do_fio(&c__1, eventtype, (ftnlen)1);
 	e_rsfi();
-	s_rsfi(&io___438);
+	s_rsfi(&io___435);
 	do_fio(&c__1, (char *)&(*ievnr), (ftnlen)sizeof(integer));
 	e_rsfi();
 	goto L1;
@@ -11010,7 +11026,7 @@ L1:
 /*     If here, a phase will be read */
 
     ++j;
-    i__1 = s_rsfi(&io___439);
+    i__1 = s_rsfi(&io___436);
     if (i__1 != 0) {
 	goto L9999;
     }
@@ -11196,11 +11212,11 @@ L999:
     return 0;
 
 L9999:
-    s_wsle(&io___455);
+    s_wsle(&io___452);
     do_lio(&c__9, &c__1, "INPUTSED>>> read-error! input-line is:", (ftnlen)38)
 	    ;
     e_wsle();
-    s_wsfe(&io___456);
+    s_wsfe(&io___453);
     do_fio(&c__1, cline, (ftnlen)80);
     e_wsfe();
     s_stop("subr. INPUTSED >>> error!", (ftnlen)25);
@@ -11887,13 +11903,13 @@ L1:
 	     ftnlen);
 
     /* Fortran I/O blocks */
-    static cilist io___510 = { 0, 13, 0, fmt_1301, 0 };
-    static cilist io___511 = { 0, 13, 0, fmt_1302, 0 };
-    static cilist io___513 = { 0, 13, 0, fmt_1302, 0 };
-    static cilist io___527 = { 0, 21, 0, 0, 0 };
-    static cilist io___528 = { 0, 21, 0, fmt_500, 0 };
-    static cilist io___529 = { 0, 21, 0, fmt_501, 0 };
-    static cilist io___531 = { 0, 21, 0, fmt_502, 0 };
+    static cilist io___507 = { 0, 13, 0, fmt_1301, 0 };
+    static cilist io___508 = { 0, 13, 0, fmt_1302, 0 };
+    static cilist io___510 = { 0, 13, 0, fmt_1302, 0 };
+    static cilist io___524 = { 0, 21, 0, 0, 0 };
+    static cilist io___525 = { 0, 21, 0, fmt_500, 0 };
+    static cilist io___526 = { 0, 21, 0, fmt_501, 0 };
+    static cilist io___528 = { 0, 21, 0, fmt_502, 0 };
 
 
 
@@ -12103,7 +12119,7 @@ L10:
 
 /*     do the ray-tracing : */
 
-    raypath_(&c__1, &c__1, &c__1, &c_b2408, &c_b2408, &c_b2408, &c_b2408, &nl,
+    raypath_(&c__1, &c__1, &c__1, &c_b2412, &c_b2412, &c_b2412, &c_b2412, &nl,
 	     layer_1.thk, layer_1.h__, layer_1.v, layer_1.vsq, &event_1.e[(*
 	    i__ << 2) - 3], &event_1.e[(*i__ << 2) - 2], &event_1.e[(*i__ << 
 	    2) - 1], &statn_1.x[k1 - 1], &statn_1.x[k1 + 649], &statn_1.x[k1 
@@ -12148,13 +12164,13 @@ L10:
 	}
 
 	if (outputfiles_1.irayout == 1) {
-	    s_wsfe(&io___510);
+	    s_wsfe(&io___507);
 	    do_fio(&c__1, (char *)&(*i__), (ftnlen)sizeof(integer));
 	    do_fio(&c__1, charc_1.stn + (k1 - 1 << 2), (ftnlen)4);
 	    do_fio(&c__1, (char *)&nrp, (ftnlen)sizeof(integer));
 	    e_wsfe();
 	    if (coordsyst_1.icoordsystem == 2) {
-		s_wsfe(&io___511);
+		s_wsfe(&io___508);
 		i__1 = nrp;
 		for (ir = 1; ir <= i__1; ++ir) {
 		    r__1 = -rp[ir * 3 - 3];
@@ -12166,7 +12182,7 @@ L10:
 		}
 		e_wsfe();
 	    } else {
-		s_wsfe(&io___513);
+		s_wsfe(&io___510);
 		i__1 = nrp;
 		for (ir = 1; ir <= i__1; ++ir) {
 		    do_fio(&c__1, (char *)&rp[ir * 3 - 3], (ftnlen)sizeof(
@@ -12353,7 +12369,7 @@ L600:
 /* reset h(1) after it has been altered in subr. r */
     layer_1.thk[0] += tkh;
     if (outputfiles_1.idrvout == 1) {
-	s_wsle(&io___527);
+	s_wsle(&io___524);
 	do_lio(&c__9, &c__1, "i=", (ftnlen)2);
 	do_lio(&c__3, &c__1, (char *)&(*i__), (ftnlen)sizeof(integer));
 	do_lio(&c__9, &c__1, "  nobs=", (ftnlen)7);
@@ -12363,19 +12379,19 @@ L600:
 	do_lio(&c__9, &c__1, "  nrtn=", (ftnlen)7);
 	do_lio(&c__3, &c__1, (char *)&nrtn, (ftnlen)sizeof(integer));
 	e_wsle();
-	s_wsfe(&io___528);
+	s_wsfe(&io___525);
 	do_fio(&c__1, (char *)&ttt, (ftnlen)sizeof(real));
 	do_fio(&c__1, (char *)&pobs, (ftnlen)sizeof(real));
 	do_fio(&c__1, (char *)&a4_1.res[*nobs + *i__ * 650 - 651], (ftnlen)
 		sizeof(real));
 	e_wsfe();
-	s_wsfe(&io___529);
+	s_wsfe(&io___526);
 	for (jzz = 1; jzz <= 3; ++jzz) {
 	    do_fio(&c__1, (char *)&dttx_1.dtdr[jzz - 1], (ftnlen)sizeof(real))
 		    ;
 	}
 	e_wsfe();
-	s_wsfe(&io___531);
+	s_wsfe(&io___528);
 	i__1 = nl;
 	for (jzz = 1; jzz <= i__1; ++jzz) {
 	    do_fio(&c__1, (char *)&dttx_1.dtdv[jzz - 1], (ftnlen)sizeof(real))
@@ -12546,15 +12562,15 @@ L600:
     static real xhyp, yhyp, xstn, ystn;
 
     /* Fortran I/O blocks */
-    static cilist io___536 = { 0, 78, 0, "(2x,'RFR',3f10.3,'        .1')", 0 }
+    static cilist io___533 = { 0, 78, 0, "(2x,'RFR',3f10.3,'        .1')", 0 }
 	    ;
-    static cilist io___537 = { 0, 78, 0, "(2x,'RFR',3f10.3,'        .1')", 0 }
+    static cilist io___534 = { 0, 78, 0, "(2x,'RFR',3f10.3,'        .1')", 0 }
 	    ;
-    static cilist io___538 = { 0, 78, 0, "(2x,'RFR',3f10.3,'        .1')", 0 }
+    static cilist io___535 = { 0, 78, 0, "(2x,'RFR',3f10.3,'        .1')", 0 }
 	    ;
-    static cilist io___539 = { 0, 77, 0, "(2x,'RFL',3f10.4,'        .1')", 0 }
+    static cilist io___536 = { 0, 77, 0, "(2x,'RFL',3f10.4,'        .1')", 0 }
 	    ;
-    static cilist io___547 = { 0, 79, 0, "(1x,f6.2,2x,f7.3)", 0 };
+    static cilist io___544 = { 0, 79, 0, "(1x,f6.2,2x,f7.3)", 0 };
 
 
 
@@ -12643,7 +12659,7 @@ L600:
 		    xxx = -xxx;
 		}
 		yyy = rp[*nrpdeep * 3 + 2];
-		s_wsfe(&io___536);
+		s_wsfe(&io___533);
 		do_fio(&c__1, (char *)&xxx, (ftnlen)sizeof(real));
 		do_fio(&c__1, (char *)&yyy, (ftnlen)sizeof(real));
 		do_fio(&c__1, (char *)&a4_1.res[*nobs + *i__ * 650 - 651], (
@@ -12656,7 +12672,7 @@ L600:
 		}
 		yyy = (rp[*nrpdeep * 3 + 2] + rp[(*nrpdeep + 1) * 3 + 2]) / 
 			2.f;
-		s_wsfe(&io___537);
+		s_wsfe(&io___534);
 		do_fio(&c__1, (char *)&xxx, (ftnlen)sizeof(real));
 		do_fio(&c__1, (char *)&yyy, (ftnlen)sizeof(real));
 		do_fio(&c__1, (char *)&a4_1.res[*nobs + *i__ * 650 - 651], (
@@ -12667,7 +12683,7 @@ L600:
 		    xxx = -xxx;
 		}
 		yyy = rp[(*nrpdeep + 1) * 3 + 2];
-		s_wsfe(&io___538);
+		s_wsfe(&io___535);
 		do_fio(&c__1, (char *)&xxx, (ftnlen)sizeof(real));
 		do_fio(&c__1, (char *)&yyy, (ftnlen)sizeof(real));
 		do_fio(&c__1, (char *)&a4_1.res[*nobs + *i__ * 650 - 651], (
@@ -12698,7 +12714,7 @@ L600:
 		} else {
 		    xxx = rp[*nrpdeep * 3 + 1];
 		}
-		s_wsfe(&io___539);
+		s_wsfe(&io___536);
 		r__1 = -rp[*nrpdeep * 3 + 1];
 		do_fio(&c__1, (char *)&r__1, (ftnlen)sizeof(real));
 		do_fio(&c__1, (char *)&rp[*nrpdeep * 3 + 2], (ftnlen)sizeof(
@@ -12748,7 +12764,7 @@ L600:
 	r__3 = rp[6] - rp[*nrp * 3 + 3];
 	dist = r__1 * r__1 + r__2 * r__2 + r__3 * r__3;
 	dist = sqrt(dist);
-	s_wsfe(&io___547);
+	s_wsfe(&io___544);
 	do_fio(&c__1, (char *)&dist, (ftnlen)sizeof(real));
 	do_fio(&c__1, (char *)&a4_1.res[*nobs + *i__ * 650 - 651], (ftnlen)
 		sizeof(real));
@@ -12793,13 +12809,13 @@ L600:
     static integer iminold;
 
     /* Fortran I/O blocks */
-    static cilist io___563 = { 0, 6, 0, "(1x,'WARNING: Tried to introduce a "
+    static cilist io___560 = { 0, 6, 0, "(1x,'WARNING: Tried to introduce a "
 	    "',                             'low-velocity-layer! (Layer ',i2,"
 	    "')')", 0 };
-    static cilist io___564 = { 0, 6, 0, "(1x,'Setting DVP from ',f5.2,' to 0"
+    static cilist io___561 = { 0, 6, 0, "(1x,'Setting DVP from ',f5.2,' to 0"
 	    ".0 and',                     ' VP to vp(layer_above)+0.001')", 0 }
 	    ;
-    static cilist io___565 = { 0, 6, 0, 0, 0 };
+    static cilist io___562 = { 0, 6, 0, 0, 0 };
 
 
 
@@ -13090,14 +13106,14 @@ L600:
 				    sizeof(real));
 			    e_wsfi();
 			}
-			s_wsfe(&io___563);
+			s_wsfe(&io___560);
 			do_fio(&c__1, (char *)&kj, (ftnlen)sizeof(integer));
 			e_wsfe();
-			s_wsfe(&io___564);
+			s_wsfe(&io___561);
 			do_fio(&c__1, (char *)&a4_1.b[jjj - 1], (ftnlen)
 				sizeof(real));
 			e_wsfe();
-			s_wsle(&io___565);
+			s_wsle(&io___562);
 			e_wsle();
 			a4_1.b[jjj - 1] = 0.f;
 			layvel_1.vp[i__ + (kj << 1) - 3] = layvel_1.vp[i__ + (
@@ -13761,10 +13777,10 @@ L11:
     static integer nofgaps;
 
     /* Fortran I/O blocks */
-    static cilist io___583 = { 0, 6, 0, 0, 0 };
-    static cilist io___584 = { 0, 6, 0, 0, 0 };
-    static cilist io___585 = { 0, 6, 0, 0, 0 };
-    static cilist io___595 = { 0, 6, 0, 0, 0 };
+    static cilist io___580 = { 0, 6, 0, 0, 0 };
+    static cilist io___581 = { 0, 6, 0, 0, 0 };
+    static cilist io___582 = { 0, 6, 0, 0, 0 };
+    static cilist io___592 = { 0, 6, 0, 0, 0 };
 
 
 
@@ -13876,7 +13892,7 @@ L11:
 	    do_lio(&c__9, &c__1, " subr. GAPCALC", (ftnlen)14);
 	    e_wsli();
 	}
-	s_wsle(&io___583);
+	s_wsle(&io___580);
 	do_lio(&c__9, &c__1, " Event# ", (ftnlen)8);
 	do_lio(&c__3, &c__1, (char *)&(*i__), (ftnlen)sizeof(integer));
 	do_lio(&c__9, &c__1, "   Nobs = ", (ftnlen)10);
@@ -13884,11 +13900,11 @@ L11:
 		integer));
 	do_lio(&c__9, &c__1, " > 200 !!!", (ftnlen)10);
 	e_wsle();
-	s_wsle(&io___584);
+	s_wsle(&io___581);
 	do_lio(&c__9, &c__1, " Array IGA(200) is too small; redimension it in"
 		, (ftnlen)47);
 	e_wsle();
-	s_wsle(&io___585);
+	s_wsle(&io___582);
 	do_lio(&c__9, &c__1, " subr. GAPCALC", (ftnlen)14);
 	e_wsle();
 	s_stop("subr. GAPCALC >>> array IGA is too small !", (ftnlen)42);
@@ -13922,7 +13938,7 @@ L11:
     if (nofgaps > 0) {
 	sorti_(iga, &nofgaps);
     } else {
-	s_wsle(&io___595);
+	s_wsle(&io___592);
 	do_lio(&c__9, &c__1, "WARNING: Event-# :", (ftnlen)18);
 	do_lio(&c__3, &c__1, (char *)&(*i__), (ftnlen)sizeof(integer));
 	do_lio(&c__9, &c__1, "has zero observations!", (ftnlen)22);
@@ -13999,13 +14015,13 @@ L11:
     extern /* Subroutine */ int adlineb_(char *, ftnlen);
 
     /* Fortran I/O blocks */
-    static cilist io___607 = { 0, 6, 0, "(1x,'WARNING: Tried to introduce a "
+    static cilist io___604 = { 0, 6, 0, "(1x,'WARNING: Tried to introduce a "
 	    "',                             'low-velocity-layer! (Layer ',i2,"
 	    "')')", 0 };
-    static cilist io___608 = { 0, 6, 0, "(1x,'Setting DVP from ',f5.2,' to 0"
+    static cilist io___605 = { 0, 6, 0, "(1x,'Setting DVP from ',f5.2,' to 0"
 	    ".0 and',                     ' VP to vp(layer_above)+0.001')", 0 }
 	    ;
-    static cilist io___609 = { 0, 6, 0, 0, 0 };
+    static cilist io___606 = { 0, 6, 0, 0, 0 };
 
 
 
@@ -14192,14 +14208,14 @@ L11:
 			    e_wsfi();
 			    adlineb_(bo, bo_len);
 			}
-			s_wsfe(&io___607);
+			s_wsfe(&io___604);
 			do_fio(&c__1, (char *)&k, (ftnlen)sizeof(integer));
 			e_wsfe();
-			s_wsfe(&io___608);
+			s_wsfe(&io___605);
 			do_fio(&c__1, (char *)&a4_1.b[jjj - 1], (ftnlen)
 				sizeof(real));
 			e_wsfe();
-			s_wsle(&io___609);
+			s_wsle(&io___606);
 			e_wsle();
 			a4_1.b[jjj - 1] = 0.f;
 			layvel_1.vp[k2 + (k << 1) - 3] = layvel_1.vp[k2 + (k 
@@ -14779,18 +14795,18 @@ L900:
     static real avresol;
 
     /* Fortran I/O blocks */
-    static cilist io___631 = { 0, 80, 0, 0, 0 };
-    static icilist io___638 = { 0, pcard, 0, fmt_18, 80, 1 };
-    static icilist io___640 = { 0, pcard+40, 0, fmt_18, 40, 1 };
-    static cilist io___645 = { 0, 6, 0, "(23x,'  OT (sec)   X (km)    Y (km)"
+    static cilist io___628 = { 0, 80, 0, 0, 0 };
+    static icilist io___635 = { 0, pcard, 0, fmt_18, 80, 1 };
+    static icilist io___637 = { 0, pcard+40, 0, fmt_18, 40, 1 };
+    static cilist io___642 = { 0, 6, 0, "(23x,'  OT (sec)   X (km)    Y (km)"
 	    "    Z (km) ')", 0 };
-    static cilist io___646 = { 0, 6, 0, "(' Sigma (CHD):         ',4f10.4)", 
+    static cilist io___643 = { 0, 6, 0, "(' Sigma (CHD):         ',4f10.4)", 
 	    0 };
-    static cilist io___647 = { 0, 6, 0, "(' Resolution (CHD):    ',4f10.4,x,"
+    static cilist io___644 = { 0, 6, 0, "(' Resolution (CHD):    ',4f10.4,x,"
 	    "                              'D-spread =',f6.3)", 0 };
-    static cilist io___648 = { 0, 6, 0, "(' Data Variance      = ',f10.4)", 0 
+    static cilist io___645 = { 0, 6, 0, "(' Data Variance      = ',f10.4)", 0 
 	    };
-    static cilist io___649 = { 0, 6, 0, "(' Singular values:     ',4f10.4,5x"
+    static cilist io___646 = { 0, 6, 0, "(' Singular values:     ',4f10.4,5x"
 	    ",'ALE =',f7.3)", 0 };
 
 
@@ -14907,7 +14923,7 @@ L900:
     n2 = n1 + dimen_1.nshot;
     n3 = n2 + modela_1.nltot;
     if (param_1.iresolcalc == 2 && coordsyst_1.isingle == 1) {
-	s_wsle(&io___631);
+	s_wsle(&io___628);
 	do_lio(&c__9, &c__1, "Covariance matrice", (ftnlen)18);
 	e_wsle();
     }
@@ -14950,7 +14966,7 @@ L900:
 	    }
 	    rdiag[k - 1] = a4_1.rht[l - 1];
 	} else {
-	    s_wsfi(&io___638);
+	    s_wsfi(&io___635);
 	    i__2 = dimen_1.nvar;
 	    for (j = 1; j <= i__2; ++j) {
 		do_fio(&c__1, (char *)&a4_1.rht[j - 1], (ftnlen)sizeof(real));
@@ -15013,7 +15029,7 @@ L900:
 		adlineb_(bo, bo_len);
 	    }
 	} else {
-	    s_wsfi(&io___640);
+	    s_wsfi(&io___637);
 	    i__2 = dimen_1.nvar;
 	    for (j = 1; j <= i__2; ++j) {
 		do_fio(&c__1, (char *)&a4_1.rht[j - 1], (ftnlen)sizeof(real));
@@ -15131,16 +15147,16 @@ L900:
 		    (ftnlen)41);
 	    e_wsli();
 	}
-	s_wsfe(&io___645);
+	s_wsfe(&io___642);
 	e_wsfe();
 /*        write(6,'(1x,''CHOLESKY  (othet='',f5.3,'') :'')') othet */
-	s_wsfe(&io___646);
+	s_wsfe(&io___643);
 	i__1 = nef;
 	for (j = 1; j <= i__1; ++j) {
 	    do_fio(&c__1, (char *)&a4_1.s[j - 1], (ftnlen)sizeof(real));
 	}
 	e_wsfe();
-	s_wsfe(&io___647);
+	s_wsfe(&io___644);
 	i__1 = nef;
 	for (j = 1; j <= i__1; ++j) {
 	    do_fio(&c__1, (char *)&goodness_1.rc[j + (j << 2) - 5], (ftnlen)
@@ -15148,14 +15164,14 @@ L900:
 	}
 	do_fio(&c__1, (char *)&quality_1.spread, (ftnlen)sizeof(real));
 	e_wsfe();
-	s_wsfe(&io___648);
+	s_wsfe(&io___645);
 	do_fio(&c__1, (char *)&(*davari), (ftnlen)sizeof(real));
 	e_wsfe();
 /* cc        call SPREADd(Rs,4,spread3) */
 /* cc        do j=1,4 */
 /* cc           COVs(j)=SQRT(COVs(j))  !  <-- standard deviation */
 /* cc        enddo */
-	s_wsfe(&io___649);
+	s_wsfe(&io___646);
 	i__1 = nef;
 	for (j = 1; j <= i__1; ++j) {
 	    do_fio(&c__1, (char *)&goodness_1.sv[j - 1], (ftnlen)sizeof(real))
@@ -15582,7 +15598,7 @@ L40:
     extern /* Subroutine */ int adlineb_(char *, ftnlen);
 
     /* Fortran I/O blocks */
-    static cilist io___666 = { 0, 6, 0, "(' Iteration# ',i3,' Event#',i4,' R"
+    static cilist io___663 = { 0, 6, 0, "(' Iteration# ',i3,' Event#',i4,' R"
 	    "es#',i3,           ' =',f7.2,'; ABS > 2.0 ---> weight set to zer"
 	    "o !')", 0 };
 
@@ -15715,7 +15731,7 @@ L40:
 		sizeof(real));
 	e_wsfi();
     }
-    s_wsfe(&io___666);
+    s_wsfe(&io___663);
     do_fio(&c__1, (char *)&form_1.nitt, (ftnlen)sizeof(integer));
     do_fio(&c__1, (char *)&coordsyst_1.isingle, (ftnlen)sizeof(integer));
     do_fio(&c__1, (char *)&(*nobs), (ftnlen)sizeof(integer));
@@ -15776,7 +15792,7 @@ L40:
     extern /* Subroutine */ int adlineb_(char *, ftnlen);
 
     /* Fortran I/O blocks */
-    static cilist io___672 = { 0, 6, 0, "(' Iteration# ',i3,' Event#',i4,' R"
+    static cilist io___669 = { 0, 6, 0, "(' Iteration# ',i3,' Event#',i4,' R"
 	    "es#',i3,                   ' =',f7.2,'; ABS < 1.0 ---> weight re"
 	    "vived !')", 0 };
 
@@ -15912,7 +15928,7 @@ L40:
 		sizeof(real));
 	e_wsfi();
     }
-    s_wsfe(&io___672);
+    s_wsfe(&io___669);
     do_fio(&c__1, (char *)&form_1.nitt, (ftnlen)sizeof(integer));
     do_fio(&c__1, (char *)&coordsyst_1.isingle, (ftnlen)sizeof(integer));
     do_fio(&c__1, (char *)&(*nobs), (ftnlen)sizeof(integer));
@@ -16367,13 +16383,13 @@ L40:
     extern /* Subroutine */ int adlineb_(char *, ftnlen);
 
     /* Fortran I/O blocks */
-    static cilist io___699 = { 0, 12, 0, fmt_1201, 0 };
-    static icilist io___704 = { 0, cline, 0, form_1.fm, 80, 1 };
-    static cilist io___705 = { 0, 12, 0, "(a)", 0 };
-    static cilist io___708 = { 0, 12, 0, 0, 0 };
-    static cilist io___709 = { 0, 12, 0, 0, 0 };
-    static cilist io___710 = { 0, 12, 0, 0, 0 };
-    static cilist io___711 = { 0, 12, 0, "(f5.2,5x,f7.2,2x,f7.3,4x)", 0 };
+    static cilist io___696 = { 0, 12, 0, fmt_1201, 0 };
+    static icilist io___701 = { 0, cline, 0, form_1.fm, 80, 1 };
+    static cilist io___702 = { 0, 12, 0, "(a)", 0 };
+    static cilist io___705 = { 0, 12, 0, 0, 0 };
+    static cilist io___706 = { 0, 12, 0, 0, 0 };
+    static cilist io___707 = { 0, 12, 0, 0, 0 };
+    static cilist io___708 = { 0, 12, 0, "(f5.2,5x,f7.2,2x,f7.3,4x)", 0 };
 
 
 
@@ -16806,7 +16822,7 @@ L10:
 	o__1.ofm = 0;
 	o__1.oblnk = 0;
 	f_open(&o__1);
-	s_wsfe(&io___699);
+	s_wsfe(&io___696);
 	do_fio(&c__1, form_1.fm, (ftnlen)80);
 	e_wsfe();
     }
@@ -16830,7 +16846,7 @@ L10:
 	    } else {
 		*(unsigned char *)cew = 'W';
 	    }
-	    s_wsfi(&io___704);
+	    s_wsfi(&io___701);
 	    do_fio(&c__1, charc_1.stn + (m - 1 << 2), (ftnlen)4);
 	    do_fio(&c__1, (char *)&stltln_1.xla[m - 1], (ftnlen)sizeof(real));
 	    do_fio(&c__1, cns, (ftnlen)1);
@@ -16856,7 +16872,7 @@ L10:
 		s_copy(cline + 46, "       lon,z,model,icc,ptcor,stcor", (
 			ftnlen)34, (ftnlen)34);
 	    }
-	    s_wsfe(&io___705);
+	    s_wsfe(&io___702);
 	    do_fio(&c__1, cline, (ftnlen)80);
 	    e_wsfe();
 	}
@@ -17031,7 +17047,7 @@ L13:
     s_wsli(&ici__1);
     e_wsli();
     if (outputfiles_1.istaout > 0) {
-	s_wsle(&io___708);
+	s_wsle(&io___705);
 	e_wsle();
 	cl__1.cerr = 0;
 	cl__1.cunit = 12;
@@ -17052,19 +17068,19 @@ L13:
 	o__1.ofm = 0;
 	o__1.oblnk = 0;
 	f_open(&o__1);
-	s_wsle(&io___709);
+	s_wsle(&io___706);
 	do_lio(&c__9, &c__1, "Output model:", (ftnlen)13);
 	e_wsle();
 /* 	 write(12,*)(nplay(m),m=1,nmod) */
 	i__1 = modela_1.nmod;
 	for (m = 1; m <= i__1; ++m) {
-	    s_wsle(&io___710);
+	    s_wsle(&io___707);
 	    do_lio(&c__3, &c__1, (char *)&modela_1.nplay[m - 1], (ftnlen)
 		    sizeof(integer));
 	    e_wsle();
 	    i__2 = modela_1.nplay[m - 1];
 	    for (i__ = 1; i__ <= i__2; ++i__) {
-		s_wsfe(&io___711);
+		s_wsfe(&io___708);
 		do_fio(&c__1, (char *)&layvel_1.vp[m + (i__ << 1) - 3], (
 			ftnlen)sizeof(real));
 		do_fio(&c__1, (char *)&layvel_1.hp[m + (i__ << 1) - 3], (
@@ -17116,7 +17132,7 @@ L13:
     static char staname[4];
 
     /* Fortran I/O blocks */
-    static icilist io___714 = { 0, staname, 0, "(a4)", 4, 1 };
+    static icilist io___711 = { 0, staname, 0, "(a4)", 4, 1 };
 
 
 
@@ -17192,7 +17208,7 @@ L13:
 /*                              station# are stored in array  ISTM(iobs,ievent) */
 /*                              smn(iobs,iev)  is the station-name */
 /* weights > 4 are no readings!! */
-	s_wsfi(&io___714);
+	s_wsfi(&io___711);
 	do_fio(&c__1, charc_1.smn + (i__ + *ievent * 650 - 651 << 2), (ftnlen)
 		4);
 	e_wsfi();
@@ -17474,7 +17490,7 @@ L2:
     r__2 = omg2;
     r__1 = r__2 * r__2 / om2;
     q__2.r = q__3.r - r__1, q__2.i = q__3.i;
-    c_div(&q__1, &c_b3026, &q__2);
+    c_div(&q__1, &c_b3030, &q__2);
     ghp.r = q__1.r, ghp.i = q__1.i;
 /* ------------- Butterworth Tiefpass 2. Ordnung, fc=30.Hz -------------- */
     omg3 = zpi * 30.f;
@@ -17486,7 +17502,7 @@ L2:
     r__2 = omg3;
     r__1 = om2 / (r__2 * r__2);
     q__2.r = q__3.r - r__1, q__2.i = q__3.i;
-    c_div(&q__1, &c_b3026, &q__2);
+    c_div(&q__1, &c_b3030, &q__2);
     glp2.r = q__1.r, glp2.i = q__1.i;
 /* ----------- Butterworth Tiefpass 3.Ordnung, fc=25 Hz (Discriminator)---- */
     omg4 = zpi * 25.f;
@@ -17504,7 +17520,7 @@ L2:
     r__3 = r__4 * (r__4 * r__4);
     q__7.r = q__8.r / r__3, q__7.i = q__8.i / r__3;
     q__2.r = q__3.r - q__7.r, q__2.i = q__3.i - q__7.i;
-    c_div(&q__1, &c_b3026, &q__2);
+    c_div(&q__1, &c_b3030, &q__2);
     glp3.r = q__1.r, glp3.i = q__1.i;
 /* ----------- Butterworth Tiefpass 2.Ordnung, fc=24 Hz (Antialiasing) ---- */
     omg5 = zpi * 24.f;
@@ -17515,7 +17531,7 @@ L2:
     r__2 = omg5;
     r__1 = om2 / (r__2 * r__2);
     q__2.r = q__3.r - r__1, q__2.i = q__3.i;
-    c_div(&q__1, &c_b3026, &q__2);
+    c_div(&q__1, &c_b3030, &q__2);
     glp2a.r = q__1.r, glp2a.i = q__1.i;
 /* ----------- Uebertragungsfunktion des gesamten Systems ----------------- */
     q__4.r = gseis.r * ghp.r - gseis.i * ghp.i, q__4.i = gseis.r * ghp.i + 
@@ -17828,7 +17844,7 @@ L999:
 	    gbn1.i * gbn2.r;
     q__2.r = q__3.r * gbn3.r - q__3.i * gbn3.i, q__2.i = q__3.r * gbn3.i + 
 	    q__3.i * gbn3.r;
-    c_div(&q__1, &c_b3026, &q__2);
+    c_div(&q__1, &c_b3030, &q__2);
      ret_val->r = q__1.r,  ret_val->i = q__1.i;
 
 } /* b6_ */
@@ -17913,7 +17929,7 @@ L999:
 
     q__2.r = gbn1.r * gbn2.r - gbn1.i * gbn2.i, q__2.i = gbn1.r * gbn2.i + 
 	    gbn1.i * gbn2.r;
-    c_div(&q__1, &c_b3026, &q__2);
+    c_div(&q__1, &c_b3030, &q__2);
      ret_val->r = q__1.r,  ret_val->i = q__1.i;
 
     return ;
@@ -17947,7 +17963,7 @@ L999:
     q__6.r = *om * j.r, q__6.i = *om * j.i;
     q__5.r = tau * q__6.r, q__5.i = tau * q__6.i;
     q__4.r = q__5.r + 1.f, q__4.i = q__5.i;
-    c_div(&q__3, &c_b3026, &q__4);
+    c_div(&q__3, &c_b3030, &q__4);
     pow_ci(&q__2, &q__3, &c__2);
     q__1.r = q__2.r * 1.6f, q__1.i = q__2.i * 1.6f;
      ret_val->r = q__1.r,  ret_val->i = q__1.i;
@@ -18150,7 +18166,7 @@ L1:
 	}
     }
 
-    svdsoluk_(a, a4_1.rht, &dimen_1.nvar, &c_b3049, xsol, goodness_1.sv, &
+    svdsoluk_(a, a4_1.rht, &dimen_1.nvar, &c_b3053, xsol, goodness_1.sv, &
 	    goodness_1.ale[*i__ - 1], goodness_1.covs, goodness_1.rs);
 
     if (param_1.ifixsolution == 1) {
@@ -18508,7 +18524,7 @@ L1:
 	     integer *, real *, integer *, integer *, integer *);
 
     /* Fortran I/O blocks */
-    static cilist io___847 = { 0, 6, 0, fmt_4501, 0 };
+    static cilist io___844 = { 0, 6, 0, fmt_4501, 0 };
 
 
 /*     This is an IMSL-subroutine */
@@ -18817,7 +18833,7 @@ L9000:
 /*      CALL UERTST (IER,'LSVDF ') */
 /* uk */
     if (*ier != 33) {
-	s_wsfe(&io___847);
+	s_wsfe(&io___844);
 	do_fio(&c__1, (char *)&(*ier), (ftnlen)sizeof(integer));
 	e_wsfe();
     }
@@ -18866,7 +18882,7 @@ L9005:
     static logical havers;
 
     /* Fortran I/O blocks */
-    static cilist io___874 = { 0, 6, 0, fmt_4500, 0 };
+    static cilist io___871 = { 0, 6, 0, fmt_4500, 0 };
 
 
 
@@ -19249,7 +19265,7 @@ L9000:
 /*      CALL UERTST (IER,'LSVDB ') */
 /* uk */
     if (*ier != 33) {
-	s_wsfe(&io___874);
+	s_wsfe(&io___871);
 	do_fio(&c__1, (char *)&(*ier), (ftnlen)sizeof(integer));
 	e_wsfe();
     }
@@ -20273,7 +20289,7 @@ L29:
 	     ftnlen, ftnlen);
 
     /* Fortran I/O blocks */
-    static cilist io___957 = { 0, 6, 0, "(1x,'ray in the air... ! rp3=',f6.3"
+    static cilist io___954 = { 0, 6, 0, "(1x,'ray in the air... ! rp3=',f6.3"
 	    ",                   ' ZZ=',f6.3,' dz=',f6.3,' rp# =',i2,' nrp=',"
 	    "i2,           ' STN=',a4,'i ',i4)", 0 };
 
@@ -20352,7 +20368,7 @@ L29:
 		    infiles_1.topo2file, (ftnlen)80, (ftnlen)80);
 	    dzzz = rp[j * 3 + 3] - zzz;
 	    if (dzzz < 0.f) {
-		s_wsfe(&io___957);
+		s_wsfe(&io___954);
 		do_fio(&c__1, (char *)&rp[j * 3 + 3], (ftnlen)sizeof(real));
 		do_fio(&c__1, (char *)&zzz, (ftnlen)sizeof(real));
 		do_fio(&c__1, (char *)&dzzz, (ftnlen)sizeof(real));
@@ -20643,9 +20659,9 @@ L4000:
     static real xydist, deltat1, deltat2, ttt1old, ttt2old, ttt1new, ttt2new;
 
     /* Fortran I/O blocks */
-    static cilist io___987 = { 0, 6, 0, "(1x,'BENDRAY>>> ray bended below su"
+    static cilist io___984 = { 0, 6, 0, "(1x,'BENDRAY>>> ray bended below su"
 	    "rface!',                         ' Station: ',a4)", 0 };
-    static cilist io___988 = { 0, 6, 0, "(1x,'dt1=',f6.3,'   dt2=',f6.3)", 0 }
+    static cilist io___985 = { 0, 6, 0, "(1x,'dt1=',f6.3,'   dt2=',f6.3)", 0 }
 	    ;
 
 
@@ -20909,10 +20925,10 @@ L4000:
     ttt2old = xyz2 / *vtop;
     deltat2 = ttt2new - ttt2old;
     if (dabs(deltat1) > 1e-5f || dabs(deltat2) > 1e-5f) {
-	s_wsfe(&io___987);
+	s_wsfe(&io___984);
 	do_fio(&c__1, staname, (ftnlen)4);
 	e_wsfe();
-	s_wsfe(&io___988);
+	s_wsfe(&io___985);
 	do_fio(&c__1, (char *)&deltat1, (ftnlen)sizeof(real));
 	do_fio(&c__1, (char *)&deltat2, (ftnlen)sizeof(real));
 	e_wsfe();
@@ -20972,7 +20988,7 @@ L4000:
 	    real *, real *, integer *, real *, real *, char *, ftnlen);
 
     /* Fortran I/O blocks */
-    static cilist io___998 = { 0, 6, 0, 0, 0 };
+    static cilist io___995 = { 0, 6, 0, 0, 0 };
 
 
 
@@ -21172,7 +21188,7 @@ L23109:
     reflect1_(nl, &v[1], &vsq[1], &thk[1], jl, tkj, &delta, &depth, mll, &
 	    trefl, &ain, &ierr, dtddrefl, dtdhrefl, bo, bo_len);
     if (ierr != 0) {
-	s_wsle(&io___998);
+	s_wsle(&io___995);
 	do_lio(&c__9, &c__1, "trying another ray-type...", (ftnlen)26);
 	e_wsle();
 	ici__1.icierr = 0;
@@ -21987,10 +22003,10 @@ L23193:
     extern /* Subroutine */ int adlineb_(char *, ftnlen);
 
     /* Fortran I/O blocks */
+    static cilist io___1060 = { 0, 6, 0, 0, 0 };
+    static cilist io___1061 = { 0, 6, 0, 0, 0 };
+    static cilist io___1062 = { 0, 6, 0, 0, 0 };
     static cilist io___1063 = { 0, 6, 0, 0, 0 };
-    static cilist io___1064 = { 0, 6, 0, 0, 0 };
-    static cilist io___1065 = { 0, 6, 0, 0, 0 };
-    static cilist io___1066 = { 0, 6, 0, 0, 0 };
 
 
 
@@ -22021,20 +22037,20 @@ L23193:
 /* U.K. 28. Jan. 1987 */
     if (*jl > *mll) {
 /*  hypocenter below reflector !!! */
-	s_wsle(&io___1063);
+	s_wsle(&io___1060);
 	do_lio(&c__9, &c__1, "hypocenter-layer jl = ", (ftnlen)22);
 	do_lio(&c__3, &c__1, (char *)&(*jl), (ftnlen)sizeof(integer));
 	e_wsle();
-	s_wsle(&io___1064);
+	s_wsle(&io___1061);
 	do_lio(&c__9, &c__1, "reflection at bottom of layer mll = ", (ftnlen)
 		36);
 	do_lio(&c__3, &c__1, (char *)&(*mll), (ftnlen)sizeof(integer));
 	e_wsle();
 	*ierr = -1;
-	s_wsle(&io___1065);
+	s_wsle(&io___1062);
 	do_lio(&c__9, &c__1, "WARNING:", (ftnlen)8);
 	e_wsle();
-	s_wsle(&io___1066);
+	s_wsle(&io___1063);
 	do_lio(&c__9, &c__1, "subr. REFLECT1 >>> hypocenter is below reflect"
 		"or!", (ftnlen)49);
 	e_wsle();
@@ -22311,19 +22327,19 @@ L23193:
     extern /* Subroutine */ int adlineb_(char *, ftnlen);
 
     /* Fortran I/O blocks */
-    static cilist io___1096 = { 0, 6, 0, 0, 0 };
-    static cilist io___1097 = { 0, 6, 0, 0, 0 };
+    static cilist io___1093 = { 0, 6, 0, 0, 0 };
+    static cilist io___1094 = { 0, 6, 0, 0, 0 };
+    static cilist io___1107 = { 0, 6, 0, 0, 0 };
+    static cilist io___1108 = { 0, 6, 0, 0, 0 };
+    static cilist io___1109 = { 0, 6, 0, 0, 0 };
     static cilist io___1110 = { 0, 6, 0, 0, 0 };
     static cilist io___1111 = { 0, 6, 0, 0, 0 };
     static cilist io___1112 = { 0, 6, 0, 0, 0 };
-    static cilist io___1113 = { 0, 6, 0, 0, 0 };
-    static cilist io___1114 = { 0, 6, 0, 0, 0 };
-    static cilist io___1115 = { 0, 6, 0, 0, 0 };
+    static cilist io___1123 = { 0, 6, 0, 0, 0 };
+    static cilist io___1124 = { 0, 6, 0, 0, 0 };
+    static cilist io___1125 = { 0, 6, 0, 0, 0 };
     static cilist io___1126 = { 0, 6, 0, 0, 0 };
     static cilist io___1127 = { 0, 6, 0, 0, 0 };
-    static cilist io___1128 = { 0, 6, 0, 0, 0 };
-    static cilist io___1129 = { 0, 6, 0, 0, 0 };
-    static cilist io___1130 = { 0, 6, 0, 0, 0 };
 
 
 
@@ -22382,10 +22398,10 @@ L20:
     if (*jl > *mll) {
 /*  hypocenter below reflector !!! */
 	*ierr = -1;
-	s_wsle(&io___1096);
+	s_wsle(&io___1093);
 	do_lio(&c__9, &c__1, "WARNING:", (ftnlen)8);
 	e_wsle();
-	s_wsle(&io___1097);
+	s_wsle(&io___1094);
 	do_lio(&c__9, &c__1, "subr. REFLECT >>> hypocenter is below reflecto"
 		"r!", (ftnlen)48);
 	e_wsle();
@@ -22523,29 +22539,29 @@ L515:
 	    do_lio(&c__3, &c__1, (char *)&(*jl), (ftnlen)sizeof(integer));
 	    e_wsli();
 	    adlineb_(bo, bo_len);
-	    s_wsle(&io___1110);
+	    s_wsle(&io___1107);
 	    do_lio(&c__9, &c__1, "sina=", (ftnlen)5);
 	    do_lio(&c__4, &c__1, (char *)&sina, (ftnlen)sizeof(real));
 	    e_wsle();
-	    s_wsle(&io___1111);
+	    s_wsle(&io___1108);
 	    do_lio(&c__9, &c__1, "sina2=", (ftnlen)6);
 	    do_lio(&c__4, &c__1, (char *)&sina2, (ftnlen)sizeof(real));
 	    e_wsle();
-	    s_wsle(&io___1112);
+	    s_wsle(&io___1109);
 	    do_lio(&c__9, &c__1, "VSQU(M):  vsqu(", (ftnlen)15);
 	    do_lio(&c__3, &c__1, (char *)&m, (ftnlen)sizeof(integer));
 	    do_lio(&c__9, &c__1, ")=", (ftnlen)2);
 	    do_lio(&c__4, &c__1, (char *)&vsqu[m - 1], (ftnlen)sizeof(real));
 	    e_wsle();
-	    s_wsle(&io___1113);
+	    s_wsle(&io___1110);
 	    do_lio(&c__9, &c__1, "MLL=", (ftnlen)4);
 	    do_lio(&c__3, &c__1, (char *)&(*mll), (ftnlen)sizeof(integer));
 	    e_wsle();
-	    s_wsle(&io___1114);
+	    s_wsle(&io___1111);
 	    do_lio(&c__9, &c__1, "JL=", (ftnlen)3);
 	    do_lio(&c__3, &c__1, (char *)&(*jl), (ftnlen)sizeof(integer));
 	    e_wsle();
-	    s_wsle(&io___1115);
+	    s_wsle(&io___1112);
 	    e_wsle();
 	}
 
@@ -22625,17 +22641,17 @@ L27:
     do_lio(&c__9, &c__1, "---> trying another ray-type ...", (ftnlen)32);
     e_wsli();
     adlineb_(bo, bo_len);
-    s_wsle(&io___1126);
+    s_wsle(&io___1123);
     do_lio(&c__9, &c__1, "Reflected wave did not converge within 50 iteratio"
 	    "ns!", (ftnlen)53);
     e_wsle();
-    s_wsle(&io___1127);
+    s_wsle(&io___1124);
     do_lio(&c__9, &c__1, "sina=", (ftnlen)5);
     do_lio(&c__4, &c__1, (char *)&sina, (ftnlen)sizeof(real));
     do_lio(&c__9, &c__1, "  delta=", (ftnlen)8);
     do_lio(&c__4, &c__1, (char *)&(*delta), (ftnlen)sizeof(real));
     e_wsle();
-    s_wsle(&io___1128);
+    s_wsle(&io___1125);
     do_lio(&c__9, &c__1, "da=", (ftnlen)3);
     do_lio(&c__4, &c__1, (char *)&da, (ftnlen)sizeof(real));
     do_lio(&c__9, &c__1, "  da2=", (ftnlen)6);
@@ -22643,10 +22659,10 @@ L27:
     do_lio(&c__9, &c__1, "  test4=", (ftnlen)8);
     do_lio(&c__4, &c__1, (char *)&test4, (ftnlen)sizeof(real));
     e_wsle();
-    s_wsle(&io___1129);
+    s_wsle(&io___1126);
     do_lio(&c__9, &c__1, "---> trying another ray-type ...", (ftnlen)32);
     e_wsle();
-    s_wsle(&io___1130);
+    s_wsle(&io___1127);
     e_wsle();
     *ierr = 50;
     return 0;
@@ -23630,7 +23646,7 @@ L3:
     static doublereal lat1, lat2, lat3, clat1;
 
     /* Fortran I/O blocks */
-    static cilist io___1241 = { 0, 6, 0, fmt_1000, 0 };
+    static cilist io___1238 = { 0, 6, 0, fmt_1000, 0 };
 
 
 /*   by Edi */
@@ -23691,7 +23707,7 @@ L3:
     *xlon = lon + *xlon / 60.f;
     return 0;
 L900:
-    s_wsfe(&io___1241);
+    s_wsfe(&io___1238);
     do_fio(&c__1, (char *)&geo_coorsystem__1.aa, (ftnlen)sizeof(real));
     do_fio(&c__1, (char *)&geo_coorsystem__1.bb, (ftnlen)sizeof(real));
     do_fio(&c__1, (char *)&clat1, (ftnlen)sizeof(doublereal));
@@ -23725,33 +23741,33 @@ L900:
     static doublereal r__, phi, lat1, lat2, dela, delb, beta;
 
     /* Fortran I/O blocks */
+    static cilist io___1241 = { 0, 0, 0, 0, 0 };
+    static cilist io___1242 = { 0, 0, 0, 0, 0 };
+    static cilist io___1243 = { 0, 0, 0, 0, 0 };
     static cilist io___1244 = { 0, 0, 0, 0, 0 };
     static cilist io___1245 = { 0, 0, 0, 0, 0 };
-    static cilist io___1246 = { 0, 0, 0, 0, 0 };
-    static cilist io___1247 = { 0, 0, 0, 0, 0 };
-    static cilist io___1248 = { 0, 0, 0, 0, 0 };
-    static cilist io___1249 = { 0, 0, 0, "(' Radius at equator (REARTH)= ',f"
+    static cilist io___1246 = { 0, 0, 0, "(' Radius at equator (REARTH)= ',f"
 	    "10.5,                          '  km')", 0 };
-    static cilist io___1250 = { 0, 0, 0, "('   1. / (ellipticity)      = ',f"
+    static cilist io___1247 = { 0, 0, 0, "('   1. / (ellipticity)      = ',f"
 	    "10.3)", 0 };
-    static cilist io___1251 = { 0, 0, 0, 0, 0 };
+    static cilist io___1248 = { 0, 0, 0, 0, 0 };
+    static cilist io___1249 = { 0, 0, 0, 0, 0 };
+    static cilist io___1250 = { 0, 0, 0, 0, 0 };
+    static cilist io___1251 = { 0, 0, 0, "(1x,f12.7,' N',5x,f12.7,' W')", 0 };
     static cilist io___1252 = { 0, 0, 0, 0, 0 };
     static cilist io___1253 = { 0, 0, 0, 0, 0 };
-    static cilist io___1254 = { 0, 0, 0, "(1x,f12.7,' N',5x,f12.7,' W')", 0 };
+    static cilist io___1254 = { 0, 0, 0, "('North  rotate= ',f6.1)", 0 };
     static cilist io___1255 = { 0, 0, 0, 0, 0 };
-    static cilist io___1256 = { 0, 0, 0, 0, 0 };
-    static cilist io___1257 = { 0, 0, 0, "('North  rotate= ',f6.1)", 0 };
-    static cilist io___1258 = { 0, 0, 0, 0, 0 };
-    static cilist io___1264 = { 0, 0, 0, "(' Radius of sphere at OLAT = ',f1"
+    static cilist io___1261 = { 0, 0, 0, "(' Radius of sphere at OLAT = ',f1"
 	    "0.3,' km')", 0 };
-    static cilist io___1265 = { 0, 0, 0, 0, 0 };
+    static cilist io___1262 = { 0, 0, 0, 0, 0 };
+    static cilist io___1263 = { 0, 0, 0, 0, 0 };
+    static cilist io___1264 = { 0, 0, 0, 0, 0 };
+    static cilist io___1265 = { 0, 0, 0, "(1x,'RLATC = ',f12.8)", 0 };
     static cilist io___1266 = { 0, 0, 0, 0, 0 };
-    static cilist io___1267 = { 0, 0, 0, 0, 0 };
-    static cilist io___1268 = { 0, 0, 0, "(1x,'RLATC = ',f12.8)", 0 };
+    static cilist io___1267 = { 0, 0, 0, fmt_4, 0 };
+    static cilist io___1268 = { 0, 0, 0, 0, 0 };
     static cilist io___1269 = { 0, 0, 0, 0, 0 };
-    static cilist io___1270 = { 0, 0, 0, fmt_4, 0 };
-    static cilist io___1271 = { 0, 0, 0, 0, 0 };
-    static cilist io___1272 = { 0, 0, 0, 0, 0 };
 
 
 
@@ -23811,72 +23827,72 @@ L900:
 /* WRITE ELLIPSOIDE CONSTANTS */
 
     if (*ifil > 0) {
+	io___1241.ciunit = *ifil;
+	s_wsle(&io___1241);
+	e_wsle();
+	io___1242.ciunit = *ifil;
+	s_wsle(&io___1242);
+	e_wsle();
+	io___1243.ciunit = *ifil;
+	s_wsle(&io___1243);
+	do_lio(&c__9, &c__1, "SHORT DISTANCE CONVERSION on ELLIPSOIDE of WOR"
+		"LD GEODETIC SYSTEM 1972 (WGS72)", (ftnlen)77);
+	e_wsle();
 	io___1244.ciunit = *ifil;
 	s_wsle(&io___1244);
+	do_lio(&c__9, &c__1, "=============================================="
+		"===============================", (ftnlen)77);
 	e_wsle();
 	io___1245.ciunit = *ifil;
 	s_wsle(&io___1245);
 	e_wsle();
 	io___1246.ciunit = *ifil;
-	s_wsle(&io___1246);
-	do_lio(&c__9, &c__1, "SHORT DISTANCE CONVERSION on ELLIPSOIDE of WOR"
-		"LD GEODETIC SYSTEM 1972 (WGS72)", (ftnlen)77);
-	e_wsle();
+	s_wsfe(&io___1246);
+	do_fio(&c__1, (char *)&geo_coorsystem__1.rearth, (ftnlen)sizeof(
+		doublereal));
+	e_wsfe();
 	io___1247.ciunit = *ifil;
-	s_wsle(&io___1247);
-	do_lio(&c__9, &c__1, "=============================================="
-		"===============================", (ftnlen)77);
-	e_wsle();
+	s_wsfe(&io___1247);
+	do_fio(&c__1, (char *)&geo_coorsystem__1.ellip, (ftnlen)sizeof(
+		doublereal));
+	e_wsfe();
 	io___1248.ciunit = *ifil;
 	s_wsle(&io___1248);
 	e_wsle();
 	io___1249.ciunit = *ifil;
-	s_wsfe(&io___1249);
-	do_fio(&c__1, (char *)&geo_coorsystem__1.rearth, (ftnlen)sizeof(
-		doublereal));
-	e_wsfe();
-	io___1250.ciunit = *ifil;
-	s_wsfe(&io___1250);
-	do_fio(&c__1, (char *)&geo_coorsystem__1.ellip, (ftnlen)sizeof(
-		doublereal));
-	e_wsfe();
-	io___1251.ciunit = *ifil;
-	s_wsle(&io___1251);
-	e_wsle();
-	io___1252.ciunit = *ifil;
-	s_wsle(&io___1252);
+	s_wsle(&io___1249);
 	do_lio(&c__9, &c__1, "Origin of cartesian coordinates [degrees]:", (
 		ftnlen)42);
 	e_wsle();
 	if (*orlat == 0.f && *orlon == 0.f) {
-	    io___1253.ciunit = *ifil;
-	    s_wsle(&io___1253);
+	    io___1250.ciunit = *ifil;
+	    s_wsle(&io___1250);
 	    do_lio(&c__9, &c__1, " (Origin = city of BERNE, Switzerland)", (
 		    ftnlen)38);
 	    e_wsle();
 	}
-	io___1254.ciunit = *ifil;
-	s_wsfe(&io___1254);
+	io___1251.ciunit = *ifil;
+	s_wsfe(&io___1251);
 	r__1 = geo_coorsystem__1.olat / 60.f;
 	do_fio(&c__1, (char *)&r__1, (ftnlen)sizeof(real));
 	r__2 = geo_coorsystem__1.olon / 60.f;
 	do_fio(&c__1, (char *)&r__2, (ftnlen)sizeof(real));
 	e_wsfe();
-	io___1255.ciunit = *ifil;
-	s_wsle(&io___1255);
+	io___1252.ciunit = *ifil;
+	s_wsle(&io___1252);
 	e_wsle();
-	io___1256.ciunit = *ifil;
-	s_wsle(&io___1256);
+	io___1253.ciunit = *ifil;
+	s_wsle(&io___1253);
 	do_lio(&c__9, &c__1, " Rotation angle (in degr.) clockwise from", (
 		ftnlen)41);
 	e_wsle();
-	io___1257.ciunit = *ifil;
-	s_wsfe(&io___1257);
+	io___1254.ciunit = *ifil;
+	s_wsfe(&io___1254);
 	do_fio(&c__1, (char *)&geo_coorsystem__1.rotate, (ftnlen)sizeof(real))
 		;
 	e_wsfe();
-	io___1258.ciunit = *ifil;
-	s_wsle(&io___1258);
+	io___1255.ciunit = *ifil;
+	s_wsle(&io___1255);
 	e_wsle();
     }
 
@@ -23907,41 +23923,41 @@ L900:
 /* bc = 1 min geogr. lon */
     geo_coorsystem__1.bb = r__ * delb / cos(lat1);
     if (*ifil > 0) {
-	io___1264.ciunit = *ifil;
-	s_wsfe(&io___1264);
+	io___1261.ciunit = *ifil;
+	s_wsfe(&io___1261);
 	do_fio(&c__1, (char *)&r__, (ftnlen)sizeof(doublereal));
 	e_wsfe();
-	io___1265.ciunit = *ifil;
-	s_wsle(&io___1265);
+	io___1262.ciunit = *ifil;
+	s_wsle(&io___1262);
 	e_wsle();
-	io___1266.ciunit = *ifil;
-	s_wsle(&io___1266);
+	io___1263.ciunit = *ifil;
+	s_wsle(&io___1263);
 	do_lio(&c__9, &c__1, "Conversion of GEOGRAPHICAL LATITUDE to GEOCENT"
 		"RICAL LATITUDE:", (ftnlen)61);
 	e_wsle();
-	io___1267.ciunit = *ifil;
-	s_wsle(&io___1267);
+	io___1264.ciunit = *ifil;
+	s_wsle(&io___1264);
 	do_lio(&c__9, &c__1, "RLATC = TAN(GEOCENTR.LAT) / TAN(GEOGRAPH.LAT)", 
 		(ftnlen)45);
 	e_wsle();
-	io___1268.ciunit = *ifil;
-	s_wsfe(&io___1268);
+	io___1265.ciunit = *ifil;
+	s_wsfe(&io___1265);
 	do_fio(&c__1, (char *)&geo_coorsystem__1.rlatc, (ftnlen)sizeof(
 		doublereal));
 	e_wsfe();
-	io___1269.ciunit = *ifil;
-	s_wsle(&io___1269);
+	io___1266.ciunit = *ifil;
+	s_wsle(&io___1266);
 	e_wsle();
-	io___1270.ciunit = *ifil;
-	s_wsfe(&io___1270);
+	io___1267.ciunit = *ifil;
+	s_wsfe(&io___1267);
 	do_fio(&c__1, (char *)&geo_coorsystem__1.aa, (ftnlen)sizeof(real));
 	do_fio(&c__1, (char *)&geo_coorsystem__1.bc, (ftnlen)sizeof(real));
 	e_wsfe();
-	io___1271.ciunit = *ifil;
-	s_wsle(&io___1271);
+	io___1268.ciunit = *ifil;
+	s_wsle(&io___1268);
 	e_wsle();
-	io___1272.ciunit = *ifil;
-	s_wsle(&io___1272);
+	io___1269.ciunit = *ifil;
+	s_wsle(&io___1269);
 	e_wsle();
     }
 
@@ -24313,16 +24329,16 @@ L999:
     extern integer trimlen_(char *, ftnlen);
 
     /* Fortran I/O blocks */
-    static cilist io___1304 = { 0, 0, 0, "(i5,2x,a)", 0 };
-    static cilist io___1307 = { 0, 6, 0, "('sequence error at:',i5,a,i5)", 0 }
+    static cilist io___1301 = { 0, 0, 0, "(i5,2x,a)", 0 };
+    static cilist io___1304 = { 0, 6, 0, "('sequence error at:',i5,a,i5)", 0 }
+	    ;
+    static cilist io___1306 = { 0, 0, 0, "(i5,2x,a)", 0 };
+    static cilist io___1308 = { 0, 6, 0, "('sequence error at:',i5,a,i5)", 0 }
 	    ;
     static cilist io___1309 = { 0, 0, 0, "(i5,2x,a)", 0 };
-    static cilist io___1311 = { 0, 6, 0, "('sequence error at:',i5,a,i5)", 0 }
+    static cilist io___1310 = { 0, 6, 0, "('sequence error at:',i5,a,i5)", 0 }
 	    ;
-    static cilist io___1312 = { 0, 0, 0, "(i5,2x,a)", 0 };
-    static cilist io___1313 = { 0, 6, 0, "('sequence error at:',i5,a,i5)", 0 }
-	    ;
-    static cilist io___1316 = { 0, 0, 0, "(8f9.3)", 0 };
+    static cilist io___1313 = { 0, 0, 0, "(8f9.3)", 0 };
 
 
 
@@ -24344,13 +24360,13 @@ L999:
     nstart = 0;
     for (i__ = 1; i__ <= 729; ++i__) {
 	regioncom_1.indfe[i__ - 1] = nstart;
-	io___1304.ciunit = iu1;
-	s_rsfe(&io___1304);
+	io___1301.ciunit = iu1;
+	s_rsfe(&io___1301);
 	do_fio(&c__1, (char *)&nr, (ftnlen)sizeof(integer));
 	do_fio(&c__1, cregion, (ftnlen)40);
 	e_rsfe();
 	if (nr != i__) {
-	    s_wsfe(&io___1307);
+	    s_wsfe(&io___1304);
 	    do_fio(&c__1, (char *)&nr, (ftnlen)sizeof(integer));
 	    do_fio(&c__1, cregion, (ftnlen)40);
 	    do_fio(&c__1, (char *)&i__, (ftnlen)sizeof(integer));
@@ -24366,8 +24382,8 @@ L999:
     regioncom_1.indfe[729] = nstart;
     for (i__ = 1; i__ <= 420; ++i__) {
 	regioncom_1.lt25[i__ - 1] = nstart;
-	io___1309.ciunit = iu1;
-	s_rsfe(&io___1309);
+	io___1306.ciunit = iu1;
+	s_rsfe(&io___1306);
 	do_fio(&c__1, (char *)&nr, (ftnlen)sizeof(integer));
 	do_fio(&c__1, cregion, (ftnlen)40);
 	e_rsfe();
@@ -24377,7 +24393,7 @@ L999:
 	    k = (i__ - 401) * 20 + 1019;
 	}
 	if (k != nr) {
-	    s_wsfe(&io___1311);
+	    s_wsfe(&io___1308);
 	    do_fio(&c__1, (char *)&nr, (ftnlen)sizeof(integer));
 	    do_fio(&c__1, cregion, (ftnlen)40);
 	    do_fio(&c__1, (char *)&i__, (ftnlen)sizeof(integer));
@@ -24393,8 +24409,8 @@ L999:
     regioncom_1.lt25[420] = nstart;
     for (i__ = 1; i__ <= 110; ++i__) {
 	regioncom_1.lt50[i__ - 1] = nstart;
-	io___1312.ciunit = iu1;
-	s_rsfe(&io___1312);
+	io___1309.ciunit = iu1;
+	s_rsfe(&io___1309);
 	do_fio(&c__1, (char *)&nr, (ftnlen)sizeof(integer));
 	do_fio(&c__1, cregion, (ftnlen)40);
 	e_rsfe();
@@ -24404,7 +24420,7 @@ L999:
 	    k = (i__ - 101) * 10 + 209;
 	}
 	if (k != nr) {
-	    s_wsfe(&io___1313);
+	    s_wsfe(&io___1310);
 	    do_fio(&c__1, (char *)&nr, (ftnlen)sizeof(integer));
 	    do_fio(&c__1, cregion, (ftnlen)40);
 	    do_fio(&c__1, (char *)&i__, (ftnlen)sizeof(integer));
@@ -24438,8 +24454,8 @@ L999:
     o__1.oblnk = 0;
     f_open(&o__1);
     for (j = 1; j <= 14400; j += 8) {
-	io___1316.ciunit = iu2;
-	s_rsfe(&io___1316);
+	io___1313.ciunit = iu2;
+	s_rsfe(&io___1313);
 	i__1 = j + 7;
 	for (i__ = j; i__ <= i__1; ++i__) {
 	    do_fio(&c__1, (char *)&regioncom_1.xnrlon[i__ - 1], (ftnlen)

@@ -1,9 +1,13 @@
 #include "c_velest.h"
 #include <stdio.h>
+
 /* initialize the memory of the files used for 
    inecreasing python speed using later by fmemopen  ROR 03-21-2020*/
 
+/* This enum helps to identify I/O buffer names instead of indexes */
 enum filesrd{ modelf, stationf, seismf, phasef, shotf, staf, veloutm, regnamf, regk, topof1, topof2 };
+
+/* I am using a struct to facilitate the concept of filename and buffer, also the logic flagis used */
 
 struct fileshandrd {
 char* mainbuffer;
@@ -13,7 +17,6 @@ int  isused;
 typedef struct fileshandrd fileshandrd_t;
 
 fileshandrd_t[11];
-
 
 
 void c_velest(){

@@ -1529,7 +1529,7 @@ c NOW READ model file
 c   ***********
 c
 cVMS      open(10,file=modelfilename,status='old',err=9911,readonly)
-      open(10,file=modelfilename,status='old',err=9911)
+c     open(10,file=modelfilename,status='old',err=9911)
 c
       ireflector=0
 cek
@@ -1540,7 +1540,8 @@ cek
       endif
 c
 cek  modifications for new model file
-      read(10,'(a40)') titl
+      call rdline_bm(bo)
+      read(bo,'(a40)') titl
       if(.not.single_turbo) write(bo,'(a)') 
      &                 ' model file title: ',titl
        call adlineb(bo)
@@ -1557,13 +1558,17 @@ cek      read(10,*) (nplay(j),j=1,nmod)
 11       format(1h ,'layer    vel   depth   vdamp  reflector')
       endif
       titl=' '
-      read(10,'(i3)') nplay(i)
+      call rdline_bm(bo)
+      read(bo,'(i3)') nplay(i)
+      write(6,*)'Nplay (i) =',nplay(i)
       do 9 j=1,nplay(i)
        if(j.eq.1)then
-         read(10,1212) vp(i,j),hp(i,j),vdamp(i,j),reflch,titl
+         call rdline_bm(bo)
+         read(bo,1212) vp(i,j),hp(i,j),vdamp(i,j),reflch,titl
 1212     format(f5.2,5x,f7.2,2x,f7.3,3x,a1,1x,a40)
        else
-         read(10,12) vp(i,j),hp(i,j),vdamp(i,j),reflch
+         call rdline_bm(bo)
+         read(bo,12) vp(i,j),hp(i,j),vdamp(i,j),reflch
 12       format(f5.2,5x,f7.2,2x,f7.3,3x,a1)
        endif
       if(reflch.ne.' ')then
@@ -1705,7 +1710,7 @@ c
        call adlineb(bo)
          write(bo,*)
       endif
-      close(10)
+c     close(10)
 cVMS      open(10,file=stationfilename,status='old',err=9912,readonly)
       open(10,file=stationfilename,status='old',err=9912)
       read(10,1) fm

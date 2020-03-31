@@ -1,5 +1,6 @@
 #include "c_velest.h"
 #include <stdio.h>
+
 /* initialize the memory of the files used for 
    inecreasing python speed using later by fmemopen  ROR 03-21-2020*/
 
@@ -28,8 +29,17 @@ cleanfilenames();
 printfiles();
 scaninput(v,t); 
 printfiles();
+load_infile_bm();
+load_infile_bp(); 
+printbm(); 
 velest_(s,r); 
 /*printf("%s\n",outfile_bo); */
+}
+
+void printbm(){
+enum filesrd filer;
+filer=phasef;
+printf("%s \n",filrd[filer].mainbuffer);
 }
 
 void printfiles(){
@@ -83,11 +93,47 @@ fclose(fpin);
 ic=fbufopen(infile_ic, strlen(infile_ic),"r");
 }
 
+void load_infile_bm(){
+FILE* fpin;
+long fsize;
+char ch[20];
+int nok;
+enum filesrd filer;
+filer=modelf;
+/*printf("FIlename %d = %s \n",filer,filrd[filer].filenam); */
+fpin=fopen(filrd[filer].filenam,"rt");
+fseek(fpin, 0L, SEEK_END);
+fsize = ftell(fpin);
+rewind(fpin);
+fread(filrd[filer].mainbuffer, fsize+1,1, fpin);
+modelfile_bm[fsize+1]='\0';
+fclose(fpin);
+bm=fbufopen(filrd[filer].mainbuffer,strlen(filrd[filer].mainbuffer),"r");
+}
+
+void load_infile_bp(){
+FILE* fpin;
+long fsize;
+char ch[20];
+int nok;
+enum filesrd filer;
+filer=phasef;
+fpin=fopen(filrd[filer].filenam,"rt");
+fseek(fpin, 0L, SEEK_END);
+fsize = ftell(fpin);
+rewind(fpin);
+fread(phasefile_bp, fsize+1,1, fpin);
+phasefile_bp[fsize+1]='\0';
+fclose(fpin);
+bs=fbufopen(phasefile_bp,strlen(phasefile_bp),"r");
+} 
+
 void memclean()
 { 
  char c[]="\0";
 /* closefn(ic);*/
  if(!(ic)) closefn(ic);
+ if(!(bm)) closefn(bm);
  *infile_ic=0;
  *outfile_bo=0;
 /* memcpy(infile_ic,c,SIZE_INFILE-1); */ 
@@ -117,6 +163,23 @@ seekfn(ic,0,SEEK_SET);
 EOF is found, there is no documentation on how to raise that flag, so
 an option is to send an "@" in the very first character. IN the fortran code 
 I need to do a comparison". ROR, 22 March 2020.*/
+}
+
+void rdline_bm__(char *strin, ftnlen leni){
+char buffbm[120];
+int len;
+len=nextchfn(bm,'\n');
+if (readfn(bm,buffbm,len) != 0) {
+strncpy(strin,buffbm,len);
+leni=80;
+}
+else{
+strncpy(strin,"@",1);
+leni=80;
+seekfn(bm,0,SEEK_SET);
+}
+strin[len]='\0';
+printf(" Linea leida =%s \n",strin);
 }
 
 
