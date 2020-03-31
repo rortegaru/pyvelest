@@ -1560,7 +1560,7 @@ cek      read(10,*) (nplay(j),j=1,nmod)
       titl=' '
       call rdline_bm(bo)
       read(bo,'(i3)') nplay(i)
-      write(6,*)'Nplay (i) =',nplay(i)
+c     write(6,*)'Nplay (i) =',nplay(i)
       do 9 j=1,nplay(i)
        if(j.eq.1)then
          call rdline_bm(bo)
@@ -1712,8 +1712,9 @@ c
       endif
 c     close(10)
 cVMS      open(10,file=stationfilename,status='old',err=9912,readonly)
-      open(10,file=stationfilename,status='old',err=9912)
-      read(10,1) fm
+c     open(10,file=stationfilename,status='old',err=9912)
+      call rdline_bt(bo)
+      read(bo,1) fm
 1     format(a80)
       if(.not.single_turbo)then
          write(bo,*)
@@ -1725,7 +1726,11 @@ cVMS      open(10,file=stationfilename,status='old',err=9912,readonly)
       nsta=0
 c
 10    nsta=nsta+1
-      read(10,fm) stn(nsta),xla(nsta),cns,xlo(nsta),cew,
+      call rdline_bt(bo)
+c check if the file ended
+      if(bo(1:1).eq.'@') goto 41  
+      if(bo(1:1).eq.' ') goto 41  
+      read(bo,fm) stn(nsta),xla(nsta),cns,xlo(nsta),cew,
      &            ielev(nsta),mode,icc,
      &            ptcor(nsta),stcor(nsta)
       call CASEFOLD(cns)
@@ -1733,6 +1738,7 @@ c
       if(cns.eq.'S') xla(nsta)=-xla(nsta)
       if(cew.eq.'E') xlo(nsta)=-xlo(nsta)
 c
+c note this is not the best way to check the EOF ROR. 31-03-2020.1
       if(stn(nsta).eq.' ') goto 41
 cek      if(mode.eq.0) mode=1
       mode=1
@@ -1782,7 +1788,7 @@ c
       map1(nsta)=icc
       goto 10
 41    continue
-      close(10)  ! stationfile
+c     close(10)  ! stationfile
 c
 c     read in seismo data (seismometer-specifications and so on):
 c

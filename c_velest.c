@@ -18,7 +18,6 @@ typedef struct fileshandrd fileshandrd_t;
 
 fileshandrd_t[11];
 
-
 void c_velest(){
 int i;
 ftnlen r,t;

@@ -26,19 +26,19 @@ initstruct();
 memclean(); 
 load_infile_ic();
 cleanfilenames();
-printfiles();
+/*printfiles(); */
 scaninput(v,t); 
-printfiles();
+/*printfiles(); */
 load_infile_bm();
 load_infile_bp(); 
-printbm(); 
+load_infile_bt();
 velest_(s,r); 
 /*printf("%s\n",outfile_bo); */
 }
 
 void printbm(){
 enum filesrd filer;
-filer=phasef;
+filer=stationf;
 printf("%s \n",filrd[filer].mainbuffer);
 }
 
@@ -77,7 +77,6 @@ int sizeo;
 sizeo=strlen(outfile_bo);
 return sizeo;
 }
-
 
 void load_infile_ic(){
 FILE* fpin;
@@ -128,12 +127,31 @@ fclose(fpin);
 bs=fbufopen(phasefile_bp,strlen(phasefile_bp),"r");
 } 
 
+void load_infile_bt(){
+FILE* fpin;
+long fsize;
+char ch[20];
+int nok;
+enum filesrd filer;
+filer=stationf;
+fpin=fopen(filrd[filer].filenam,"rt");
+fseek(fpin, 0L, SEEK_END);
+fsize = ftell(fpin);
+rewind(fpin);
+fread(stationfile_bt, fsize+1,1, fpin);
+stationfile_bt[fsize+1]='\0';
+fclose(fpin);
+bt=fbufopen(stationfile_bt,strlen(stationfile_bt),"r");
+} 
+
+
 void memclean()
 { 
  char c[]="\0";
 /* closefn(ic);*/
  if(!(ic)) closefn(ic);
  if(!(bm)) closefn(bm);
+ if(!(bt)) closefn(bt);
  *infile_ic=0;
  *outfile_bo=0;
 /* memcpy(infile_ic,c,SIZE_INFILE-1); */ 
@@ -179,7 +197,27 @@ leni=80;
 seekfn(bm,0,SEEK_SET);
 }
 strin[len]='\0';
-printf(" Linea leida =%s \n",strin);
+}
+
+void rdline_bt__(char *strin, ftnlen leni){
+char buffbt[120];
+int len;
+len=nextchfn(bt,'\n');
+if (readfn(bt,buffbt,len) >= 1) {
+strncpy(strin,buffbt,len);
+leni=80;
+}
+/*else if (len == 1) {
+strncpy(strin,"@",1);
+leni=80;
+seekfn(bt,0,SEEK_SET);
+} */
+else {
+strncpy(strin,"@",1);
+leni=80;
+seekfn(bt,0,SEEK_SET);
+}
+/*strin[len]='\0'; */
 }
 
 
@@ -187,67 +225,57 @@ void adline_bm__(char *strin, ftnlen len){
 enum filesrd filer;
 filer=modelf;
 sscanf(strin,"%s",filrd[filer].filenam);
-printf("Modelfile = %s \n",modelfile); 
+/*printf("Modelfile = %s \n",modelfile); */
 }
 void adline_bt__(char *strin, ftnlen len){
 enum filesrd filer;
 filer=stationf;
 sscanf(strin,"%s",filrd[filer].filenam);
-printf("Stationfile = %s \n",stationfile); 
 }
 void adline_bs__(char *strin, ftnlen len){
 enum filesrd filer;
 filer=seismf;
 sscanf(strin,"%s",filrd[filer].filenam);
-printf("Seismfile = %s \n",seismfile); 
 }
 void adline_bp__(char *strin, ftnlen len){
 enum filesrd filer;
 filer=phasef;
 sscanf(strin,"%s",filrd[filer].filenam);
-printf("Phasefile = %s \n",phasefile); 
 }
 void adline_bf__(char *strin, ftnlen len){
 enum filesrd filer;
 filer=shotf;
 sscanf(strin,"%s",filrd[filer].filenam);
-printf("Shotfile = %s \n",shotfile); 
 }
 void adline_bi__(char *strin, ftnlen len){
 enum filesrd filer;
 filer=staf;
 sscanf(strin,"%s",filrd[filer].filenam);
-printf("STafile = %s \n",stafile); 
 }
 void adline_bv__(char *strin, ftnlen len){
 enum filesrd filer;
 filer=veloutm;
 sscanf(strin,"%s",filrd[filer].filenam);
-printf("Veloutmod = %s \n",veloutmod); 
 }
 void adline_br__(char *strin, ftnlen len){
 enum filesrd filer;
 filer=regnamf;
 sscanf(strin,"%s",filrd[filer].filenam);
-printf("Regnamfile = %s \n",regnamfile); 
 }
 void adline_bk__(char *strin, ftnlen len){
 enum filesrd filer;
 filer=regk;
 sscanf(strin,"%s",filrd[filer].filenam);
-printf("Regkoog = %s \n",regkoog); 
 }
 void adline_bl__(char *strin, ftnlen len){
 enum filesrd filer;
 filer=topof1;
 sscanf(strin,"%s",filrd[filer].filenam);
-printf("Topofile1  = %s \n",topofile1); 
 }
 void adline_bz__(char *strin, ftnlen len){
 enum filesrd filer;
 filer=topof2;
 sscanf(strin,"%s",filrd[filer].filenam);
-printf("Topofile2 = %s \n",topofile2); 
 }
 
 void initstruct(){

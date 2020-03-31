@@ -247,9 +247,8 @@ struct {
 /* Table of constant values */
 
 static integer c__1 = 1;
-static integer c__9 = 9;
-static integer c__3 = 3;
 static integer c__4 = 4;
+static integer c__3 = 3;
 
 /* Subroutine */ int scaninput_(char *ip, ftnlen ip_len)
 {
@@ -259,13 +258,11 @@ static integer c__4 = 4;
     /* Builtin functions */
     integer s_rsfi(icilist *), do_fio(integer *, char *, ftnlen), e_rsfi(void)
 	    ;
-    /* Subroutine */ int s_copy(char *, char *, ftnlen, ftnlen);
-    integer s_wsle(cilist *), do_lio(integer *, integer *, char *, ftnlen), 
-	    e_wsle(void);
-    /* Subroutine */ int s_stop(char *, ftnlen);
-    integer s_wsfe(cilist *), e_wsfe(void), s_rsli(icilist *), e_rsli(void), 
-	    s_wsfi(icilist *), e_wsfi(void), s_cmp(char *, char *, ftnlen, 
-	    ftnlen);
+    /* Subroutine */ int s_copy(char *, char *, ftnlen, ftnlen), s_stop(char *
+	    , ftnlen);
+    integer s_rsli(icilist *), do_lio(integer *, integer *, char *, ftnlen), 
+	    e_rsli(void), s_wsfi(icilist *), e_wsfi(void), s_cmp(char *, char 
+	    *, ftnlen, ftnlen);
 
     /* Local variables */
     static integer i__;
@@ -278,64 +275,38 @@ static integer c__4 = 4;
     static real olat, olon, rotate;
 
     /* Fortran I/O blocks */
-    static cilist io___4 = { 0, 6, 0, 0, 0 };
-    static cilist io___5 = { 0, 6, 0, 0, 0 };
-    static icilist io___6 = { 0, line, 0, "(a)", 80, 1 };
-    static cilist io___8 = { 0, 6, 0, "(a)", 0 };
-    static icilist io___9 = { 0, line+80, 0, 0, 80, 1 };
-    static cilist io___12 = { 0, 6, 0, 0, 0 };
-    static icilist io___13 = { 0, line+160, 0, 0, 80, 1 };
-    static cilist io___15 = { 0, 6, 0, 0, 0 };
-    static icilist io___16 = { 0, line+240, 0, 0, 80, 1 };
-    static cilist io___17 = { 0, 6, 0, 0, 0 };
-    static icilist io___18 = { 0, line+320, 0, 0, 80, 1 };
-    static cilist io___19 = { 0, 6, 0, 0, 0 };
-    static icilist io___20 = { 0, line+400, 0, 0, 80, 1 };
-    static cilist io___21 = { 0, 6, 0, 0, 0 };
-    static icilist io___22 = { 0, line+480, 0, 0, 80, 1 };
-    static cilist io___23 = { 0, 6, 0, 0, 0 };
-    static icilist io___24 = { 0, line+560, 0, 0, 80, 1 };
-    static cilist io___25 = { 0, 6, 0, 0, 0 };
-    static icilist io___26 = { 0, line+640, 0, 0, 80, 1 };
-    static cilist io___27 = { 0, 6, 0, 0, 0 };
-    static icilist io___28 = { 0, line+720, 0, 0, 80, 1 };
-    static cilist io___29 = { 0, 6, 0, 0, 0 };
-    static icilist io___30 = { 0, line+800, 0, 0, 80, 1 };
-    static cilist io___31 = { 0, 6, 0, 0, 0 };
-    static icilist io___32 = { 0, line+880, 0, "(a)", 80, 1 };
-    static cilist io___33 = { 0, 6, 0, "(a)", 0 };
-    static icilist io___34 = { 0, line+960, 0, "(a)", 80, 1 };
-    static cilist io___35 = { 0, 6, 0, "(a)", 0 };
-    static icilist io___36 = { 0, line+1040, 0, "(a)", 80, 1 };
-    static cilist io___37 = { 0, 6, 0, "(a)", 0 };
-    static icilist io___38 = { 0, line+1120, 0, "(a)", 80, 1 };
-    static cilist io___39 = { 0, 6, 0, "(a)", 0 };
-    static icilist io___40 = { 0, line+1200, 0, "(a)", 80, 1 };
-    static cilist io___41 = { 0, 6, 0, "(a)", 0 };
-    static icilist io___42 = { 0, line+1280, 0, "(a)", 80, 1 };
-    static cilist io___43 = { 0, 6, 0, "(a)", 0 };
-    static icilist io___44 = { 0, line+1360, 0, "(a)", 80, 1 };
-    static cilist io___45 = { 0, 6, 0, "(a)", 0 };
-    static icilist io___46 = { 0, line+1440, 0, "(a)", 80, 1 };
-    static cilist io___47 = { 0, 6, 0, "(a)", 0 };
-    static icilist io___48 = { 0, line+1520, 0, "(a)", 80, 1 };
-    static cilist io___49 = { 0, 6, 0, "(a)", 0 };
-    static icilist io___50 = { 0, line+1600, 0, "(a)", 80, 1 };
-    static cilist io___51 = { 0, 6, 0, "(a)", 0 };
-    static icilist io___52 = { 0, line+1680, 0, "(a)", 80, 1 };
-    static cilist io___53 = { 0, 6, 0, "(a)", 0 };
-    static icilist io___54 = { 0, line+1760, 0, "(a)", 80, 1 };
-    static cilist io___55 = { 0, 6, 0, "(a)", 0 };
-    static icilist io___56 = { 0, line+1840, 0, "(a)", 80, 1 };
-    static cilist io___57 = { 0, 6, 0, "(a)", 0 };
-    static icilist io___58 = { 0, line+1920, 0, "(a)", 80, 1 };
-    static icilist io___59 = { 0, line+2000, 0, "(a)", 80, 1 };
-    static icilist io___60 = { 0, line+2080, 0, "(a)", 80, 1 };
-    static icilist io___61 = { 0, line+2160, 0, "(a)", 80, 1 };
-    static icilist io___62 = { 0, line+2240, 0, "(a)", 80, 1 };
-    static icilist io___63 = { 0, line+2320, 0, "(a)", 80, 1 };
-    static icilist io___64 = { 0, line+2400, 0, "(a)", 80, 1 };
-    static icilist io___65 = { 0, line+2480, 0, "(a)", 80, 1 };
+    static icilist io___4 = { 0, line, 0, "(a)", 80, 1 };
+    static icilist io___6 = { 0, line+80, 0, 0, 80, 1 };
+    static icilist io___9 = { 0, line+160, 0, 0, 80, 1 };
+    static icilist io___11 = { 0, line+240, 0, 0, 80, 1 };
+    static icilist io___12 = { 0, line+320, 0, 0, 80, 1 };
+    static icilist io___13 = { 0, line+400, 0, 0, 80, 1 };
+    static icilist io___14 = { 0, line+480, 0, 0, 80, 1 };
+    static icilist io___15 = { 0, line+560, 0, 0, 80, 1 };
+    static icilist io___16 = { 0, line+640, 0, 0, 80, 1 };
+    static icilist io___17 = { 0, line+720, 0, 0, 80, 1 };
+    static icilist io___18 = { 0, line+800, 0, 0, 80, 1 };
+    static icilist io___19 = { 0, line+880, 0, "(a)", 80, 1 };
+    static icilist io___20 = { 0, line+960, 0, "(a)", 80, 1 };
+    static icilist io___21 = { 0, line+1040, 0, "(a)", 80, 1 };
+    static icilist io___22 = { 0, line+1120, 0, "(a)", 80, 1 };
+    static icilist io___23 = { 0, line+1200, 0, "(a)", 80, 1 };
+    static icilist io___24 = { 0, line+1280, 0, "(a)", 80, 1 };
+    static icilist io___25 = { 0, line+1360, 0, "(a)", 80, 1 };
+    static icilist io___26 = { 0, line+1440, 0, "(a)", 80, 1 };
+    static icilist io___27 = { 0, line+1520, 0, "(a)", 80, 1 };
+    static icilist io___28 = { 0, line+1600, 0, "(a)", 80, 1 };
+    static icilist io___29 = { 0, line+1680, 0, "(a)", 80, 1 };
+    static icilist io___30 = { 0, line+1760, 0, "(a)", 80, 1 };
+    static icilist io___31 = { 0, line+1840, 0, "(a)", 80, 1 };
+    static icilist io___32 = { 0, line+1920, 0, "(a)", 80, 1 };
+    static icilist io___33 = { 0, line+2000, 0, "(a)", 80, 1 };
+    static icilist io___34 = { 0, line+2080, 0, "(a)", 80, 1 };
+    static icilist io___35 = { 0, line+2160, 0, "(a)", 80, 1 };
+    static icilist io___36 = { 0, line+2240, 0, "(a)", 80, 1 };
+    static icilist io___37 = { 0, line+2320, 0, "(a)", 80, 1 };
+    static icilist io___38 = { 0, line+2400, 0, "(a)", 80, 1 };
+    static icilist io___39 = { 0, line+2480, 0, "(a)", 80, 1 };
 
 
 /*     file VELESTCOMMON.FOR                        Version ETH-19SEP91 */
@@ -418,193 +389,112 @@ L111:
     goto L111;
 L222:
     if (! (i__ == 24 || (real) i__ == 32.f)) {
-	s_wsle(&io___4);
-	do_lio(&c__9, &c__1, "Valor de i =", (ftnlen)12);
-	do_lio(&c__3, &c__1, (char *)&i__, (ftnlen)sizeof(integer));
-	e_wsle();
-	s_wsle(&io___5);
-	do_lio(&c__9, &c__1, card, (ftnlen)80);
-	e_wsle();
+/*     write(6,*)'Valor de i =',i */
+/*     write(6,*) card */
 	s_stop("INPUTPARAM>>> control-file not correct!", (ftnlen)39);
     }
 /*     i=1 */
-    s_rsfi(&io___6);
+    s_rsfi(&io___4);
     do_fio(&c__1, titleline, (ftnlen)80);
     e_rsfi();
-    s_wsfe(&io___8);
-    do_fio(&c__1, titleline, (ftnlen)80);
-    e_wsfe();
+/*     write(6,'(a)') titleline */
+    s_rsli(&io___6);
+    do_lio(&c__4, &c__1, (char *)&olat, (ftnlen)sizeof(real));
+    do_lio(&c__4, &c__1, (char *)&olon, (ftnlen)sizeof(real));
+    do_lio(&c__3, &c__1, (char *)&coordsyst_1.icoordsystem, (ftnlen)sizeof(
+	    integer));
+    do_lio(&c__4, &c__1, (char *)&corr_1.zshift, (ftnlen)sizeof(real));
+    do_lio(&c__3, &c__1, (char *)&coordsyst_1.itrial, (ftnlen)sizeof(integer))
+	    ;
+    do_lio(&c__4, &c__1, (char *)&coordsyst_1.ztrial, (ftnlen)sizeof(real));
+    do_lio(&c__3, &c__1, (char *)&coordsyst_1.ised, (ftnlen)sizeof(integer));
+    e_rsli();
+/*     write(6,*) olat,olon,icoordsystem,zshift,itrial,ztrial,ised */
     s_rsli(&io___9);
-    do_lio(&c__4, &c__1, (char *)&olat, (ftnlen)sizeof(real));
-    do_lio(&c__4, &c__1, (char *)&olon, (ftnlen)sizeof(real));
-    do_lio(&c__3, &c__1, (char *)&coordsyst_1.icoordsystem, (ftnlen)sizeof(
-	    integer));
-    do_lio(&c__4, &c__1, (char *)&corr_1.zshift, (ftnlen)sizeof(real));
-    do_lio(&c__3, &c__1, (char *)&coordsyst_1.itrial, (ftnlen)sizeof(integer))
-	    ;
-    do_lio(&c__4, &c__1, (char *)&coordsyst_1.ztrial, (ftnlen)sizeof(real));
-    do_lio(&c__3, &c__1, (char *)&coordsyst_1.ised, (ftnlen)sizeof(integer));
+    do_lio(&c__3, &c__1, (char *)&dimen_1.neqs, (ftnlen)sizeof(integer));
+    do_lio(&c__3, &c__1, (char *)&dimen_1.nshot, (ftnlen)sizeof(integer));
+    do_lio(&c__4, &c__1, (char *)&rotate, (ftnlen)sizeof(real));
     e_rsli();
-    s_wsle(&io___12);
-    do_lio(&c__4, &c__1, (char *)&olat, (ftnlen)sizeof(real));
-    do_lio(&c__4, &c__1, (char *)&olon, (ftnlen)sizeof(real));
-    do_lio(&c__3, &c__1, (char *)&coordsyst_1.icoordsystem, (ftnlen)sizeof(
-	    integer));
-    do_lio(&c__4, &c__1, (char *)&corr_1.zshift, (ftnlen)sizeof(real));
-    do_lio(&c__3, &c__1, (char *)&coordsyst_1.itrial, (ftnlen)sizeof(integer))
+/*     write(6,*) neqs,nshot,rotate */
+    s_rsli(&io___11);
+    do_lio(&c__3, &c__1, (char *)&coordsyst_1.isingle, (ftnlen)sizeof(integer)
+	    );
+    do_lio(&c__3, &c__1, (char *)&param_1.iresolcalc, (ftnlen)sizeof(integer))
 	    ;
-    do_lio(&c__4, &c__1, (char *)&coordsyst_1.ztrial, (ftnlen)sizeof(real));
-    do_lio(&c__3, &c__1, (char *)&coordsyst_1.ised, (ftnlen)sizeof(integer));
-    e_wsle();
+    e_rsli();
+/*     write(6,*) isingle, iresolcalc */
+    s_rsli(&io___12);
+    do_lio(&c__4, &c__1, (char *)&param_1.dmax__, (ftnlen)sizeof(real));
+    do_lio(&c__3, &c__1, (char *)&coordsyst_1.itopo, (ftnlen)sizeof(integer));
+    do_lio(&c__4, &c__1, (char *)&param_1.zmininput, (ftnlen)sizeof(real));
+    do_lio(&c__4, &c__1, (char *)&param_1.veladj, (ftnlen)sizeof(real));
+    do_lio(&c__4, &c__1, (char *)&param_1.zadj, (ftnlen)sizeof(real));
+    do_lio(&c__3, &c__1, (char *)&coordsyst_1.lowveloclay, (ftnlen)sizeof(
+	    integer));
+    e_rsli();
+/*     write(6,*) dmax,itopo,zmininput,veladj,zadj,lowveloclay */
     s_rsli(&io___13);
-    do_lio(&c__3, &c__1, (char *)&dimen_1.neqs, (ftnlen)sizeof(integer));
-    do_lio(&c__3, &c__1, (char *)&dimen_1.nshot, (ftnlen)sizeof(integer));
-    do_lio(&c__4, &c__1, (char *)&rotate, (ftnlen)sizeof(real));
+    do_lio(&c__3, &c__1, (char *)&modela_1.nsp, (ftnlen)sizeof(integer));
+    do_lio(&c__4, &c__1, (char *)&param_1.swtfac, (ftnlen)sizeof(real));
+    do_lio(&c__4, &c__1, (char *)&layvel_1.vpvs, (ftnlen)sizeof(real));
+    do_lio(&c__3, &c__1, (char *)&modela_1.nmod, (ftnlen)sizeof(integer));
     e_rsli();
-    s_wsle(&io___15);
-    do_lio(&c__3, &c__1, (char *)&dimen_1.neqs, (ftnlen)sizeof(integer));
-    do_lio(&c__3, &c__1, (char *)&dimen_1.nshot, (ftnlen)sizeof(integer));
-    do_lio(&c__4, &c__1, (char *)&rotate, (ftnlen)sizeof(real));
-    e_wsle();
+/*     write(6,*) nsp, swtfac,vpvs, nmod */
+    s_rsli(&io___14);
+    do_lio(&c__4, &c__1, (char *)&param_1.othet, (ftnlen)sizeof(real));
+    do_lio(&c__4, &c__1, (char *)&param_1.xythet, (ftnlen)sizeof(real));
+    do_lio(&c__4, &c__1, (char *)&param_1.zthet, (ftnlen)sizeof(real));
+    do_lio(&c__4, &c__1, (char *)&param_1.vthet, (ftnlen)sizeof(real));
+    do_lio(&c__4, &c__1, (char *)&param_1.stathet, (ftnlen)sizeof(real));
+    e_rsli();
+/*     write(6,*) othet,xythet,zthet,vthet,stathet */
+    s_rsli(&io___15);
+    do_lio(&c__3, &c__1, (char *)&dimen_1.nsinv, (ftnlen)sizeof(integer));
+    do_lio(&c__3, &c__1, (char *)&dimen_1.nshcor, (ftnlen)sizeof(integer));
+    do_lio(&c__3, &c__1, (char *)&dimen_1.nshfix, (ftnlen)sizeof(integer));
+    do_lio(&c__3, &c__1, (char *)&coordsyst_1.iuseelev, (ftnlen)sizeof(
+	    integer));
+    do_lio(&c__3, &c__1, (char *)&coordsyst_1.iusestacorr, (ftnlen)sizeof(
+	    integer));
+    e_rsli();
+/*     write(6,*) nsinv,nshcor,nshfix, iuseelev,iusestacorr */
     s_rsli(&io___16);
-    do_lio(&c__3, &c__1, (char *)&coordsyst_1.isingle, (ftnlen)sizeof(integer)
-	    );
-    do_lio(&c__3, &c__1, (char *)&param_1.iresolcalc, (ftnlen)sizeof(integer))
+    do_lio(&c__3, &c__1, (char *)&coordsyst_1.iturbo, (ftnlen)sizeof(integer))
 	    ;
+    do_lio(&c__3, &c__1, (char *)&outputfiles_1.icnvout, (ftnlen)sizeof(
+	    integer));
+    do_lio(&c__3, &c__1, (char *)&outputfiles_1.istaout, (ftnlen)sizeof(
+	    integer));
+    do_lio(&c__3, &c__1, (char *)&outputfiles_1.ismpout, (ftnlen)sizeof(
+	    integer));
     e_rsli();
-    s_wsle(&io___17);
-    do_lio(&c__3, &c__1, (char *)&coordsyst_1.isingle, (ftnlen)sizeof(integer)
-	    );
-    do_lio(&c__3, &c__1, (char *)&param_1.iresolcalc, (ftnlen)sizeof(integer))
-	    ;
-    e_wsle();
+/*     write(6,*) iturbo, icnvout,istaout,ismpout */
+    s_rsli(&io___17);
+    do_lio(&c__3, &c__1, (char *)&outputfiles_1.irayout, (ftnlen)sizeof(
+	    integer));
+    do_lio(&c__3, &c__1, (char *)&outputfiles_1.idrvout, (ftnlen)sizeof(
+	    integer));
+    do_lio(&c__3, &c__1, (char *)&outputfiles_1.ialeout, (ftnlen)sizeof(
+	    integer));
+    do_lio(&c__3, &c__1, (char *)&outputfiles_1.idspout, (ftnlen)sizeof(
+	    integer));
+    do_lio(&c__3, &c__1, (char *)&outputfiles_1.irflout, (ftnlen)sizeof(
+	    integer));
+    do_lio(&c__3, &c__1, (char *)&outputfiles_1.irfrout, (ftnlen)sizeof(
+	    integer));
+    do_lio(&c__3, &c__1, (char *)&outputfiles_1.iresout, (ftnlen)sizeof(
+	    integer));
+    e_rsli();
+/*     write(6,*) irayout,idrvout,ialeout,idspout, */
+/*    &                irflout,irfrout,iresout */
     s_rsli(&io___18);
-    do_lio(&c__4, &c__1, (char *)&param_1.dmax__, (ftnlen)sizeof(real));
-    do_lio(&c__3, &c__1, (char *)&coordsyst_1.itopo, (ftnlen)sizeof(integer));
-    do_lio(&c__4, &c__1, (char *)&param_1.zmininput, (ftnlen)sizeof(real));
-    do_lio(&c__4, &c__1, (char *)&param_1.veladj, (ftnlen)sizeof(real));
-    do_lio(&c__4, &c__1, (char *)&param_1.zadj, (ftnlen)sizeof(real));
-    do_lio(&c__3, &c__1, (char *)&coordsyst_1.lowveloclay, (ftnlen)sizeof(
-	    integer));
-    e_rsli();
-    s_wsle(&io___19);
-    do_lio(&c__4, &c__1, (char *)&param_1.dmax__, (ftnlen)sizeof(real));
-    do_lio(&c__3, &c__1, (char *)&coordsyst_1.itopo, (ftnlen)sizeof(integer));
-    do_lio(&c__4, &c__1, (char *)&param_1.zmininput, (ftnlen)sizeof(real));
-    do_lio(&c__4, &c__1, (char *)&param_1.veladj, (ftnlen)sizeof(real));
-    do_lio(&c__4, &c__1, (char *)&param_1.zadj, (ftnlen)sizeof(real));
-    do_lio(&c__3, &c__1, (char *)&coordsyst_1.lowveloclay, (ftnlen)sizeof(
-	    integer));
-    e_wsle();
-    s_rsli(&io___20);
-    do_lio(&c__3, &c__1, (char *)&modela_1.nsp, (ftnlen)sizeof(integer));
-    do_lio(&c__4, &c__1, (char *)&param_1.swtfac, (ftnlen)sizeof(real));
-    do_lio(&c__4, &c__1, (char *)&layvel_1.vpvs, (ftnlen)sizeof(real));
-    do_lio(&c__3, &c__1, (char *)&modela_1.nmod, (ftnlen)sizeof(integer));
-    e_rsli();
-    s_wsle(&io___21);
-    do_lio(&c__3, &c__1, (char *)&modela_1.nsp, (ftnlen)sizeof(integer));
-    do_lio(&c__4, &c__1, (char *)&param_1.swtfac, (ftnlen)sizeof(real));
-    do_lio(&c__4, &c__1, (char *)&layvel_1.vpvs, (ftnlen)sizeof(real));
-    do_lio(&c__3, &c__1, (char *)&modela_1.nmod, (ftnlen)sizeof(integer));
-    e_wsle();
-    s_rsli(&io___22);
-    do_lio(&c__4, &c__1, (char *)&param_1.othet, (ftnlen)sizeof(real));
-    do_lio(&c__4, &c__1, (char *)&param_1.xythet, (ftnlen)sizeof(real));
-    do_lio(&c__4, &c__1, (char *)&param_1.zthet, (ftnlen)sizeof(real));
-    do_lio(&c__4, &c__1, (char *)&param_1.vthet, (ftnlen)sizeof(real));
-    do_lio(&c__4, &c__1, (char *)&param_1.stathet, (ftnlen)sizeof(real));
-    e_rsli();
-    s_wsle(&io___23);
-    do_lio(&c__4, &c__1, (char *)&param_1.othet, (ftnlen)sizeof(real));
-    do_lio(&c__4, &c__1, (char *)&param_1.xythet, (ftnlen)sizeof(real));
-    do_lio(&c__4, &c__1, (char *)&param_1.zthet, (ftnlen)sizeof(real));
-    do_lio(&c__4, &c__1, (char *)&param_1.vthet, (ftnlen)sizeof(real));
-    do_lio(&c__4, &c__1, (char *)&param_1.stathet, (ftnlen)sizeof(real));
-    e_wsle();
-    s_rsli(&io___24);
-    do_lio(&c__3, &c__1, (char *)&dimen_1.nsinv, (ftnlen)sizeof(integer));
-    do_lio(&c__3, &c__1, (char *)&dimen_1.nshcor, (ftnlen)sizeof(integer));
-    do_lio(&c__3, &c__1, (char *)&dimen_1.nshfix, (ftnlen)sizeof(integer));
-    do_lio(&c__3, &c__1, (char *)&coordsyst_1.iuseelev, (ftnlen)sizeof(
-	    integer));
-    do_lio(&c__3, &c__1, (char *)&coordsyst_1.iusestacorr, (ftnlen)sizeof(
-	    integer));
-    e_rsli();
-    s_wsle(&io___25);
-    do_lio(&c__3, &c__1, (char *)&dimen_1.nsinv, (ftnlen)sizeof(integer));
-    do_lio(&c__3, &c__1, (char *)&dimen_1.nshcor, (ftnlen)sizeof(integer));
-    do_lio(&c__3, &c__1, (char *)&dimen_1.nshfix, (ftnlen)sizeof(integer));
-    do_lio(&c__3, &c__1, (char *)&coordsyst_1.iuseelev, (ftnlen)sizeof(
-	    integer));
-    do_lio(&c__3, &c__1, (char *)&coordsyst_1.iusestacorr, (ftnlen)sizeof(
-	    integer));
-    e_wsle();
-    s_rsli(&io___26);
-    do_lio(&c__3, &c__1, (char *)&coordsyst_1.iturbo, (ftnlen)sizeof(integer))
-	    ;
-    do_lio(&c__3, &c__1, (char *)&outputfiles_1.icnvout, (ftnlen)sizeof(
-	    integer));
-    do_lio(&c__3, &c__1, (char *)&outputfiles_1.istaout, (ftnlen)sizeof(
-	    integer));
-    do_lio(&c__3, &c__1, (char *)&outputfiles_1.ismpout, (ftnlen)sizeof(
-	    integer));
-    e_rsli();
-    s_wsle(&io___27);
-    do_lio(&c__3, &c__1, (char *)&coordsyst_1.iturbo, (ftnlen)sizeof(integer))
-	    ;
-    do_lio(&c__3, &c__1, (char *)&outputfiles_1.icnvout, (ftnlen)sizeof(
-	    integer));
-    do_lio(&c__3, &c__1, (char *)&outputfiles_1.istaout, (ftnlen)sizeof(
-	    integer));
-    do_lio(&c__3, &c__1, (char *)&outputfiles_1.ismpout, (ftnlen)sizeof(
-	    integer));
-    e_wsle();
-    s_rsli(&io___28);
-    do_lio(&c__3, &c__1, (char *)&outputfiles_1.irayout, (ftnlen)sizeof(
-	    integer));
-    do_lio(&c__3, &c__1, (char *)&outputfiles_1.idrvout, (ftnlen)sizeof(
-	    integer));
-    do_lio(&c__3, &c__1, (char *)&outputfiles_1.ialeout, (ftnlen)sizeof(
-	    integer));
-    do_lio(&c__3, &c__1, (char *)&outputfiles_1.idspout, (ftnlen)sizeof(
-	    integer));
-    do_lio(&c__3, &c__1, (char *)&outputfiles_1.irflout, (ftnlen)sizeof(
-	    integer));
-    do_lio(&c__3, &c__1, (char *)&outputfiles_1.irfrout, (ftnlen)sizeof(
-	    integer));
-    do_lio(&c__3, &c__1, (char *)&outputfiles_1.iresout, (ftnlen)sizeof(
-	    integer));
-    e_rsli();
-    s_wsle(&io___29);
-    do_lio(&c__3, &c__1, (char *)&outputfiles_1.irayout, (ftnlen)sizeof(
-	    integer));
-    do_lio(&c__3, &c__1, (char *)&outputfiles_1.idrvout, (ftnlen)sizeof(
-	    integer));
-    do_lio(&c__3, &c__1, (char *)&outputfiles_1.ialeout, (ftnlen)sizeof(
-	    integer));
-    do_lio(&c__3, &c__1, (char *)&outputfiles_1.idspout, (ftnlen)sizeof(
-	    integer));
-    do_lio(&c__3, &c__1, (char *)&outputfiles_1.irflout, (ftnlen)sizeof(
-	    integer));
-    do_lio(&c__3, &c__1, (char *)&outputfiles_1.irfrout, (ftnlen)sizeof(
-	    integer));
-    do_lio(&c__3, &c__1, (char *)&outputfiles_1.iresout, (ftnlen)sizeof(
-	    integer));
-    e_wsle();
-    s_rsli(&io___30);
     do_lio(&c__4, &c__1, (char *)&param_1.delmin, (ftnlen)sizeof(real));
     do_lio(&c__3, &c__1, (char *)&param_1.ittmax, (ftnlen)sizeof(integer));
     do_lio(&c__3, &c__1, (char *)&param_1.invertratio, (ftnlen)sizeof(integer)
 	    );
     e_rsli();
-    s_wsle(&io___31);
-    do_lio(&c__4, &c__1, (char *)&param_1.delmin, (ftnlen)sizeof(real));
-    do_lio(&c__3, &c__1, (char *)&param_1.ittmax, (ftnlen)sizeof(integer));
-    do_lio(&c__3, &c__1, (char *)&param_1.invertratio, (ftnlen)sizeof(integer)
-	    );
-    e_wsle();
-    s_rsfi(&io___32);
+/*     write(6,*) delmin,ittmax,invertratio */
+    s_rsfi(&io___19);
     do_fio(&c__1, files_1.modelfilename, (ftnlen)80);
     e_rsfi();
     ici__1.icierr = 0;
@@ -616,10 +506,8 @@ L222:
     do_fio(&c__1, files_1.modelfilename, (ftnlen)80);
     e_wsfi();
     adline_bm__(ip, ip_len);
-    s_wsfe(&io___33);
-    do_fio(&c__1, files_1.modelfilename, (ftnlen)80);
-    e_wsfe();
-    s_rsfi(&io___34);
+/*     write(6,'(a)') modelfilename */
+    s_rsfi(&io___20);
     do_fio(&c__1, files_1.stationfilename, (ftnlen)80);
     e_rsfi();
     ici__1.icierr = 0;
@@ -631,10 +519,8 @@ L222:
     do_fio(&c__1, files_1.stationfilename, (ftnlen)80);
     e_wsfi();
     adline_bt__(ip, ip_len);
-    s_wsfe(&io___35);
-    do_fio(&c__1, files_1.stationfilename, (ftnlen)80);
-    e_wsfe();
-    s_rsfi(&io___36);
+/*     write(6,'(a)') stationfilename */
+    s_rsfi(&io___21);
     do_fio(&c__1, files_1.seismofilename, (ftnlen)80);
     e_rsfi();
     ici__1.icierr = 0;
@@ -646,10 +532,8 @@ L222:
     do_fio(&c__1, files_1.seismofilename, (ftnlen)80);
     e_wsfi();
     adline_bs__(ip, ip_len);
-    s_wsfe(&io___37);
-    do_fio(&c__1, files_1.seismofilename, (ftnlen)80);
-    e_wsfe();
-    s_rsfi(&io___38);
+/*     write(6,'(a)') seismofilename */
+    s_rsfi(&io___22);
     do_fio(&c__1, infiles_1.regnamfile, (ftnlen)80);
     e_rsfi();
     ici__1.icierr = 0;
@@ -661,10 +545,8 @@ L222:
     do_fio(&c__1, infiles_1.regnamfile, (ftnlen)80);
     e_wsfi();
     adline_br__(ip, ip_len);
-    s_wsfe(&io___39);
-    do_fio(&c__1, infiles_1.regnamfile, (ftnlen)80);
-    e_wsfe();
-    s_rsfi(&io___40);
+/*     write(6,'(a)') regnamfile */
+    s_rsfi(&io___23);
     do_fio(&c__1, infiles_1.regkoordfile, (ftnlen)80);
     e_rsfi();
     ici__1.icierr = 0;
@@ -676,10 +558,8 @@ L222:
     do_fio(&c__1, infiles_1.regkoordfile, (ftnlen)80);
     e_wsfi();
     adline_bk__(ip, ip_len);
-    s_wsfe(&io___41);
-    do_fio(&c__1, infiles_1.regkoordfile, (ftnlen)80);
-    e_wsfe();
-    s_rsfi(&io___42);
+/*     write(6,'(a)') regkoordfile */
+    s_rsfi(&io___24);
     do_fio(&c__1, infiles_1.topo1file, (ftnlen)80);
     e_rsfi();
     ici__1.icierr = 0;
@@ -691,10 +571,8 @@ L222:
     do_fio(&c__1, infiles_1.topo1file, (ftnlen)80);
     e_wsfi();
     adline_bl__(ip, ip_len);
-    s_wsfe(&io___43);
-    do_fio(&c__1, infiles_1.topo1file, (ftnlen)80);
-    e_wsfe();
-    s_rsfi(&io___44);
+/*     write(6,'(a)') topo1file */
+    s_rsfi(&io___25);
     do_fio(&c__1, infiles_1.topo2file, (ftnlen)80);
     e_rsfi();
     ici__1.icierr = 0;
@@ -706,10 +584,8 @@ L222:
     do_fio(&c__1, infiles_1.topo2file, (ftnlen)80);
     e_wsfi();
     adline_bz__(ip, ip_len);
-    s_wsfe(&io___45);
-    do_fio(&c__1, infiles_1.topo2file, (ftnlen)80);
-    e_wsfe();
-    s_rsfi(&io___46);
+/*     write(6,'(a)') topo2file */
+    s_rsfi(&io___26);
     do_fio(&c__1, infiles_1.phasefile, (ftnlen)80);
     e_rsfi();
     ici__1.icierr = 0;
@@ -721,10 +597,8 @@ L222:
     do_fio(&c__1, infiles_1.phasefile, (ftnlen)80);
     e_wsfi();
     adline_bp__(ip, ip_len);
-    s_wsfe(&io___47);
-    do_fio(&c__1, infiles_1.phasefile, (ftnlen)80);
-    e_wsfe();
-    s_rsfi(&io___48);
+/*     write(6,'(a)') phasefile */
+    s_rsfi(&io___27);
     do_fio(&c__1, infiles_1.shotfile, (ftnlen)80);
     e_rsfi();
     ici__1.icierr = 0;
@@ -736,43 +610,33 @@ L222:
     do_fio(&c__1, infiles_1.shotfile, (ftnlen)80);
     e_wsfi();
     adline_bf__(ip, ip_len);
-    s_wsfe(&io___49);
-    do_fio(&c__1, infiles_1.shotfile, (ftnlen)80);
-    e_wsfe();
+/*     write(6,'(a)') shotfile */
 /*     Output files: */
-    s_rsfi(&io___50);
+    s_rsfi(&io___28);
     do_fio(&c__1, outfiles_1.outfile, (ftnlen)80);
     e_rsfi();
-    s_wsfe(&io___51);
-    do_fio(&c__1, outfiles_1.outfile, (ftnlen)80);
-    e_wsfe();
+/*     write(6,'(a)') outfile */
     if (s_cmp(outfiles_1.outfile, " ", (ftnlen)80, (ftnlen)1) == 0) {
 	s_copy(outfiles_1.outfile, "vel.out", (ftnlen)80, (ftnlen)7);
     }
-    s_rsfi(&io___52);
+    s_rsfi(&io___29);
     do_fio(&c__1, outfiles_1.velfile, (ftnlen)80);
     e_rsfi();
-    s_wsfe(&io___53);
-    do_fio(&c__1, outfiles_1.velfile, (ftnlen)80);
-    e_wsfe();
+/*     write(6,'(a)') velfile */
     if (s_cmp(outfiles_1.velfile, " ", (ftnlen)80, (ftnlen)1) == 0) {
 	s_copy(outfiles_1.velfile, "velout.vel", (ftnlen)80, (ftnlen)10);
     }
-    s_rsfi(&io___54);
+    s_rsfi(&io___30);
     do_fio(&c__1, outfiles_1.cnvfile, (ftnlen)80);
     e_rsfi();
-    s_wsfe(&io___55);
-    do_fio(&c__1, outfiles_1.cnvfile, (ftnlen)80);
-    e_wsfe();
+/*     write(6,'(a)') cnvfile */
     if (s_cmp(outfiles_1.cnvfile, " ", (ftnlen)80, (ftnlen)1) == 0) {
 	s_copy(outfiles_1.cnvfile, "velout.cnv", (ftnlen)80, (ftnlen)10);
     }
-    s_rsfi(&io___56);
+    s_rsfi(&io___31);
     do_fio(&c__1, outfiles_1.stafile, (ftnlen)80);
     e_rsfi();
-    s_wsfe(&io___57);
-    do_fio(&c__1, outfiles_1.stafile, (ftnlen)80);
-    e_wsfe();
+/*     write(6,'(a)') stafile */
     if (s_cmp(outfiles_1.stafile, " ", (ftnlen)80, (ftnlen)1) == 0) {
 	s_copy(outfiles_1.stafile, "velout.sta", (ftnlen)80, (ftnlen)10);
     }
@@ -780,50 +644,50 @@ L222:
 /*     the next few ouputfiles are not very often used, therefore */
 /*     either all or none of them have to be specified in the controlfile: */
     if (i__ == 32) {
-	s_rsfi(&io___58);
+	s_rsfi(&io___32);
 	do_fio(&c__1, outfiles_1.smpfile, (ftnlen)80);
 	e_rsfi();
 	if (s_cmp(outfiles_1.smpfile, " ", (ftnlen)80, (ftnlen)1) == 0) {
 	    s_copy(outfiles_1.smpfile, "velout.smp", (ftnlen)80, (ftnlen)10);
 	}
-	s_rsfi(&io___59);
+	s_rsfi(&io___33);
 	do_fio(&c__1, outfiles_1.rayfile, (ftnlen)80);
 	e_rsfi();
 	if (s_cmp(outfiles_1.rayfile, " ", (ftnlen)80, (ftnlen)1) == 0) {
 	    s_copy(outfiles_1.rayfile, "velout.ray", (ftnlen)80, (ftnlen)10);
 	}
-	s_rsfi(&io___60);
+	s_rsfi(&io___34);
 	do_fio(&c__1, outfiles_1.drvfile, (ftnlen)80);
 	e_rsfi();
 	if (s_cmp(outfiles_1.drvfile, " ", (ftnlen)80, (ftnlen)1) == 0) {
 	    s_copy(outfiles_1.drvfile, "velout.drv", (ftnlen)80, (ftnlen)10);
 	}
-	s_rsfi(&io___61);
+	s_rsfi(&io___35);
 	do_fio(&c__1, outfiles_1.alefile, (ftnlen)80);
 	e_rsfi();
 	if (s_cmp(outfiles_1.alefile, " ", (ftnlen)80, (ftnlen)1) == 0) {
 	    s_copy(outfiles_1.alefile, "velout.ale", (ftnlen)80, (ftnlen)10);
 	}
-	s_rsfi(&io___62);
+	s_rsfi(&io___36);
 	do_fio(&c__1, outfiles_1.dsprfile, (ftnlen)80);
 	e_rsfi();
 	if (s_cmp(outfiles_1.dsprfile, " ", (ftnlen)80, (ftnlen)1) == 0) {
 	    s_copy(outfiles_1.dsprfile, "velout.dspr", (ftnlen)80, (ftnlen)11)
 		    ;
 	}
-	s_rsfi(&io___63);
+	s_rsfi(&io___37);
 	do_fio(&c__1, outfiles_1.rflfile, (ftnlen)80);
 	e_rsfi();
 	if (s_cmp(outfiles_1.rflfile, " ", (ftnlen)80, (ftnlen)1) == 0) {
 	    s_copy(outfiles_1.rflfile, "velout.rfl", (ftnlen)80, (ftnlen)10);
 	}
-	s_rsfi(&io___64);
+	s_rsfi(&io___38);
 	do_fio(&c__1, outfiles_1.rfrfile, (ftnlen)80);
 	e_rsfi();
 	if (s_cmp(outfiles_1.rfrfile, " ", (ftnlen)80, (ftnlen)1) == 0) {
 	    s_copy(outfiles_1.rfrfile, "velout.rfr", (ftnlen)80, (ftnlen)10);
 	}
-	s_rsfi(&io___65);
+	s_rsfi(&io___39);
 	do_fio(&c__1, outfiles_1.resfile, (ftnlen)80);
 	e_rsfi();
 	if (s_cmp(outfiles_1.resfile, " ", (ftnlen)80, (ftnlen)1) == 0) {
