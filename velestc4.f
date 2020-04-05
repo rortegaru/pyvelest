@@ -109,9 +109,9 @@ c
 c     call DATETIMEX(ctime)  ! get date&time from system
       write(headerline(1),'(1x,''>>> Start of program VELEST at '',a20,
      &              '' <<<'')') '--'
-      write(6,'(1x,''>>> Start of program VELEST at '',a20,
-     &          '' <<<'')') '--'
-      write(6,*)
+c     write(6,'(1x,''>>> Start of program VELEST at '',a20,
+c    &          '' <<<'')') '--'
+c     write(6,*)
 c
       write(headerline(2),*)'::::::::::::::::::::::::::::::::::::::'
       write(headerline(3),*)' V E L E S T  - Version : January 3, 1995'
@@ -177,9 +177,9 @@ c        call CPUTIMER(cpusec)
      &           '' <<<'','' [ CPU-sec : '',f7.1,'']'')') '------',0
        call adlineb(bo)
          endif
-         write(6,'(x,''>>>   End of program VELEST at '',a20,
-     &           '' <<<'','' [ CPU-sec : '',f7.1,'']'')') '------',0
-         stop'...end...(VELEST was running in SINGLE-EVENT-OPTION)'
+c        write(6,'(x,''>>>   End of program VELEST at '',a20,
+c    &           '' <<<'','' [ CPU-sec : '',f7.1,'']'')') '------',0
+c        stop'...end...(VELEST was running in SINGLE-EVENT-OPTION)'
       endif
 c
 c----------------------------------------------------------------------------
@@ -225,9 +225,10 @@ c
      &        write(bo,*)'~~~ input data, raytracing, setup G ...'
        call adlineb(bo)
       if(.not.single_turbo)then
-         write(bo,'(/////)')
+         write(bo,*)
        call adlineb(bo)
-         write(bo,'(''    I N P U T - D A T A  '',/)')
+         write(bo,'(''    I N P U T - D A T A  '')')
+       call adlineb(bo)
          if(nsp.eq.2) then
          write(bo,'(1x,'' eq    origin-time    latitude longitude '',
      &        ''depth    x      y      z    mag ifxOBStot obsP obsS'')')
@@ -262,13 +263,14 @@ c
        call adlineb(bo)
                   write(bo,'('' knobs(i)='',i4,'' nobswithw0='',i4,
      +            '' nvar='',i2)') knobs(i),nobswithw0,nvar
+       call adlineb(bo)
                   write(bo,*)'Event cannot be located!!!'
        call adlineb(bo)
                endif
-               write(6,*)'knobs(i)-nobswithw0 < nvar !!!'
-               write(6,'('' knobs(i)='',i4,'' nobswithw0='',i4,
-     +            '' nvar='',i2)') knobs(i),nobswithw0,nvar
-               write(6,*)'Event cannot be located!!!'
+c              write(6,*)'knobs(i)-nobswithw0 < nvar !!!'
+c              write(6,'('' knobs(i)='',i4,'' nobswithw0='',i4,
+c    +            '' nvar='',i2)') knobs(i),nobswithw0,nvar
+c              write(6,*)'Event cannot be located!!!'
                goto 98989
             endif
             if(.not.single_turbo)then
@@ -290,6 +292,7 @@ c
          write(bo,*)
        call adlineb(bo)
          write(bo,*)'~~~ store parts of G ...'
+       call adlineb(bo)
       endif
       do k=1,4
          call STOREG(k,k)
@@ -318,7 +321,7 @@ c
             write(bo,*)'WARNING:  ITTmax=0  -->  no iteration is made'
        call adlineb(bo)
          endif
-         write(6,*)'WARNING:  ITTmax=0  -->  no iteration is made'
+c        write(6,*)'WARNING:  ITTmax=0  -->  no iteration is made'
          goto 9999
       endif
 c
@@ -339,9 +342,9 @@ c
 c     call DATETIMEX(ctime)  ! get date&time from system
 c     call CPUTIMER(cpusec)
       if(isingle.eq.0)then
-         write(6,'(1x,'' finished Iteration #'',i3,''  at'',
-     &             3x,a20,5x,''CPU-sec = '',f7.1)')
-     &             nittc,'----',0
+c        write(6,'(1x,'' finished Iteration #'',i3,''  at'',
+c    &             3x,a20,5x,''CPU-sec = '',f7.1)')
+c    &             nittc,'----',0
       endif
       nittc=nittc+1
 c
@@ -351,11 +354,12 @@ c
 c     print header of this iteration :
 c
       cline='----------------------------------------'
-     &    //'----------------------------------------'
+c    &    //'----------------------------------------'
       if(.not.single_turbo)then
-         write(bo,'(///,a,///)') cline
+         write(bo,'(a)') cline
        call adlineb(bo)
-         write(bo,'(11x,''ITERATION no '',i2,/)') nitt
+         write(bo,'(11x,''ITERATION no '',i2)') nitt
+       call adlineb(bo)
       endif
 c
 c     do scaling of damping-factors (and determine ICOUNT) for this iteration:
@@ -383,7 +387,8 @@ c
        call adlineb(bo)
             write(bo,'(1x,''  Othet='',f8.3,''   XYthet  ='',f8.3,
      &                    ''   Zthet='',f7.3)') othet,xythet,Zthet
-            write(bo,'(1x,''STAthet='',f8.3,''   Vthet   ='',f8.3,/)')
+       call adlineb(bo)
+            write(bo,'(1x,''STAthet='',f8.3,''   Vthet   ='',f8.3)')
      &                 stathet,vthet
        call adlineb(bo)
          endif
@@ -412,8 +417,8 @@ c
             write(bo,'('' WARNING: error in ludecp     ier='',i5)')ier
        call adlineb(bo)
          endif
-         write(6,'('' WARNING: error in ludecp     ier='',i5)')ier
-         STOP'error in (damped) matrix G !!!'
+c        write(6,'('' WARNING: error in ludecp     ier='',i5)')ier
+c        STOP'error in (damped) matrix G !!!'
       endif
 c
 c     solve normal equations (simple elimination; G is now lower triangular) :
@@ -535,9 +540,10 @@ c
                   write(bo,*)'knobs(i)-nobswithw0 < nvar !!!'
        call adlineb(bo)
                   write(bo,*)'Event cannot be located!!!'
+       call adlineb(bo)
                endif
-               write(6,*)'knobs(i)-nobswithw0 < nvar !!!'
-               write(6,*)'Event cannot be located!!!'
+c              write(6,*)'knobs(i)-nobswithw0 < nvar !!!'
+c              write(6,*)'Event cannot be located!!!'
                goto 98989
             endif
             if(.not.single_turbo)then
@@ -625,6 +631,7 @@ c
      &                       '' --> hypocenter and model backup.'')')
        call adlineb(bo)
                   write(bo,*)'~~~ solution is worse --> backup ...'
+       call adlineb(bo)
                endif
                call BACKUP(bo)
                ibackups=ibackups+1
@@ -708,7 +715,7 @@ c     call CPUTIMER(cpusec)
       if(isingle.eq.0)then
          write(6,'(1x,'' finished Iteration #'',i3,''  at'',
      &             3x,a20,5x,''CPU-sec = '',f7.1)')
-     &             nittc,'---',0
+     &             nittc,'---',0.0
       endif
       nittc=nittc+1
 c
@@ -716,10 +723,11 @@ c
          write(bo,*)'~~~ final solution reached ...'
        call adlineb(bo)
          write(bo,*)
+       call adlineb(bo)
          if(iresolcalc.gt.0)then
          else
-            write(bo,*)'~~~ damp G & Chol.-Decomp.: NOT made '//
-     &                 '(switch iresolcalc is NOT set !)'
+            write(bo,*)'~~~ damp G & Chol.-Decomp.: NOT made '
+c    &                 '(switch iresolcalc is NOT set !)'
        call adlineb(bo)
          endif
       endif
@@ -733,8 +741,8 @@ c        next iteration as well:
          call SETUNT(nitt+1,invertratio,nsinv,icount,
      &                      xythet,stathet,othet,vthet,zthet,scale)
          if(.not.single_turbo) 
-     &      write(bo,'(a)')' ~~~ determine number of unknowns '//
-     &                          'for next iter. ...'
+     &      write(bo,'(a)')' ~~~ determine number of unknowns '
+c    &                          'for next iter. ...'
        call adlineb(bo)
          call DETNOFUNKNOWNS(bo)
 c
@@ -788,13 +796,16 @@ c
        call adlineb(bo)
             write(bo,'(1x,''  Othet='',f8.3,''   XYthet  ='',f8.3,
      &                    ''   Zthet='',f8.3)') othet,xythet,Zthet
+       call adlineb(bo)
             write(bo,'(1x,''STAthet='',f8.3,''   Vthet   ='',f8.3)')
      &                 stathet,vthet
        call adlineb(bo)
             write(bo,*)
+       call adlineb(bo)
             write(bo,*)'Final solution of event#',isingle
        call adlineb(bo)
             write(bo,*)'------------------------------------'
+       call adlineb(bo)
          else !         print final rms-values of all the events
 ck            write(bo,59) (rms(i),i=1,legs)
        call adlineb(bo)
@@ -830,6 +841,7 @@ c
      &                (SV(j),j=1,4) , ale(1)
        call adlineb(bo)
           write(bo,'(1x,''data variance = '',f10.6)') davar1
+       call adlineb(bo)
        endif
       endif
 c
@@ -900,6 +912,7 @@ c
          write(bo,*)'CPU - statistics:'
        call adlineb(bo)
          write(bo,*)
+       call adlineb(bo)
       endif
       if(.not.single_turbo)then
          cpmintot=cpusec/60.
@@ -907,6 +920,7 @@ c
      &              ''(CPU-minutes:'',f7.3,'')'')') cpusec,cpmintot
        call adlineb(bo)
          write(bo,*)
+       call adlineb(bo)
       endif
 c
       if(isingle.eq.0)then
@@ -934,6 +948,7 @@ c        call DATETIMEX(ctime)  ! get date&time from system
             write(bo,*)'end of event# ',isingle
        call adlineb(bo)
             write(bo,*)
+       call adlineb(bo)
             write(bo,*)
        call adlineb(bo)
          endif
@@ -1071,17 +1086,13 @@ c
          stop'INPUTPARAM>>> control file `velest.cmn` not found!'
       endif
 cVMS      open(10,file='velest.cmn',status='old',err=9910,readonly)
-c     open(10,file='velest.cmn',status='unknown',err=9910)
+      open(10,file='velest.cmn',status='unknown',err=9910)
 c
 c     input center of coordinate system
 c
       i=0
-c111  read(10,'(a)',end=222) card
- 111  continue
-      call rdline_ic(bo) 
-      read(bo,'(a)') card
+ 111  read(10,'(a)',end=222) card
       if(card(1:1).eq.'*') goto 111
-      if(card(1:1).eq.'@') goto 222
       i=i+1
       if(i.gt.32) stop'INPUTPARAM>>> control-file not correct!'
       line(i)=card
@@ -1157,18 +1168,22 @@ c        write(6,*) 'Despues del primer llamado'
          write(bo,*)
        call adlineb(bo)
          write(bo,'(a)') headerline(2)
+       call adlineb(bo)
          write(bo,'(a)') headerline(3)
        call adlineb(bo)
          write(headerline(3),*)' (Authors: see source code)'
          write(bo,'(a)') headerline(3)
        call adlineb(bo)
          write(bo,'(a)') headerline(2)
+       call adlineb(bo)
          write(bo,*)
        call adlineb(bo)
          write(bo,*)
+       call adlineb(bo)
          write(bo,*)'Title of this VELEST run:'
        call adlineb(bo)
          write(bo,*)
+       call adlineb(bo)
          n=trimlen(titleline)
          write(bo,*) titleline(1:n)
        call adlineb(bo)
@@ -1178,14 +1193,17 @@ c        write(6,*) 'Despues del primer llamado'
          write(bo,*) titleline(1:n)
        call adlineb(bo)
          write(bo,*)
+       call adlineb(bo)
          write(bo,*)
        call adlineb(bo)
          write(bo,*)'Current array-dimensions of program VELEST:'
+       call adlineb(bo)
          write(bo,*)
        call adlineb(bo)
          write(bo,'('' Max. number of '',
      &              ''EARTHQUAKES for simult. inversion IEQ = '',i3)')
      &              ieq
+       call adlineb(bo)
          write(bo,'('' Max. number of '',
      &              ''SHOTS for simult. inversion    INSHOT = '',i3)')
      &              inshot
@@ -1193,6 +1211,7 @@ c        write(6,*) 'Despues del primer llamado'
          write(bo,'('' Max. number of '',
      &              ''(different) 1D-MODELS      ITOTMODELS = '',i3)')
      &              itotmodels
+       call adlineb(bo)
          write(bo,'('' Max. number of '',
      &              ''LAYERS per one 1D-model        INLTOT = '',i3)')
      &              inltot
@@ -1200,11 +1219,13 @@ c        write(6,*) 'Despues del primer llamado'
          write(bo,'('' Max. number of '',
      &              ''STATIONS in stationlist           IST = '',i3)')
      &              ist
+       call adlineb(bo)
          write(bo,'('' Max. number of '',
      &              ''OBSERVATIONS per event MAXOBSPEREVENT = '',i3)')
      &              maxobsperevent
        call adlineb(bo)
          write(bo,*)
+       call adlineb(bo)
          write(bo,*)
        call adlineb(bo)
       endif
@@ -1229,25 +1250,14 @@ c
       if(.not.single_turbo)then
          write(bo,*)
        call adlineb(bo)
-         write(bo,*)
-       call adlineb(bo)
-         write(bo,*)
-       call adlineb(bo)
-         write(bo,*)
-       call adlineb(bo)
          write(bo,*)'   INPUT - P A R A M E T E R S :'
-       call adlineb(bo)
-         write(bo,*)
-       call adlineb(bo)
-         write(bo,*)
        call adlineb(bo)
          write(bo,*)
        call adlineb(bo)
       write(bo,'(a)')'***'
        call adlineb(bo)
       write(bo,'(a)')'***  olat       olon   icoordsystem      '
-       call adlineb(bo)
-      write(bo,'(a)')'     zshift   itrial ztrial    ised'
+c    &              'zshift   itrial ztrial    ised'
        call adlineb(bo)
       write(bo,'(1x,f10.6,f11.6,6x,i1,10x,f7.3,7x,i1,3x,f6.2,6x,i1)')
      &          olat,olon,icoordsystem,zshift,itrial,ztrial,ised
@@ -1267,7 +1277,7 @@ c
       write(bo,'(a)')'***'
        call adlineb(bo)
       write(bo,'(a)')'*** dmax    itopo    zmin'
-      write(bo,'(a)')'    veladj    zadj   lowveloclay'
+c    &              '     veladj    zadj   lowveloclay'
        call adlineb(bo)
       write(bo,'(2x,f7.2,5x,i1,4x,f6.2,6x,f5.2,3x,f5.2,7x,i1)')
      &          dmax,itopo,zmininput,veladj,zadj,lowveloclay
@@ -1287,8 +1297,7 @@ c
       write(bo,'(a)')'***'
        call adlineb(bo)
       write(bo,'(a)')'*** nsinv   nshcor   nshfix'
-       call adlineb(bo)
-      write(bo,'(a)')'     iuseelev    iusestacorr'
+c    &              '     iuseelev    iusestacorr'
        call adlineb(bo)
       write(bo,'(7x,3(i1,7x),4x,i1,12x,i1)') nsinv, nshcor, nshfix,
      &                         iuseelev,iusestacorr
@@ -1303,8 +1312,7 @@ c
       write(bo,'(a)')'***'
        call adlineb(bo)
       write(bo,'(a)')'*** irayout   idrvout   ialeout   idspout'
-       call adlineb(bo)
-      write(bo,'(a)')'   irflout   irfrout   iresout'
+c    &               '   irflout   irfrout   iresout'
        call adlineb(bo)
       write(bo,'(7x,i1,6(9x,i1))') irayout,idrvout,ialeout,idspout,
      &                            irflout,irfrout,iresout
@@ -1452,10 +1460,6 @@ c
        call adlineb(bo)
       write(bo,*)
        call adlineb(bo)
-      write(bo,*)
-       call adlineb(bo)
-      write(bo,*)
-       call adlineb(bo)
       endif
 c
 c     remarks concerning OLAT & OLON:
@@ -1481,6 +1485,7 @@ c
             write(bo,*)'Origin BERNE is taken!'
        call adlineb(bo)
             write(bo,*)'OLAT=46.95240 n OLON=7.439583 e'
+       call adlineb(bo)
          endif
          write(bo,*)
        call adlineb(bo)
@@ -1518,6 +1523,7 @@ c
      &                 ' y is positive towards north'
        call adlineb(bo)
 ccc            write(bo,*)'---> no rotation can be performed !!!'
+       call adlineb(bo)
          else
             write(bo,*)'icoordsystem = ',icoordsystem
        call adlineb(bo)
@@ -1559,6 +1565,7 @@ c
             write(bo,*)'(but correctly printed in file12)'
        call adlineb(bo)
             write(bo,*)
+       call adlineb(bo)
          endif
          if(iusestacorr.eq.0)then
             write(bo,*)
@@ -1589,11 +1596,9 @@ c
       endif
 c
       if(.not.single_turbo)then
-         write(bo,'(///)')
+         write(bo,*)
        call adlineb(bo)
          write(bo,*)'   INPUT - M O D E L :'
-       call adlineb(bo)
-         write(bo,*)
        call adlineb(bo)
          write(bo,*)
        call adlineb(bo)
@@ -1604,14 +1609,14 @@ c
          write(bo,*)
        call adlineb(bo)
       endif
-c     close(10)
+      close(10)
 c
 c   ***********
 c NOW READ model file
 c   ***********
 c
 cVMS      open(10,file=modelfilename,status='old',err=9911,readonly)
-c     open(10,file=modelfilename,status='old',err=9911)
+      open(10,file=modelfilename,status='old',err=9911)
 c
       ireflector=0
 cek
@@ -1622,11 +1627,10 @@ cek
       endif
 c
 cek  modifications for new model file
-      call rdline_bm(bo)
-      read(bo,'(a40)') titl
-      if(.not.single_turbo) write(bo,'(a)') 
-     &                 ' model file title: ',titl
-       call adlineb(bo)
+      read(10,'(a40)') titl
+c     if(.not.single_turbo) write(bo,'(a)') 
+c    &                 ' model file title: ',titl
+c      call adlineb(bo)
 cek      read(10,*) (nplay(j),j=1,nmod)
 8     format(10i5)
       do 14 i=1,nmod
@@ -1641,17 +1645,13 @@ cek      read(10,*) (nplay(j),j=1,nmod)
 11       format(1h ,'layer    vel   depth   vdamp  reflector')
       endif
       titl=' '
-      call rdline_bm(bo)
-      read(bo,'(i3)') nplay(i)
-c     write(6,*)'Nplay (i) =',nplay(i)
+      read(10,'(i3)') nplay(i)
       do 9 j=1,nplay(i)
        if(j.eq.1)then
-         call rdline_bm(bo)
-         read(bo,1212) vp(i,j),hp(i,j),vdamp(i,j),reflch,titl
+         read(10,1212) vp(i,j),hp(i,j),vdamp(i,j),reflch,titl
 1212     format(f5.2,5x,f7.2,2x,f7.3,3x,a1,1x,a40)
        else
-         call rdline_bm(bo)
-         read(bo,12) vp(i,j),hp(i,j),vdamp(i,j),reflch
+         read(10,12) vp(i,j),hp(i,j),vdamp(i,j),reflch
 12       format(f5.2,5x,f7.2,2x,f7.3,3x,a1)
        endif
       if(reflch.ne.' ')then
@@ -1679,8 +1679,8 @@ c                 write(6,*)
        call adlineb(bo)
              write(bo,*)'Reflected phases will be ignored (wrong mark)'
        call adlineb(bo)
-              write(6,*)'Reflected phases will be ignored (wrong mark)'
-              write(6,*)
+c             write(6,*)'Reflected phases will be ignored (wrong mark)'
+c             write(6,*)
             endif
          endif
       endif
@@ -1700,9 +1700,9 @@ c                 write(6,*)
       endif
 c
       if(j.gt.1.and.hp(i,j).lt.0.0)then
-         write(6,*)'WARNING:'
-         write(6,*)'Only top of the first layer can be negative !!'
-         write(6,*)
+c        write(6,*)'WARNING:'
+c        write(6,*)'Only top of the first layer can be negative !!'
+c        write(6,*)
          if(.not.single_turbo)then
             write(bo,*)'WARNING:'
        call adlineb(bo)
@@ -1752,6 +1752,7 @@ c
         write(bo,*)
        call adlineb(bo)
         write(bo,*)
+       call adlineb(bo)
       endif
 c
 14    continue
@@ -1764,20 +1765,20 @@ c
      &            ''of layer nr. '',i2)') reflchar,ireflector
        call adlineb(bo)
             if(lowveloclay.eq.1)then
-               write(bo,*)'Switch LOWVELOCLAY is set to 1, but',
+               write(bo,*)'Switch LOWVELOCLAY is set to 1, but'//
      &                    ' reflected phases are allowed to occur'
        call adlineb(bo)
-               write(bo,*)'This is improper (no low velocity-layers ',
+               write(bo,*)'This is improper (no low velocity-layers '//
      &                    'allowed for reflected waves!!)'
        call adlineb(bo)
                lowveloclay=0
                write(bo,*)'LOWVELOCLAY now set to 0 '
        call adlineb(bo)
-               write(6,*)'Switch LOWVELOCLAY is set to 1, but'//
-     &                    ' reflected phases are allowed to occur'
-               write(6,*)'This is improper (no low velocity-layers '//
-     &                    'allowed for reflected waves!!)'
-               write(6,*)'LOWVELOCLAY now set to 0 '
+c              write(6,*)'Switch LOWVELOCLAY is set to 1, but'//
+c    &                    ' reflected phases are allowed to occur'
+c              write(6,*)'This is improper (no low velocity-layers '//
+c    &                    'allowed for reflected waves!!)'
+c              write(6,*)'LOWVELOCLAY now set to 0 '
             endif
          endif
       e n d i f
@@ -1792,10 +1793,6 @@ c
       if(.not.single_turbo)then
          write(bo,*)
        call adlineb(bo)
-         write(bo,*)
-       call adlineb(bo)
-         write(bo,*)
-       call adlineb(bo)
          write(bo,*)'   INPUT - S T A T I O N S :'
        call adlineb(bo)
          write(bo,*)
@@ -1805,12 +1802,12 @@ c
          write(bo,*) stationfilename
        call adlineb(bo)
          write(bo,*)
+       call adlineb(bo)
       endif
-c     close(10)
+      close(10)
 cVMS      open(10,file=stationfilename,status='old',err=9912,readonly)
-c     open(10,file=stationfilename,status='old',err=9912)
-      call rdline_bt(bo)
-      read(bo,1) fm
+      open(10,file=stationfilename,status='old',err=9912)
+      read(10,1) fm
 1     format(a80)
       if(.not.single_turbo)then
          write(bo,*)
@@ -1823,11 +1820,7 @@ c     open(10,file=stationfilename,status='old',err=9912)
       nsta=0
 c
 10    nsta=nsta+1
-      call rdline_bt(bo)
-c check if the file ended
-      if(bo(1:1).eq.'@') goto 41  
-      if(bo(1:1).eq.' ') goto 41  
-      read(bo,fm) stn(nsta),xla(nsta),cns,xlo(nsta),cew,
+      read(10,fm) stn(nsta),xla(nsta),cns,xlo(nsta),cew,
      &            ielev(nsta),mode,icc,
      &            ptcor(nsta),stcor(nsta)
       call CASEFOLD(cns)
@@ -1835,7 +1828,6 @@ c check if the file ended
       if(cns.eq.'S') xla(nsta)=-xla(nsta)
       if(cew.eq.'E') xlo(nsta)=-xlo(nsta)
 c
-c note this is not the best way to check the EOF ROR. 31-03-2020.1
       if(stn(nsta).eq.' ') goto 41
 cek      if(mode.eq.0) mode=1
       mode=1
@@ -1885,7 +1877,7 @@ c
       map1(nsta)=icc
       goto 10
 41    continue
-c     close(10)  ! stationfile
+      close(10)  ! stationfile
 c
 c     read in seismo data (seismometer-specifications and so on):
 c
@@ -1921,6 +1913,7 @@ c
             write(bo,*)
        call adlineb(bo)
             write(bo,*)
+       call adlineb(bo)
          endif
       endif
       if(seismofilename.ne.' ')
@@ -2086,8 +2079,8 @@ cek check for events with less than three observations
 cek
       if(isingle.ne.0) then
         if(nobsread.lt.3) then
-            write(6,'(1x,''Event #'',i4)') i
-            write(6,*) ' skipped because it has fewer than 3 obs.'
+c           write(6,'(1x,''Event #'',i4)') i
+c           write(6,*) ' skipped because it has fewer than 3 obs.'
            goto 10001
         endif
       endif
@@ -2096,8 +2089,8 @@ cek
      &             ''                 '',
      &             ''           0                    0'')')
      &             isingle
-         write(6,'(1x,''Event #'',i6)')
-     &            isingle
+c        write(6,'(1x,''Event #'',i6)')
+c    &            isingle
       endif
 c
       if(i.le.neqs)then
@@ -2161,12 +2154,12 @@ cuk         if(smn(jj,i).eq.' ') jj=1  ! is wrong!!
             else
                if(.not.single_turbo) write(bo,*)'DEPTH fixed !!!'
        call adlineb(bo)
-               write(6,*) 'DEPTH fixed !'
+c              write(6,*) 'DEPTH fixed !'
             endif
          else
             if(.not.single_turbo) write(bo,*)'HYPOCENTER fixed !!!'
        call adlineb(bo)
-            write(6,*)'HYPOCENTER fixed !'
+c           write(6,*)'HYPOCENTER fixed !'
             if(icoordsystem.eq.2.and.alon.gt.0.) alon=-alon ! fixed LAT
          endif                                 ! was given in LON E
       endif
@@ -2223,10 +2216,10 @@ c     do NOT use any phases marked with 'm' or 'M' !
        call adlineb(bo)
                      write(bo,*)'what phase is this ?  ',
      &		          cphase(j),' ???'
-       call adlineb(bo)
 		  endif   
-                  write(6,*)'what phase is this ?  ',cphase(j),' ???'
-                  write(6,*)
+       call adlineb(bo)
+c                 write(6,*)'what phase is this ?  ',cphase(j),' ???'
+c                 write(6,*)
                   if(isingle.gt.0)then
                      write(2,'('' DELETED: '',a4,
      &                      '' unknown phase is: '',a1)')
@@ -2246,11 +2239,11 @@ c     do NOT use any phases marked with 'm' or 'M' !
                         write(bo,*)'Phase therefore neglected !!'
        call adlineb(bo)
                      e n d i f  ! single_turbo
-                     write(6,*)'subr. INPUTDATA >>> Phase is : ',
-     &		          cphase(j)
-                     write(6,*)'but ireflector is: ',ireflector
-                     write(6,*)'Phase therefore neglected !!'
-                     write(6,*)
+c                    write(6,*)'subr. INPUTDATA >>> Phase is : ',
+c    &		          cphase(j)
+c                    write(6,*)'but ireflector is: ',ireflector
+c                    write(6,*)'Phase therefore neglected !!'
+c                    write(6,*)
                      goto 15
                   endif  ! if ireflector
                endif  ! else
@@ -2273,10 +2266,10 @@ c
        call adlineb(bo)
       endif
 cc      write(6,*)'Event # ',i
-      write(6,'('' WARNING:  Station: >>>'',a4,
-     &           ''<<< not found in stationlist!'')') sta(j)
-      write(6,*)'Phase therefore skipped'
-      write(6,*)
+c     write(6,'('' WARNING:  Station: >>>'',a4,
+c    &           ''<<< not found in stationlist!'')') sta(j)
+c     write(6,*)'Phase therefore skipped'
+c     write(6,*)
       if(isingle.gt.0) write(2,'('' DELETED: '',a4,
      &                           '' not on station-list'')') sta(j)
       goto 15
@@ -2292,9 +2285,9 @@ cc      write(6,*)'Event # ',i
        call adlineb(bo)
          endif
          if(isingle.ne.0)then
-            write(6,'('' epicentral distance:'',f6.1,
-     &                 '' > dmax ('',f6.1,'') ==> skipping phase !'')')
-     &                 ss1,dmax
+c           write(6,'('' epicentral distance:'',f6.1,
+c    &                 '' > dmax ('',f6.1,'') ==> skipping phase !'')')
+c    &                 ss1,dmax
          write(2,'('' DELETED: '',a4,
      &             '' epicentral-distance too large'')') sta(j)
          endif
@@ -2334,13 +2327,13 @@ c
      &                      ' already occured!'
        call adlineb(bo)
                endif
-               write(6,*)'PHASETEST: POSSIBLE ERROR in phaselist !!'
-               write(6,'(1x,''---> '',3i2.2,1x,2i2.2)')
-     &                  iyr(i),imo(i),iday(i),ihr(i),imin(i)
-                 write(6,*)'Event=',ie,' Obs-nr. = ',j,' >>> Station ',
-     &                      sta(j),' & Phase = ',cphase(j),
-     &                      ' already occured!'
-               write(6,*)
+c              write(6,*)'PHASETEST: POSSIBLE ERROR in phaselist !!'
+c              write(6,'(1x,''---> '',3i2.2,1x,2i2.2)')
+c    &                  iyr(i),imo(i),iday(i),ihr(i),imin(i)
+c                write(6,*)'Event=',ie,' Obs-nr. = ',j,' >>> Station ',
+c    &                      sta(j),' & Phase = ',cphase(j),
+c    &                      ' already occured!'
+c              write(6,*)
                if(isingle.eq.0)then
                   if(.not.single_turbo)then
                      write(bo,*)'subr. INPUTDATA >>> program will stop'
@@ -2351,8 +2344,8 @@ c
                   iphaseteststopflag=1
                else
                   if(.not.single_turbo)then
-                     write(bo,*)'INPUTDATA>>> nevertheless, ',
-     &                           'program continues'
+                     write(bo,*)'INPUTDATA>>> nevertheless, '
+     &                           //'program continues'
        call adlineb(bo)
                      write(bo,*)
        call adlineb(bo)
@@ -2537,7 +2530,7 @@ c---- read past end of data
       write(bo,*)'WARNING:  subr. INPUTDATA >>> end of data encountered'
        call adlineb(bo)
       endif
-      write(6,*)'WARNING:'
+c     write(6,*)'WARNING:'
       stop'subr. INPUTDATA >>> error: end of data!'
 c
   998 call OPENERROR('inputdata','EQ-data-input-file FOR008',bo)
@@ -2672,6 +2665,7 @@ c
       write(bo,'('' Total nr of reflected rays = '',i5)') irefl
        call adlineb(bo)
       write(bo,'('' Total nr of   other   rays = '',i5)') noheadwave
+       call adlineb(bo)
       itotal=noheadwave+irefr+irefl
       write(bo,'(''                              ------'')')
        call adlineb(bo)
@@ -2680,6 +2674,7 @@ c
       write(bo,*)
        call adlineb(bo)
       write(bo,*)'Average (absolute) error of the raytracers:'
+       call adlineb(bo)
       err=0.0
       if(noheadwave.gt.0) err=(sterr+direrr)/noheadwave
       write(bo,'(1x,'' Straight and direct rays : '',f7.2,'' meters'')')
@@ -2725,10 +2720,11 @@ c
       write(bo,*)' GAP of final epicenters:'
        call adlineb(bo)
       write(bo,*)
+       call adlineb(bo)
       write(bo,'(5(''  Event# -> GAP''))')
        call adlineb(bo)
-      write(bo,'(5(5x,i3,'' -> '',i3))') (i,igap(i),i=1,neqs)
-       call adlineb(bo)
+c     write(bo,'(5(5x,i3,'' -> '',i3))') (i,igap(i),i=1,neqs)
+c      call adlineb(bo)
       write(bo,*)
        call adlineb(bo)
       mini=361
@@ -2885,7 +2881,7 @@ c
        call adlineb(bo)
          endif
 cc         write(bo,*)
-c      call adlineb(bo)
+       call adlineb(bo)
       enddo
       if(mge5i.gt.50)mge5i=51
       if(mge5l.gt.50)mge5l=51
@@ -3004,9 +3000,10 @@ c
             write(bo,*)'knobs(i)-nobswithw0 < nvar !!!'
        call adlineb(bo)
             write(bo,*)'Event cannot be located!!!'
+       call adlineb(bo)
          endif
-         write(6,*)'knobs(i)-nobswithw0 < nvar !!!'
-         write(6,*)'Event cannot be located!!!'
+c        write(6,*)'knobs(i)-nobswithw0 < nvar !!!'
+c        write(6,*)'Event cannot be located!!!'
       endif
       if(iabort.eq.1)then
          write(2,'('' ERROR: insufficient data to locate the quake!'')')
@@ -3342,8 +3339,8 @@ c
        call adlineb(bo)
       write(bo,'(4h  eq, 7x, 2hot, 5x, 1hx, 6x, 1hy, 6x, 1hz, 6x,3hrms,
      &           4x,5havres,''   dot     dx     dy     dz'' )')
-       call adlineb(bo)
 c
+       call adlineb(bo)
       do 29 i=1,legs
 c
 c     print constrain-info if necessary:
@@ -3423,9 +3420,9 @@ c
       if(damp.ne.1.0)then
          write(bo,124) damp
        call adlineb(bo)
-124      format(/,' Step length damping of ',f7.5,' was applied.',/)
+124      format(' Step length damping of ',f7.5,' was applied.')
       else
-         write(bo,'(/,''NO step length damping applied'',/)')
+         write(bo,'(''NO step length damping applied'')')
        call adlineb(bo)
       endif
 c
@@ -3535,9 +3532,9 @@ c
 cccc         ptcor(j)=ptcor(j)+cc(j)  !  ADJUSTMENT !!! (p-correction)
  49      continue
       enddo
-      write(bo,50) (stn(j),ptcor(j),cc(j),j=1,nsta)
-       call adlineb(bo)
- 50   format(4(2x,a4,2f7.3))
+c     write(bo,50) (stn(j),ptcor(j),cc(j),j=1,nsta)
+c      call adlineb(bo)
+c50   format(4(2x,a4,2f7.3))
       if(nsp.ne.2) goto 72
       write(bo,'('' Adjusted station corrections:'')')
        call adlineb(bo)
@@ -3559,8 +3556,8 @@ c
 ccc         stcor(j)=stcor(j)+cc(j)   ! ADJUSTMENT !!! (s-correction)
 74       continue
       enddo
-      write(bo,50) (stn(j),stcor(j),cc(j),j=1,nsta)
-       call adlineb(bo)
+c     write(bo,50) (stn(j),stcor(j),cc(j),j=1,nsta)
+c      call adlineb(bo)
 c
 72    continue
       write(bo,*)
@@ -3593,7 +3590,7 @@ c
       if(isingle.ne.0)then
          if(.not.single_turbo) write(bo,1111)
        call adlineb(bo)
-         write(6,1111)
+c        write(6,1111)
       else
          if(.not.single_turbo)then
             write(bo,11)
@@ -3662,13 +3659,13 @@ c
       endif
 c
       if(isingle.ne.0)then
-         write(6,'(1x,3i2.2,1x,2i2.2,f6.2,
-     &              1x,f7.4,a1,1x,f8.4,a1,1x,
-     &              f6.2,f5.2,i4,f6.3,2f7.2,f6.2)')
-     &             iyr(i),imo(i),iday(i),ihr(i),nin,sec,
-     &             xlat,cns,xlon,cew,e(4,i),
-     &             emag(i),knobs(i)-nobswithw0,rms(i),
-     &             xxx,(e(j,i),j=3,4)
+c        write(6,'(1x,3i2.2,1x,2i2.2,f6.2,
+c    &              1x,f7.4,a1,1x,f8.4,a1,1x,
+c    &              f6.2,f5.2,i4,f6.3,2f7.2,f6.2)')
+c    &             iyr(i),imo(i),iday(i),ihr(i),nin,sec,
+c    &             xlat,cns,xlon,cew,e(4,i),
+c    &             emag(i),knobs(i)-nobswithw0,rms(i),
+c    &             xxx,(e(j,i),j=3,4)
       endif
 c
       if(ismpout.eq.1)then
@@ -3736,16 +3733,16 @@ ccc      if(.not.single_turbo) write(bo,*)
      &      regionname,nreg
        call adlineb(bo)
             endif
-            write(6,'(1x,a32,''   L+T Nr.: '',i4)') 
-     &      regionname,nreg
+c           write(6,'(1x,a32,''   L+T Nr.: '',i4)') 
+c    &      regionname,nreg
          else
             if(.not.single_turbo)then
                write(bo,'(1x,a32,''   F-E Nr.: '',i4)') 
      &         regionname,nreg
        call adlineb(bo)
             endif
-            write(6,'(1x,a32,''   F-E Nr.: '',i4)') 
-     &      regionname,nreg
+c           write(6,'(1x,a32,''   F-E Nr.: '',i4)') 
+c    &      regionname,nreg
          endif
       endif
       if(icnvout.eq.0) goto 12  ! do NOT write on file07
@@ -3795,12 +3792,13 @@ c
       include 'vel_com.f'
 c
       character*(*) subr,char
-      write(6,*)'WARNING:'
-      write(6,*)'SUBROUTINE :',subr,'    ERROR OPENING FILE: ',char
+c     write(6,*)'WARNING:'
+c     write(6,*)'SUBROUTINE :',subr,'    ERROR OPENING FILE: ',char
       if(.not.single_turbo)then
          write(bo,*)'WARNING:'
        call adlineb(bo)
          write(bo,*)'SUBROUTINE :',subr,'    ERROR OPENING FILE: ',char
+       call adlineb(bo)
       endif
       stop'Openerror; program VELEST stopped !'
       end ! of subr. openerror
@@ -3969,8 +3967,8 @@ c
       RETURN
 c
  9999 continue
-      write(6,*)'INPUTCNV>>> read-error! input-line is:'
-      write(6,'(a)') cline
+c     write(6,*)'INPUTCNV>>> read-error! input-line is:'
+c     write(6,'(a)') cline
       stop'subr. INPUTCNV >>> error!'
 c
       end ! of subr. inputcnv
@@ -4061,8 +4059,8 @@ c
       RETURN
 c
  9999 continue
-      write(6,*)'INPUTARCVEL>>> read-error! input-line is:'
-      write(6,'(a)') cline
+c     write(6,*)'INPUTARCVEL>>> read-error! input-line is:'
+c     write(6,'(a)') cline
       stop'subr. INPUTARCVEL >>> error!'
 c
       end ! of subr. inputarcvel
@@ -4199,8 +4197,8 @@ c
       RETURN
 c
  9999 continue
-      write(6,*)'INPUTSED>>> read-error! input-line is:'
-      write(6,'(a)') cline
+c     write(6,*)'INPUTSED>>> read-error! input-line is:'
+c     write(6,'(a)') cline
       stop'subr. INPUTSED >>> error!'
 c
       end ! of subr. inputsed
@@ -4450,8 +4448,8 @@ c
       RETURN
 c
  9999 continue
-      write(6,*)'INPUTSED>>> read-error! input-line is:'
-      write(6,'(a)') cline
+c     write(6,*)'INPUTSED>>> read-error! input-line is:'
+c     write(6,'(a)') cline
       stop'subr. INPUTSED >>> error!'
 c
       end ! of subr. inputsed_new
@@ -5355,6 +5353,7 @@ c
          write(bo,*)
        call adlineb(bo)
          write(bo,40)
+       call adlineb(bo)
  40      format(' doing velocity adjustments now...')
       endif
 c
@@ -5387,12 +5386,13 @@ c     if reflected phases are used in this VELEST-run !)
        call adlineb(bo)
                write(bo,'(1x,''Setting DVP from '',f5.2,'' to 0.0 and'',
      &                    '' VP to vp(layer_above)+0.001'')') b(jjj)
+       call adlineb(bo)
                endif
-               write(6,'(1x,''WARNING: Tried to introduce a '',
-     &                    ''low-velocity-layer! (Layer '',i2,'')'')') kj
-               write(6,'(1x,''Setting DVP from '',f5.2,'' to 0.0 and'',
-     &                    '' VP to vp(layer_above)+0.001'')') b(jjj)
-               write(6,*)
+c              write(6,'(1x,''WARNING: Tried to introduce a '',
+c    &                    ''low-velocity-layer! (Layer '',i2,'')'')') kj
+c              write(6,'(1x,''Setting DVP from '',f5.2,'' to 0.0 and'',
+c    &                    '' VP to vp(layer_above)+0.001'')') b(jjj)
+c              write(6,*)
                b(jjj)=0.0
                vp(i,kj)=vp(i,kj-1)+0.001
             endif
@@ -5413,6 +5413,7 @@ c
          write(bo,*)
        call adlineb(bo)
          write(bo,'('' doing station-correction adjustments...'')')
+       call adlineb(bo)
          write(bo,*)
        call adlineb(bo)
       endif
@@ -5496,13 +5497,14 @@ cek next statement
        call adlineb(bo)
          endif
       endif
-310   format(/,' Total number of observations is: ',i5,/)
+310   format(' Total number of observations is: ',i5)
       if(nitt.eq.0.and.isingle.ne.0)then
          if(.not.single_turbo)then
             write(bo,*)'Number of observations with '//
      &                 'normalized weight 0.0 :', nobswithw0
        call adlineb(bo)
             write(bo,*)'knobs(i)   = ',knobst
+       call adlineb(bo)
             write(bo,*)'nobswithw0 = ',nobswithw0
        call adlineb(bo)
          endif
@@ -5526,9 +5528,11 @@ c
          write(bo,*)
        call adlineb(bo)
          write(bo,*)'$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'
+       call adlineb(bo)
          write(bo,*)'Events with  | AVRES | > 1.0 SEC are suspicious !'
        call adlineb(bo)
          write(bo,*)
+       call adlineb(bo)
          j=0
          do i=1,legs
             if(abs(avres(i)).gt.1.0)then
@@ -5544,6 +5548,7 @@ c
          write(bo,*)
        call adlineb(bo)
          write(bo,*)'^^^^^^^^^ C H E C K   these events above ^^^^^^^^'
+       call adlineb(bo)
          write(bo,*)'$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'
        call adlineb(bo)
          else
@@ -5594,15 +5599,18 @@ c
       write(bo,'(1x,''After'',i3,'' iterations we got:'')') nitt
        call adlineb(bo)
       write(bo,*)'Average absolute & unweighted [and mean] residual of'
+       call adlineb(bo)
       write(bo,'(1x,i5,'' straight and direct rays ='',f9.5,'' ['',f9.5,
      &           '']'')')nrotheres,abotheres,avotheres
        call adlineb(bo)
       write(bo,'(1x,i5,'' refracted           rays ='',f9.5,'' ['',f9.5,
      &           '']'')')nrrefrres,abrefrres,avrefrres
+       call adlineb(bo)
       write(bo,'(1x,i5,'' reflected           rays ='',f9.5,'' ['',f9.5,
      &           '']'')')nrreflres,abreflres,avreflres
        call adlineb(bo)
       write(bo,*)
+       call adlineb(bo)
       if(ifirstrun.ne.10000001)then ! first run; no 'oldres' available...
          ifirstrun=10000001
          proz=0.0
@@ -5643,13 +5651,15 @@ c---- compute GAP for this event
          write(bo,*)' WARNING:'
        call adlineb(bo)
          write(bo,*)' Event# ',i,'   Nobs = ',knobs(i),' > 200 !!!'
+       call adlineb(bo)
          write(bo,*)' Array IGA(100) is too small; redimension it in'
        call adlineb(bo)
          write(bo,*)' subr. GAPCALC'
+       call adlineb(bo)
          e n d i f
-         write(6,*)' Event# ',i,'   Nobs = ',knobs(i),' > 200 !!!'
-         write(6,*)' Array IGA(200) is too small; redimension it in'
-         write(6,*)' subr. GAPCALC'
+c        write(6,*)' Event# ',i,'   Nobs = ',knobs(i),' > 200 !!!'
+c        write(6,*)' Array IGA(200) is too small; redimension it in'
+c        write(6,*)' subr. GAPCALC'
          stop'subr. GAPCALC >>> array IGA is too small !'
       endif
       nofgaps=0
@@ -5678,7 +5688,7 @@ cek
       if(nofgaps.gt.0)then
          call SORTI(iga,nofgaps)
       else
-         write(6,*)'WARNING: Event-# :',i,'has zero observations!'
+c        write(6,*)'WARNING: Event-# :',i,'has zero observations!'
          if(.not.single_turbo)then
             write(bo,*)'WARNING: Event-# :',i,'has zero observations!'
        call adlineb(bo)
@@ -5772,15 +5782,16 @@ c---- velocity readjustments for each model
        call adlineb(bo)
                write(bo,'(1x,''WARNING: Tried to introduce a '',
      &                    ''low-velocity-layer! (Layer '',i2,'')'')') k
+       call adlineb(bo)
                write(bo,'(1x,''Setting DVP from '',f5.2,'' to 0.0 and'',
      &                    '' VP to vp(layer_above)+0.001'')') b(jjj)
        call adlineb(bo)
                e n d i f
-               write(6,'(1x,''WARNING: Tried to introduce a '',
-     &                    ''low-velocity-layer! (Layer '',i2,'')'')') k
-               write(6,'(1x,''Setting DVP from '',f5.2,'' to 0.0 and'',
-     &                    '' VP to vp(layer_above)+0.001'')') b(jjj)
-               write(6,*)
+c              write(6,'(1x,''WARNING: Tried to introduce a '',
+c    &                    ''low-velocity-layer! (Layer '',i2,'')'')') k
+c              write(6,'(1x,''Setting DVP from '',f5.2,'' to 0.0 and'',
+c    &                    '' VP to vp(layer_above)+0.001'')') b(jjj)
+c              write(6,*)
                b(jjj)=0.0
                vp(k2,k)=vp(k2,k-1)+0.001
             endif
@@ -5803,6 +5814,7 @@ c
        call adlineb(bo)
       write(bo,*)'Calculation of average velocity starts at layer # ',
      &           ifl
+       call adlineb(bo)
       avelo=0
       do k=ifl+1,nplay(k2)
          avelo=avelo + ( hp(k2,k)-hp(k2,k-1) ) * vp(k2,k-1)
@@ -5820,6 +5832,7 @@ c
        call adlineb(bo)
       write(bo,*)'Calculation of average velocity starts at layer # ',
      &           ifl
+       call adlineb(bo)
       avelo=0
       do k=ifl+1,nplay(k2)
          avelo=avelo + ( hp(k2,k)-hp(k2,k-1) ) * vp(k2,k-1)
@@ -5832,6 +5845,7 @@ c
       write(bo,*)
        call adlineb(bo)
       write(bo,*)
+       call adlineb(bo)
       e n d i f
 c
 26    continue
@@ -5860,6 +5874,7 @@ ccc      if(mod((nitt-1),invertratio).ne.0) goto 511
          write(bo,*)
        call adlineb(bo)
          write(bo,*)'Half adjustments made'
+       call adlineb(bo)
       endif
       if(nsp.ne.2) goto 29
       k1=4*neqs+nshot+nltot+ksta1+1
@@ -5889,6 +5904,7 @@ ccc      if(mod((nitt-1),invertratio).ne.0) goto 511
          write(bo,*)
        call adlineb(bo)
          write(bo,*)'Half adjustments made'
+       call adlineb(bo)
       endif
 29    continue
 c
@@ -5961,7 +5977,8 @@ cu        if(i.gt.4*neqs+nshot) bsum=bsum+b(i)  ! BSUM is never used... !!??!!
          write(bo,*)
        call adlineb(bo)
          write(bo,53) steplen
- 53      format (' (Applied) Step length = ', f7.3/)
+       call adlineb(bo)
+ 53      format (' (Applied) Step length = ', f7.3)
       endif
 c
       return
@@ -5984,15 +6001,17 @@ c
 c
 c---- resolution and covariance calculations
       if(.not.single_turbo)then
-         write(bo,'(/////)')
+         write(bo,*)
        call adlineb(bo)
          write(bo,40)
+       call adlineb(bo)
    40    format(' Resolution and covariance calculations:')
          if(isingle.ne.0)then
 cc       write(bo,*)'CHOLESKY-decomposition:'
        call adlineb(bo)
          write(bo,*)'    RESOLUTION-matrix                   ',
      &              '    COVARIANCE-matrix'
+       call adlineb(bo)
          write(bo,*)
        call adlineb(bo)
          endif
@@ -6095,6 +6114,7 @@ c
          write(bo,*)
        call adlineb(bo)
          write(bo,21)
+       call adlineb(bo)
  21      format(' standard deviation of selected model parameters:')
       endif
       if(isingle.ne.0)then
@@ -6107,19 +6127,20 @@ c
         write(bo,*)
        call adlineb(bo)
         write(bo,*)'   OT (sec)   X (km)    Y (km)    Z (km) '
+       call adlineb(bo)
         e n d i f
-        write(6,'(23x,''  OT (sec)   X (km)    Y (km)    Z (km) '')')
+c       write(6,'(23x,''  OT (sec)   X (km)    Y (km)    Z (km) '')')
 c        write(6,'(1x,''CHOLESKY  (othet='',f5.3,'') :'')') othet
-        write(6,'('' Sigma (CHD):         '',4f10.4)') (s(j),j=1,nef)
-        write(6,'('' Resolution (CHD):    '',4f10.4,x,
-     &            ''D-spread ='',f6.3)') (Rc(j,j),j=1,nef) , spread
-        write(6,'('' Data Variance      = '',f10.4)') davari
+c       write(6,'('' Sigma (CHD):         '',4f10.4)') (s(j),j=1,nef)
+c       write(6,'('' Resolution (CHD):    '',4f10.4,x,
+c    &            ''D-spread ='',f6.3)') (Rc(j,j),j=1,nef) , spread
+c       write(6,'('' Data Variance      = '',f10.4)') davari
 ccc        call SPREADd(Rs,4,spread3)
 ccc        do j=1,4
 ccc           COVs(j)=SQRT(COVs(j))  !  <-- standard deviation
 ccc        enddo
-        write(6,'('' Singular values:     '',4f10.4,5x,''ALE ='',f7.3)')
-     &               (SV(j),j=1,nef) , ale(1)
+c       write(6,'('' Singular values:     '',4f10.4,5x,''ALE ='',f7.3)')
+c    &               (SV(j),j=1,nef) , ale(1)
 ccc        write(6,'('' Sigma (SVD):         '',4f10.4)') (COVs(j),j=1,nef)
 ccc        write(6,'('' Resolution (SVD):    '',4f10.4,3x,
 ccc     &            ''D-spread ='',f6.3)') (Rs(j,j),j=1,nef) , spread3
@@ -6131,9 +6152,11 @@ ccc     &            ''D-spread ='',f6.3)') (Rs(j,j),j=1,nef) , spread3
          write(bo,*)
        call adlineb(bo)
          write(bo,*)'Rdiag of selected model parameters:'
+       call adlineb(bo)
          write(bo,22) (Rdiag(j),j=1,nef)
        call adlineb(bo)
          write(bo,*)
+       call adlineb(bo)
          write(bo,*)
        call adlineb(bo)
       endif
@@ -6300,10 +6323,10 @@ cek   test if nrp gt. inrpmax:::>
        if(.not.single_turbo)then
           write(bo,2000) i,inobs,nrp
        call adlineb(bo)
- 2000  format(//,2x,'travderiv>>>, label 2000:  ',
-     & 'nrp greater than inrpmax:',/,
-     & 5x,'event nr=',i6,2x,'nr. of obs=',i4,5x,4hnrp=,i4,/,
-     & 3x,'program stops here',/)
+ 2000  format(2x,'travderiv>>>, label 2000:  ',
+     & 'nrp greater than inrpmax:',
+     & 5x,'event nr=',i6,2x,'nr. of obs=',i4,5x,4hnrp=,i4,
+     & 3x,'program stops here')
        endif
        stop'subr. TRAVDERIV >>> nrp > nrpmax'
       endif
@@ -6357,14 +6380,16 @@ c
       write(bo,'('' Iteration# '',i3,'' Event#'',i4,'' Res#'',i3,
      &   '' ='',f7.2,''; ABS > 2.0 ---> weight set to zero !'')')
      &   nitt,isingle,nobs,res(nobs,i)
+       call adlineb(bo)
       endif
-      write(6,'('' Iteration# '',i3,'' Event#'',i4,'' Res#'',i3,
-     &   '' ='',f7.2,''; ABS > 2.0 ---> weight set to zero !'')')
-     &   nitt,isingle,nobs,res(nobs,i)
+c     write(6,'('' Iteration# '',i3,'' Event#'',i4,'' Res#'',i3,
+c    &   '' ='',f7.2,''; ABS > 2.0 ---> weight set to zero !'')')
+c    &   nitt,isingle,nobs,res(nobs,i)
       if(.not.single_turbo)then
          write(bo,*)'knobs(i)   = ',knobst
        call adlineb(bo)
          write(bo,*)'nobswithw0 = ',nobswithw0
+       call adlineb(bo)
       endif
 cc      write(6,*)'knobs(i)   = ',knobst
 cc      write(6,*)'nobswithw0 = ',nobswithw0
@@ -6425,14 +6450,16 @@ c
       write(bo,'('' Iteration# '',i3,'' Event#'',i4,'' Res#'',i3,
      &           '' ='',f7.2,''; ABS < 1.0 ---> weight revived !'')')
      &           nitt,isingle,nobs,res(nobs,i)
+       call adlineb(bo)
       endif
-      write(6,'('' Iteration# '',i3,'' Event#'',i4,'' Res#'',i3,
-     &           '' ='',f7.2,''; ABS < 1.0 ---> weight revived !'')')
-     &           nitt,isingle,nobs,res(nobs,i)
+c     write(6,'('' Iteration# '',i3,'' Event#'',i4,'' Res#'',i3,
+c    &           '' ='',f7.2,''; ABS < 1.0 ---> weight revived !'')')
+c    &           nitt,isingle,nobs,res(nobs,i)
       if(.not.single_turbo)then
          write(bo,*)'knobs(i)   = ',knobst
        call adlineb(bo)
          write(bo,*)'nobswithw0 = ',nobswithw0
+       call adlineb(bo)
       endif
 cc      write(6,*)'knobs(i)   = ',knobst
 cc      write(6,*)'nobswithw0 = ',nobswithw0
@@ -6474,11 +6501,13 @@ c
        call adlineb(bo)
          write(bo,'('' Number of unknowns (for array-indexing): '',
      &              '' nvar = '',i4)') nvar
+       call adlineb(bo)
          write(bo,'('' Number of effective unknowns        : '',
      &              '' nvareff = '',i4)') nvareff
        call adlineb(bo)
          write(bo,'('' Number of elements on/below main diagonal '',
      &              ''of matrix G = At*A : kvar = '',i7)') kvar
+       call adlineb(bo)
          write(bo,*)
        call adlineb(bo)
       endif
@@ -6538,12 +6567,15 @@ c
        call adlineb(bo)
          write(bo,'('' Total number of stations with readings:'',i4)')
      &           nstaeff
+       call adlineb(bo)
          write(bo,*)
        call adlineb(bo)
          write(bo,'('' Total number of readings: '',i7)') nofreadings
+       call adlineb(bo)
          write(bo,'('' Total number of P readings: '',i7)') nofreadp
        call adlineb(bo)
          write(bo,'('' Total number of S readings: '',i7)') nofreads
+       call adlineb(bo)
          write(bo,*)
        call adlineb(bo)
       endif
@@ -6578,9 +6610,11 @@ c
             write(bo,*)
        call adlineb(bo)
             write(bo,*)
+       call adlineb(bo)
             write(bo,*)
        call adlineb(bo)
             write(bo,*)
+       call adlineb(bo)
          else
             write(bo,*)'TURBO-option is set; residuals are NOT printed '
      &                 //'for each event!'
@@ -6642,12 +6676,15 @@ c    &               3x,3i2.2,1x,2i2.2,1x,f5.2)
       write(bo,*)
        call adlineb(bo)
       write(bo,*)
+       call adlineb(bo)
       write(bo,*)
        call adlineb(bo)
       write(bo,*)
+       call adlineb(bo)
       write(bo,*)
        call adlineb(bo)
       write(bo,*)
+       call adlineb(bo)
  8001 continue
 c
 c     output station statistics (nobs, avres, ...) :
@@ -6655,11 +6692,11 @@ c
       if(isingle.eq.0) then
         write(bo,7777) nsp
        call adlineb(bo)
-7     format(/,1x,'sta phase nobs avres  avwres    std    wsum    ',
-     &         'delay',/)
+7     format(1x,'sta phase nobs avres  avwres    std    wsum    ',
+     &         'delay')
         write(bo,7)
        call adlineb(bo)
-7777  format(//,2x,' station statistics, remember nsp was set to:',i2,/)
+7777  format(2x,' station statistics, remember nsp was set to:',i2)
       endif
 48    do m=1,nsta
          aa(m)=0.0
@@ -6847,6 +6884,7 @@ c
       write(bo,*)
        call adlineb(bo)
       write(bo,*)
+       call adlineb(bo)
       if(istaout.gt.0)then
          write(12,*)
          close(12)
@@ -7350,6 +7388,7 @@ c
          write(bo,*)'Singular values; iteration #',nitt
        call adlineb(bo)
          write(bo,'(1x,4(2x,f10.6))') (sv(jj),jj=1,nvar)
+       call adlineb(bo)
          write(bo,*)'ALE = ',ale(i)
        call adlineb(bo)
       endif
@@ -7357,6 +7396,7 @@ c
 ccc      write(bo,*)'SVD-solution vector:'
        call adlineb(bo)
 ccc      write(bo,'(1x,4(2x,f16.6))') (Xsol(jj),jj=1,nvar)
+       call adlineb(bo)
 c
       return
       end ! of subr. singularvalues
@@ -8603,10 +8643,10 @@ c
             call CHTOP(-rp(1,j),rp(2,j),zzz,topo1file,topo2file)
             dzzz=rp(3,j)-zzz
             if(dzzz.lt.0.0)then
-               write(6,'(1x,''ray in the air... ! rp3='',f6.3,
-     &         '' ZZ='',f6.3,'' dz='',f6.3,'' rp# ='',i2,'' nrp='',i2,
-     &         '' STN='',a4,''i '',i4)')
-     &         rp(3,j),zzz,dzzz,j,nrp,staname,isingle
+c              write(6,'(1x,''ray in the air... ! rp3='',f6.3,
+c    &         '' ZZ='',f6.3,'' dz='',f6.3,'' rp# ='',i2,'' nrp='',i2,
+c    &         '' STN='',a4,''i '',i4)')
+c    &         rp(3,j),zzz,dzzz,j,nrp,staname,isingle
             endif
          endif
       enddo
@@ -8868,9 +8908,9 @@ c
       ttt2old=xyz2/vtop
       deltat2=(ttt2new-ttt2old)
       if(ABS(deltat1).gt.1e-5.or.ABS(deltat2).gt.1e-5)then
-         write(6,'(1x,''BENDRAY>>> ray bended below surface!'',
-     &                '' Station: '',a4)') staname
-         write(6,'(1x,''dt1='',f6.3,''   dt2='',f6.3)') deltat1,deltat2
+c        write(6,'(1x,''BENDRAY>>> ray bended below surface!'',
+c    &                '' Station: '',a4)') staname
+c        write(6,'(1x,''dt1='',f6.3,''   dt2='',f6.3)') deltat1,deltat2
       endif
       ttt=ttt+deltat1+deltat2
 c
@@ -9051,7 +9091,7 @@ ctest     &             DTDDrefl,DTDHrefl,bo)
       call reflect1(nl,v,vsq,thk,jl,tkj,delta,depth,mll,trefl,ain,ierr,
      &             DTDDrefl,DTDHrefl,bo)
       if(ierr.ne.0)then
-         write(6,*)'trying another ray-type...'
+c        write(6,*)'trying another ray-type...'
          write(bo,*)'trying another ray-type...'
        call adlineb(bo)
          MLL=0      ! maybe it works with another ray-type...
@@ -9452,7 +9492,8 @@ C CHANGE BY E.KISSLING MARCH 1984
       write(bo,*)'WARNING:'
        call adlineb(bo)
       write(bo,1000) jl,l,lmax,vsq(jl),vsq(l),ubsq,delta,tklmax,vlmax
- 1000 format(/,2x,'subr. direct1: ',3i4,2f10.4,f15.6,3f10.5,/)
+       call adlineb(bo)
+ 1000 format(2x,'subr. direct1: ',3i4,2f10.4,f15.6,3f10.5)
       ubdiv=1.e-20
  1002 continue
       delb=delb+thk(l)*ub/sqrt(vsq(jl)/vsq(l)-ubsq)
@@ -9602,14 +9643,15 @@ c
       del=0.0   ! U.K. 28. Jan. 1987
 c
       if(jl.gt.mll)then   !  hypocenter below reflector !!!
-         write(6,*)'hypocenter-layer jl = ',jl
-         write(6,*)'reflection at bottom of layer mll = ',mll
+c        write(6,*)'hypocenter-layer jl = ',jl
+c        write(6,*)'reflection at bottom of layer mll = ',mll
          ierr=-1
-         write(6,*)'WARNING:'
-         write(6,*)'subr. REFLECT1 >>> hypocenter is below reflector!'
+c        write(6,*)'WARNING:'
+c        write(6,*)'subr. REFLECT1 >>> hypocenter is below reflector!'
          write(bo,*)'WARNING:'
        call adlineb(bo)
          write(bo,*)'subr. REFLECT1 >>> hypocenter is below reflector!'
+       call adlineb(bo)
 ccc         stop'subr. REFLECT1 >>> hypocenter below reflector!'
       endif
       if(mll.gt.nl)then
@@ -9680,7 +9722,8 @@ C CHANGE BY E.KISSLING MARCH 1984
       write(bo,*)'WARNING:'
        call adlineb(bo)
       write(bo,1000) mll,l,lmax,vsq(mll),vsq(l),ubsq,delta,tklmax,vlmax
- 1000 format(/,2x,'subr. reflect1: ',3i4,2f10.4,f15.6,3f10.5,/)
+       call adlineb(bo)
+ 1000 format(2x,'subr. reflect1: ',3i4,2f10.4,f15.6,3f10.5)
       ubdiv=1.e-20
  1002 continue
       delb=delb+div(l)*ub/sqrt(vsq(mll)/vsq(l)-ubsq)
@@ -9797,11 +9840,12 @@ c     JL is the hypocenter layer
 c
       if(jl.gt.mll)then   !  hypocenter below reflector !!!
          ierr=-1
-         write(6,*)'WARNING:'
-         write(6,*)'subr. REFLECT >>> hypocenter is below reflector!'
+c        write(6,*)'WARNING:'
+c        write(6,*)'subr. REFLECT >>> hypocenter is below reflector!'
          write(bo,*)'WARNING:'
        call adlineb(bo)
          write(bo,*)'subr. REFLECT >>> hypocenter is below reflector!'
+       call adlineb(bo)
 ccc         stop'subr. REFLECT >>> hypocenter below reflector!'
       endif
       if(mll.gt.nl)then
@@ -9841,20 +9885,23 @@ c
          write(bo,*)'WARNING:                  subr. REFLECT'
        call adlineb(bo)
          write(bo,*)'probably a low velocity layer detected!'
+       call adlineb(bo)
          write(bo,*)'sina=',sina
        call adlineb(bo)
          write(bo,*)'sina2=',sina2
+       call adlineb(bo)
          write(bo,*)'VSQU(M):  vsqu(',m,')=',vsqu(m)
        call adlineb(bo)
          write(bo,*)'MLL=',mll
+       call adlineb(bo)
          write(bo,*)'JL=',jl
        call adlineb(bo)
-         write(6,*)'sina=',sina
-         write(6,*)'sina2=',sina2
-         write(6,*)'VSQU(M):  vsqu(',m,')=',vsqu(m)
-         write(6,*)'MLL=',mll
-         write(6,*)'JL=',jl
-         write(6,*)
+c        write(6,*)'sina=',sina
+c        write(6,*)'sina2=',sina2
+c        write(6,*)'VSQU(M):  vsqu(',m,')=',vsqu(m)
+c        write(6,*)'MLL=',mll
+c        write(6,*)'JL=',jl
+c        write(6,*)
        endif
 c
 c!!!!!         if(sqr.le.0.) goto 530   !auftauchwinkel gefunden
@@ -9899,13 +9946,14 @@ C------- IF NOT POSSIBLE, SET P + S WEIGHTS TO ZERO
       write(bo,*)'WARNING:'
        call adlineb(bo)
       write(bo,*)'Reflected wave did not converge within 50 iterations!'
+       call adlineb(bo)
       write(bo,*)'---> trying another ray-type ...'
        call adlineb(bo)
-      write(6,*)'Reflected wave did not converge within 50 iterations!'
-      write(6,*)'sina=',sina,'  delta=',delta
-      write(6,*)'da=',da,'  da2=',da2,'  test4=',test4
-      write(6,*)'---> trying another ray-type ...'
-      write(6,*)
+c     write(6,*)'Reflected wave did not converge within 50 iterations!'
+c     write(6,*)'sina=',sina,'  delta=',delta
+c     write(6,*)'da=',da,'  da2=',da2,'  test4=',test4
+c     write(6,*)'---> trying another ray-type ...'
+c     write(6,*)
       ierr=50
       return
 cc      stop'STOP in subr. REFLECT >>> nit > 50'
@@ -10723,8 +10771,8 @@ c	WLE 1/3/95
       xlon=lon+xlon/60.
       RETURN
   900 WRITE(6,1000) AA,BB,CLAT1
- 1000 FORMAT(/,2X,' SUBR. REDISt: AA=',F10.5,2X,'BB=',F10.5,2X,
-     1'COS(LAT1)=',F10.7,5X,'DIVISION BY ZERO, RUN STOPS HERE',/)
+ 1000 FORMAT(2X,' SUBR. REDISt: AA=',F10.5,2X,'BB=',F10.5,2X,
+     1'COS(LAT1)=',F10.7,5X,'DIVISION BY ZERO, RUN STOPS HERE')
       stop'REDIST>>> division by zero!!'
       END ! of subr. redist
 c
@@ -10832,9 +10880,9 @@ c
          write(ifil,'(1x,''RLATC = '',f12.8)') rlatc
          write(ifil,*)
          write(ifil,4) aa, bc
- 4       format (10x,'Short distance conversions:',/,
-     &           10x,'one min lat ~ ', f7.4,' km ',/,
-     &           10x,'one min lon ~ ', f7.4,' km ',/)
+ 4       format (10x,'Short distance conversions:',
+     &           10x,'one min lat ~ ', f7.4,' km ',
+     &           10x,'one min lon ~ ', f7.4,' km ')
          write(ifil,*)
          write(ifil,*)
       endif
@@ -11094,7 +11142,7 @@ cVMS      open(iu1,file=regnamfile,status='OLD',readonly)
           indfe(i)=nstart
           read(iu1,'(i5,2x,a)') nr,cregion
           if(nr.ne.i) then
-              write(6,'(''sequence error at:'',i5,a,i5)') nr,cregion,i
+c             write(6,'(''sequence error at:'',i5,a,i5)') nr,cregion,i
               stop'REGREAD>>> error reading file REGIONSNAMEN.DAT'
           endif
           nc=TRIMLEN(cregion)
@@ -11111,7 +11159,7 @@ cVMS      open(iu1,file=regnamfile,status='OLD',readonly)
              k=1019+(i-401)*20
           endif
           if(k.ne.nr) then
-              write(6,'(''sequence error at:'',i5,a,i5)') nr,cregion,i
+c             write(6,'(''sequence error at:'',i5,a,i5)') nr,cregion,i
               stop'REGREAD>>> error reading file REGIONSNAMEN.DAT'
           endif
           nc=TRIMLEN(cregion)
@@ -11128,7 +11176,7 @@ cVMS      open(iu1,file=regnamfile,status='OLD',readonly)
               k=209+(i-101)*10
           endif
           if(k.ne.nr) then
-              write(6,'(''sequence error at:'',i5,a,i5)') nr,cregion,i
+c             write(6,'(''sequence error at:'',i5,a,i5)') nr,cregion,i
               stop'REGREAD>>> error reading file REGIONSNAMEN.DAT'
           endif
           nc=TRIMLEN(cregion)

@@ -1,26 +1,25 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "f2c.h"
 #include "buffsizes.h"
 #include "fbufopen.h"
 
 extern void velest_(char*,ftnlen);
 extern void adline_(char *, ftnlen);
 extern void scaninput_(char *, ftnlen);
-extern void rdline_ic__(char *, ftnlen);
-extern void rdline_bm__(char *, ftnlen);
-extern void rdline_bt__(char *, ftnlen);
-extern void adline_bt__(char *, ftnlen);
-extern void adline_bs__(char *, ftnlen);
-extern void adline_bp__(char *, ftnlen);
-extern void adline_bf__(char *, ftnlen);
-extern void adline_bi__(char *, ftnlen);
-extern void adline_bv__(char *, ftnlen);
-extern void adline_br__(char *, ftnlen);
-extern void adline_bk__(char *, ftnlen);
-extern void adline_bl__(char *, ftnlen);
-extern void adline_bz__(char *, ftnlen);
+extern void rdline_ic_(char *, ftnlen);
+extern void rdline_bm_(char *, ftnlen);
+extern void rdline_bt_(char *, ftnlen);
+extern void adline_bt_(char *, ftnlen);
+extern void adline_bs_(char *, ftnlen);
+extern void adline_bp_(char *, ftnlen);
+extern void adline_bf_(char *, ftnlen);
+extern void adline_bi_(char *, ftnlen);
+extern void adline_bv_(char *, ftnlen);
+extern void adline_br_(char *, ftnlen);
+extern void adline_bk_(char *, ftnlen);
+extern void adline_bl_(char *, ftnlen);
+extern void adline_bz_(char *, ftnlen);
 extern void acaninicio_(char*, ftnlen);
 void load_infile_ic();
 void load_infile_bm();

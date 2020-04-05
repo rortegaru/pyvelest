@@ -1,5 +1,7 @@
+#include "f2c.h"
 #include "c_velest.h"
 #include <stdio.h>
+
 
 /* initialize the memory of the files used for 
    inecreasing python speed using later by fmemopen  ROR 03-21-2020*/
@@ -164,7 +166,7 @@ strinb[119]='\n';
 strncat(outfile_bo,strinb,120);
 }
 
-void rdline_ic__(char *strin, ftnlen leni){
+void rdline_ic_(char *strin, ftnlen leni){
 char buffic[120];
 int len;
 len=nextchfn(ic,'\n');
@@ -183,7 +185,7 @@ an option is to send an "@" in the very first character. IN the fortran code
 I need to do a comparison". ROR, 22 March 2020.*/
 }
 
-void rdline_bm__(char *strin, ftnlen leni){
+void rdline_bm_(char *strin, ftnlen leni){
 char buffbm[120];
 int len;
 len=nextchfn(bm,'\n');
@@ -199,7 +201,7 @@ seekfn(bm,0,SEEK_SET);
 strin[len]='\0';
 }
 
-void rdline_bt__(char *strin, ftnlen leni){
+void rdline_bt_(char *strin, ftnlen leni){
 char buffbt[120];
 int len;
 len=nextchfn(bt,'\n');
@@ -221,58 +223,58 @@ seekfn(bt,0,SEEK_SET);
 }
 
 
-void adline_bm__(char *strin, ftnlen len){
+void adline_bm_(char *strin, ftnlen len){
 enum filesrd filer;
 filer=modelf;
 sscanf(strin,"%s",filrd[filer].filenam);
 /*printf("Modelfile = %s \n",modelfile); */
 }
-void adline_bt__(char *strin, ftnlen len){
+void adline_bt_(char *strin, ftnlen len){
 enum filesrd filer;
 filer=stationf;
 sscanf(strin,"%s",filrd[filer].filenam);
 }
-void adline_bs__(char *strin, ftnlen len){
+void adline_bs_(char *strin, ftnlen len){
 enum filesrd filer;
 filer=seismf;
 sscanf(strin,"%s",filrd[filer].filenam);
 }
-void adline_bp__(char *strin, ftnlen len){
+void adline_bp_(char *strin, ftnlen len){
 enum filesrd filer;
 filer=phasef;
 sscanf(strin,"%s",filrd[filer].filenam);
 }
-void adline_bf__(char *strin, ftnlen len){
+void adline_bf_(char *strin, ftnlen len){
 enum filesrd filer;
 filer=shotf;
 sscanf(strin,"%s",filrd[filer].filenam);
 }
-void adline_bi__(char *strin, ftnlen len){
+void adline_bi_(char *strin, ftnlen len){
 enum filesrd filer;
 filer=staf;
 sscanf(strin,"%s",filrd[filer].filenam);
 }
-void adline_bv__(char *strin, ftnlen len){
+void adline_bv_(char *strin, ftnlen len){
 enum filesrd filer;
 filer=veloutm;
 sscanf(strin,"%s",filrd[filer].filenam);
 }
-void adline_br__(char *strin, ftnlen len){
+void adline_br_(char *strin, ftnlen len){
 enum filesrd filer;
 filer=regnamf;
 sscanf(strin,"%s",filrd[filer].filenam);
 }
-void adline_bk__(char *strin, ftnlen len){
+void adline_bk_(char *strin, ftnlen len){
 enum filesrd filer;
 filer=regk;
 sscanf(strin,"%s",filrd[filer].filenam);
 }
-void adline_bl__(char *strin, ftnlen len){
+void adline_bl_(char *strin, ftnlen len){
 enum filesrd filer;
 filer=topof1;
 sscanf(strin,"%s",filrd[filer].filenam);
 }
-void adline_bz__(char *strin, ftnlen len){
+void adline_bz_(char *strin, ftnlen len){
 enum filesrd filer;
 filer=topof2;
 sscanf(strin,"%s",filrd[filer].filenam);

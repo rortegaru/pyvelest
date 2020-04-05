@@ -1,6 +1,6 @@
       subroutine scaninput(ip)
-      character*(*) ip
       implicit none
+      character*(*) ip
       integer io
       include 'vel_com2.f'
       real olat,olon,avelo,z,dx,dy,dz,rotate
