@@ -49,7 +49,7 @@ int nextchfn(void *handler, const char ch ) {
 }
 
 
-size_t seekfn(void *handler, fpos_t offset, int whence) {
+size_t seekfn(void *handler, size_t offset, int whence) {
   size_t pos;
   fbuf_t *mem = handler;
 
